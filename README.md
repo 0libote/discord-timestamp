@@ -2,9 +2,6 @@
 
 A simple, clean, and responsive web application for generating Discord timestamp codes. These codes allow you to display dates and times in Discord messages that automatically adjust to each user's local timezone, ensuring everyone sees the correct time.
 
-![Screenshot of the Discord Timestamp Generator](https://i.imgur.com/your-screenshot.png) 
-*(Replace this with a screenshot of your application)*
-
 ## ✨ Features
 
 - **📅 Date & Time Picker:** Easily select your desired date and time.

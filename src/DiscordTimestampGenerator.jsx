@@ -352,7 +352,7 @@ const DiscordTimestampGenerator = () => {
                           </>
                         )}
                         {hoveredTimestamp === type.id && (
-                          <div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 ${currentTheme.card} ${currentTheme.border} border rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg`}>
+                          <div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 ${currentTheme.card} ${currentTheme.border} ${currentTheme.text} border rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg`}>
                             {timestampCode}
                           </div>
                         )}

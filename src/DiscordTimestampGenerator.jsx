@@ -182,6 +182,18 @@ const DiscordTimestampGenerator = () => {
         ::-webkit-scrollbar-thumb:hover {
           background: ${currentTheme.scrollbarHover};
         }
+        input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+          background: transparent;
+          bottom: 0;
+          color: transparent;
+          cursor: pointer;
+          height: auto;
+          left: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+          width: auto;
+        }
       `}</style>
       
       {/* Header */}
@@ -227,24 +239,16 @@ const DiscordTimestampGenerator = () => {
                   <Calendar className="w-4 h-4 mr-2" />
                   Date & Time
                 </label>
-                <div className="grid grid-cols-2 gap-3">
-                  <div className={`rounded-lg ${currentTheme.input} border ${currentTheme.border} overflow-hidden`}>
-                    <input
-                      type="date"
-                      value={selectedDate.split('T')[0]}
-                      onChange={(e) => setSelectedDate(`${e.target.value}T${selectedDate.split('T')[1] || '00:00'}`)}
-                      className={`w-full px-3 py-2 ${currentTheme.text} bg-transparent focus:outline-none`}
-                      style={{ colorScheme: theme }}
-                    />
-                  </div>
-                  <div className={`rounded-lg ${currentTheme.input} border ${currentTheme.border} overflow-hidden`}>
-                    <input
-                      type="time"
-                      value={selectedDate.split('T')[1] || '00:00'}
-                      onChange={(e) => setSelectedDate(`${selectedDate.split('T')[0]}T${e.target.value}`)}
-                      className={`w-full px-3 py-2 ${currentTheme.text} bg-transparent focus:outline-none`}
-                      style={{ colorScheme: theme }}
-                    />
+                <div className={`relative rounded-lg ${currentTheme.input} border ${currentTheme.border} overflow-hidden`}>
+                  <input
+                    type="datetime-local"
+                    value={selectedDate}
+                    onChange={(e) => setSelectedDate(e.target.value)}
+                    className={`w-full pl-3 pr-10 py-2 ${currentTheme.text} bg-transparent focus:outline-none`}
+                    style={{ colorScheme: theme }}
+                  />
+                  <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                    <Calendar className={`w-5 h-5 ${currentTheme.textSecondary}`} />
                   </div>
                 </div>
               </div>

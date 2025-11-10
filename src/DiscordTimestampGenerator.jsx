@@ -205,14 +205,14 @@ const DiscordTimestampGenerator = () => {
           <div className="flex items-center gap-2">
             <button
               onClick={toggleTheme}
-              className={`p-2 rounded-lg ${currentTheme.input} ${currentTheme.text} hover:opacity-90 transition-opacity`}
+              className={`p-2 rounded-lg ${currentTheme.input} ${currentTheme.text} hover:opacity-90 transition-opacity flex items-center justify-center`}
               aria-label="Toggle theme"
             >
               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
             <button
               onClick={toggleCompactMode}
-              className={`p-2 rounded-lg ${currentTheme.input} ${currentTheme.text} hover:opacity-90 transition-opacity`}
+              className={`p-2 rounded-lg ${currentTheme.input} ${currentTheme.text} hover:opacity-90 transition-opacity flex items-center justify-center`}
               aria-label="Toggle compact mode"
             >
               {isCompact ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
@@ -251,7 +251,7 @@ const DiscordTimestampGenerator = () => {
                       type="date"
                       value={selectedDate.split('T')[0]}
                       onChange={(e) => setSelectedDate(`${e.target.value}T${selectedDate.split('T')[1] || '00:00'}`)}
-                      className={`w-full px-3 py-2 ${currentTheme.text} bg-transparent focus:outline-none text-center`}
+                      className={`w-full px-3 py-2 ${currentTheme.text} bg-transparent focus:outline-none`}
                     />
                   </div>
                   <div className={`rounded-lg ${currentTheme.input} border ${currentTheme.border} overflow-hidden`}>
@@ -259,7 +259,7 @@ const DiscordTimestampGenerator = () => {
                       type="time"
                       value={selectedDate.split('T')[1] || '00:00'}
                       onChange={(e) => setSelectedDate(`${selectedDate.split('T')[0]}T${e.target.value}`)}
-                      className={`w-full px-3 py-2 ${currentTheme.text} bg-transparent focus:outline-none text-center`}
+                      className={`w-full px-3 py-2 ${currentTheme.text} bg-transparent focus:outline-none`}
                     />
                   </div>
                 </div>
@@ -280,7 +280,7 @@ const DiscordTimestampGenerator = () => {
                   </div>
                   
                   {showTimezones && (
-                    <div className={`absolute z-10 mt-2 w-full max-h-80 overflow-y-auto ${currentTheme.card} rounded-lg border ${currentTheme.border} ${currentTheme.shadow}`}>
+                    <div className={`absolute z-10 mt-2 w-full max-h-80 overflow-y-auto ${currentTheme.card} rounded-lg border ${currentTheme.border} ${currentTheme.shadow} transition-all duration-200`}>
                       <div className="p-3">
                         <div className="relative">
                           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-500" />
@@ -299,7 +299,7 @@ const DiscordTimestampGenerator = () => {
                         <div 
                           key={selectedTimezone}
                           onClick={() => setShowTimezones(false)}
-                          className={`px-4 py-3 ${currentTheme.selected} cursor-pointer rounded-b-lg`}
+                          className={`px-4 py-3 ${currentTheme.selected} cursor-pointer rounded-t-lg`}
                         >
                           <div className="font-medium text-sm">{selectedTimezone}</div>
                           <div className="text-xs opacity-80">
@@ -361,8 +361,10 @@ const DiscordTimestampGenerator = () => {
                     </div>
                     
                     <div className="flex-1 text-left sm:text-center">
-                      <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1 hidden sm:block`}>Preview</div>
-                      <div className="text-xl font-medium text-indigo-500">{preview}</div>
+                      <div className="sm:flex sm:flex-col sm:items-center">
+                        <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1 hidden sm:block`}>Preview</div>
+                        <div className="text-xl font-medium text-indigo-500">{preview}</div>
+                      </div>
                     </div>
                     
                     <div className="flex-shrink-0 sm:w-auto flex justify-start sm:justify-end">
@@ -384,7 +386,7 @@ const DiscordTimestampGenerator = () => {
                           </>
                         )}
                         {hoveredTimestamp === type.id && (
-                          <div className={`absolute -top-10 left-1/2 transform -translate-x-1/2 ${currentTheme.card} ${currentTheme.border} ${currentTheme.text} border rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg`}>
+                          <div className={`absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 ${currentTheme.card} ${currentTheme.border} ${currentTheme.text} border rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg`}>
                             {timestampCode}
                           </div>
                         )}

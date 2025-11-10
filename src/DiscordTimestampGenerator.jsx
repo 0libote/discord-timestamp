@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Copy, Calendar, Globe, Search, Sun, Moon, Check, Github } from 'lucide-react';
+import { Copy, Calendar, Globe, Search, Sun, Moon, Check, Github, Minimize2, Maximize2 } from 'lucide-react';
 
 const DiscordTimestampGenerator = () => {
   // Set default time to 1 hour from now
@@ -16,6 +16,8 @@ const DiscordTimestampGenerator = () => {
   const [theme, setTheme] = useState('dark');
   const [copiedTimestamp, setCopiedTimestamp] = useState(null);
   const [hoveredTimestamp, setHoveredTimestamp] = useState(null);
+  const [isCompact, setIsCompact] = useState(false);
+  const [selectedFormat, setSelectedFormat] = useState('f');
   
   const timezones = Intl.supportedValuesOf('timeZone').sort();
   const filteredTimezones = timezones.filter(tz => 
@@ -152,6 +154,10 @@ const DiscordTimestampGenerator = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
 
+  const toggleCompactMode = () => {
+    setIsCompact(!isCompact);
+  };
+
   // Close timezone picker when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -165,6 +171,11 @@ const DiscordTimestampGenerator = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [showTimezones]);
+
+  const timestampToDisplay = isCompact
+    ? timestampTypes.filter(t => t.id === selectedFormat)
+    : timestampTypes;
+
 
   return (
     <div className={`min-h-screen ${currentTheme.bg} ${currentTheme.text} transition-colors duration-300`}>
@@ -199,6 +210,13 @@ const DiscordTimestampGenerator = () => {
             >
               {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
             </button>
+            <button
+              onClick={toggleCompactMode}
+              className={`p-2 rounded-lg ${currentTheme.input} ${currentTheme.text} hover:opacity-90 transition-opacity`}
+              aria-label="Toggle compact mode"
+            >
+              {isCompact ? <Maximize2 className="w-4 h-4" /> : <Minimize2 className="w-4 h-4" />}
+            </button>
           </div>
         </div>
       </header>
@@ -206,15 +224,15 @@ const DiscordTimestampGenerator = () => {
       <div className="max-w-7xl mx-auto p-4 md:p-6">
         {/* Introduction */}
         <div className="mb-8 text-center">
-          <div className={`text-lg max-w-3xl mx-auto ${currentTheme.textSecondary} space-y-2`}>
+          <div className={`text-base md:text-lg max-w-3xl mx-auto ${currentTheme.textSecondary} space-y-2`}>
             <p>
-              Super simple tool to create dynamic timestamps for Discord in multiple different formats.
+              A simple tool to create dynamic timestamps for Discord. These timestamps appear in each user's local timezone.
             </p>
-            <p>Dynamic timestamps are timestamps that let all users view the date and time in their local timezone.</p>
+            {!isCompact && <p>Select a date, time, and timezone, then copy the code for your desired format.</p>}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className={`grid grid-cols-1 ${isCompact ? 'lg:grid-cols-1' : 'lg:grid-cols-3'} gap-6`}>
           {/* Controls Panel */}
           <div className={`${currentTheme.card} rounded-xl p-6 ${currentTheme.shadow} border ${currentTheme.border}`}>
             <div className="space-y-6">
@@ -315,40 +333,54 @@ const DiscordTimestampGenerator = () => {
 
           {/* Timestamp Results */}
           <div className="lg:col-span-2 space-y-4">
-            {timestampTypes.map((type) => {
+            {isCompact && (
+              <div className="timezone-picker">
+                <label className={`flex items-center text-sm font-medium ${currentTheme.textSecondary} mb-2`}>
+                  Timestamp Format
+                </label>
+                <div className="relative">
+                  <select
+                    value={selectedFormat}
+                    onChange={(e) => setSelectedFormat(e.target.value)}
+                    className={`w-full ${currentTheme.input} rounded-lg px-4 py-3 ${currentTheme.text} border ${currentTheme.border} focus:outline-none focus:ring-1 ${currentTheme.focus} appearance-none`}
+                  >
+                    {timestampTypes.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+                  </select>
+                </div>
+              </div>
+            )}
+            {timestampToDisplay.map((type) => {
               const timestampCode = `<t:${getUnixTimestamp()}:${type.id}>`;
               const preview = formatPreview(type.id);
               
               return (
-                <div key={type.id} className={`${currentTheme.card} rounded-xl p-6 ${currentTheme.shadow} border ${currentTheme.border} transition-all duration-200 hover:border-indigo-500`}>
-                  <div className="flex flex-col md:flex-row md:items-center gap-6">
-                    <div className="md:w-1/4">
+                <div key={type.id} className={`${currentTheme.card} rounded-xl p-4 md:p-6 ${currentTheme.shadow} border ${currentTheme.border} transition-all duration-200 hover:border-indigo-500`}>
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-4">
+                    <div className="flex-shrink-0 sm:w-1/3 md:w-1/4">
                       <h3 className="text-lg font-semibold">{type.name}</h3>
                     </div>
                     
-                    <div className="flex-1 md:text-center">
-                      <div className="inline-block">
-                        <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1`}>Preview</div>
-                        <div className="text-xl font-medium text-indigo-500">{preview}</div>
-                      </div>
+                    <div className="flex-1 text-left sm:text-center">
+                      <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1 hidden sm:block`}>Preview</div>
+                      <div className="text-xl font-medium text-indigo-500">{preview}</div>
                     </div>
                     
-                    <div className="md:w-1/4 flex justify-end">
+                    <div className="flex-shrink-0 sm:w-auto flex justify-start sm:justify-end">
                       <button
                         onMouseEnter={() => setHoveredTimestamp(type.id)}
                         onMouseLeave={() => setHoveredTimestamp(null)}
                         onClick={() => copyToClipboard(timestampCode, type.id)}
-                        className={`flex items-center justify-center gap-2 ${currentTheme.button} text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[100px] relative`}
+                        className={`flex items-center justify-center gap-2 ${currentTheme.button} text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[110px] relative`}
                       >
                         {copiedTimestamp === type.id ? (
                           <>
                             <Check className="w-4 h-4" />
-                            Copied!
+                            <span>Copied!</span>
                           </>
                         ) : (
                           <>
                             <Copy className="w-4 h-4" />
-                            Copy
+                            <span>Copy</span>
                           </>
                         )}
                         {hoveredTimestamp === type.id && (

@@ -8,7 +8,10 @@ export default {
   theme: {
     extend: {
       colors: {
-        discord: '#5865F2',
+        discord: {
+          DEFAULT: '#5865F2',
+          darker: '#4752C4', // A darker shade for hover effects
+        },
         // Custom colors for light and dark themes
         primary: {
           light: '#4F46E5', // Indigo 600

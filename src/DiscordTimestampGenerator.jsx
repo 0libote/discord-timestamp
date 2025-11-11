@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Copy, Calendar, Globe, Search, Sun, Moon, Check, Github } from 'lucide-react';
+import { Copy, Calendar, Globe, Search, Sun, Moon, Check, Github, Link, History } from 'lucide-react';
 
 const DiscordTimestampGenerator = () => {
   // Set default time to 1 hour from now
@@ -16,6 +16,10 @@ const DiscordTimestampGenerator = () => {
   const [theme, setTheme] = useState('dark');
   const [copiedTimestamp, setCopiedTimestamp] = useState(null);
   const [hoveredTimestamp, setHoveredTimestamp] = useState(null);
+  const [history, setHistory] = useState(() => {
+    const savedHistory = localStorage.getItem('timestampHistory');
+    return savedHistory ? JSON.parse(savedHistory) : [];
+  });
   
   const timezones = Intl.supportedValuesOf('timeZone').sort();
   const filteredTimezones = timezones.filter(tz => 
@@ -102,10 +106,28 @@ const DiscordTimestampGenerator = () => {
     }
   };
 
+  useEffect(() => {
+    localStorage.setItem('timestampHistory', JSON.stringify(history));
+  }, [history]);
+
+  const addToHistory = (unixTimestamp) => {
+    setHistory(prevHistory => {
+      const newHistoryEntry = { timestamp: unixTimestamp, date: new Date().toISOString() };
+      const filteredHistory = prevHistory.filter(item => item.timestamp !== unixTimestamp);
+      const newHistory = [newHistoryEntry, ...filteredHistory];
+      return newHistory.slice(0, 10); // Keep last 10
+    });
+  };
+
   const copyToClipboard = (text, type) => {
     navigator.clipboard.writeText(text);
     setCopiedTimestamp(type);
     setTimeout(() => setCopiedTimestamp(null), 2000);
+
+    if (type !== 'siteLink' && !text.startsWith('0liman')) {
+      const unixTimestamp = getUnixTimestamp();
+      addToHistory(unixTimestamp);
+    }
   };
 
   const getTimezoneAbbreviation = (timezone) => {
@@ -151,6 +173,11 @@ const DiscordTimestampGenerator = () => {
   const toggleTheme = () => {
     setTheme(theme === 'dark' ? 'light' : 'dark');
   };
+
+  useEffect(() => {
+    document.body.classList.remove(themes.dark.bg, themes.light.bg);
+    document.body.classList.add(currentTheme.bg);
+  }, [currentTheme, themes]);
 
   // Close timezone picker when clicking outside
   useEffect(() => {
@@ -239,16 +266,16 @@ const DiscordTimestampGenerator = () => {
                   <Calendar className="w-4 h-4 mr-2" />
                   Date & Time
                 </label>
-                <div className={`relative rounded-lg ${currentTheme.input} border ${currentTheme.border} overflow-hidden`}>
+                <div className={`group relative rounded-lg ${currentTheme.input} border ${currentTheme.border} overflow-hidden`}>
                   <input
                     type="datetime-local"
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
-                    className={`w-full pl-3 pr-10 py-2 ${currentTheme.text} bg-transparent focus:outline-none`}
+                    className={`w-full pl-3 pr-10 py-2.5 ${currentTheme.text} bg-transparent focus:outline-none`}
                     style={{ colorScheme: theme }}
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                    <Calendar className={`w-5 h-5 ${currentTheme.textSecondary}`} />
+                    <Calendar className={`w-5 h-5 ${currentTheme.textSecondary} group-hover:text-indigo-400 transition-colors`} />
                   </div>
                 </div>
               </div>
@@ -316,30 +343,53 @@ const DiscordTimestampGenerator = () => {
                   )}
                 </div>
               </div>
+
+              {history.length > 0 && (
+                <div>
+                  <label className={`flex items-center text-sm font-medium ${currentTheme.textSecondary} mb-2`}>
+                    <History className="w-4 h-4 mr-2" />
+                    History
+                  </label>
+                  <div className={`space-y-2 max-h-40 overflow-y-auto pr-2`}>
+                    {history.map((item, index) => (
+                      <div
+                        key={index}
+                        onClick={() => {
+                          const date = new Date(item.timestamp * 1000);
+                          setSelectedDate(date.toISOString().slice(0, 16));
+                        }}
+                        className={`w-full ${currentTheme.input} rounded-lg px-4 py-2 cursor-pointer border ${currentTheme.border} ${currentTheme.hover} transition-all`}
+                      >
+                        <div className="text-sm font-medium">
+                          {new Date(item.timestamp * 1000).toLocaleString(undefined, {
+                            year: 'numeric', month: 'short', day: 'numeric',
+                            hour: 'numeric', minute: '2-digit'
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           </div>
 
-          {/* Timestamp Results */}
           <div className="lg:col-span-2 space-y-4">
             {timestampTypes.map((type) => {
               const timestampCode = `<t:${getUnixTimestamp()}:${type.id}>`;
               const preview = formatPreview(type.id);
               
               return (
-                <div key={type.id} className={`${currentTheme.card} rounded-xl p-4 md:p-6 ${currentTheme.shadow} border ${currentTheme.border} transition-all duration-200 hover:border-indigo-500`}>
-                  <div className="flex flex-col md:flex-row md:items-center gap-4">
-                    <div className="flex-shrink-0 md:w-1/4">
-                      <h3 className="text-lg font-semibold">{type.name}</h3>
-                    </div>
+                <div key={type.id} className={`${currentTheme.card} rounded-xl p-4 md:p-5 ${currentTheme.shadow} border ${currentTheme.border} transition-all duration-200 hover:border-indigo-500`}>
+                  <div className="flex flex-wrap items-center justify-between gap-4">
+                    <h3 className="text-lg font-semibold w-full sm:w-auto">{type.name}</h3>
                     
-                    <div className="flex-1 text-left md:text-center">
-                      <div className="md:flex md:flex-col md:items-center">
+                    <div className="flex items-center gap-4">
+                      <div className="text-center">
                         <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1 hidden md:block`}>Preview</div>
-                        <div className="text-xl font-medium text-indigo-500">{preview}</div>
+                        <div className="text-xl font-medium text-indigo-400">{preview}</div>
                       </div>
-                    </div>
-                    
-                    <div className="flex-shrink-0 md:w-auto flex justify-start md:justify-end">
+                      
                       <button
                         onMouseEnter={() => setHoveredTimestamp(type.id)}
                         onMouseLeave={() => setHoveredTimestamp(null)}
@@ -372,15 +422,33 @@ const DiscordTimestampGenerator = () => {
         </div>
 
         <footer className={`mt-12 pt-6 border-t ${currentTheme.border} text-center`}>
-          <a
-            href="https://github.com/0libote/discord-timestamp"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`inline-flex items-center gap-2 ${currentTheme.button} text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm`}
-          >
-            <Github className="w-4 h-4" />
-            View on GitHub
-          </a>
+          <div className="flex justify-center items-center gap-4">
+            <a
+              href="https://github.com/0libote/discord-timestamp"
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`inline-flex items-center gap-2 ${currentTheme.button} text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm`}
+            >
+              <Github className="w-4 h-4" />
+              View on GitHub
+            </a>
+            <button
+              onClick={() => copyToClipboard("0liman.top/timestamp", "siteLink")}
+              className={`inline-flex items-center gap-2 ${currentTheme.button} text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm`}
+            >
+              {copiedTimestamp === "siteLink" ? (
+                <>
+                  <Check className="w-4 h-4" />
+                  <span>Copied!</span>
+                </>
+              ) : (
+                <>
+                  <Link className="w-4 h-4" />
+                  <span>Copy Link</span>
+                </>
+              )}
+            </button>
+          </div>
         </footer>
       </div>
     </div>

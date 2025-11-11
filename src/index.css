@@ -5,11 +5,12 @@
 @tailwind utilities;
 
 @layer base {
-  body {
-        'html': {
-          '@apply transition-colors duration-700': {},
-        },
+  html {
+    @apply transition-colors duration-700;
   }
+  body {
+  }
+
 
   /* Custom Scrollbar Styles */
   /* For Webkit browsers (Chrome, Safari) */

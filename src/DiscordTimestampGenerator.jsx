@@ -78,15 +78,33 @@ const DiscordTimestampGenerator = () => {
   ];
 
   const getUnixTimestamp = () => {
-    // selectedDate is a string like "YYYY-MM-DDTHH:mm"
-    // We need to treat it as a date/time in the selectedTimezone.
-    // We can't just use `new Date(selectedDate)` as that will be in the user's local time.
-    // Instead, we format it into a string that includes timezone info, then parse.
-    // A reliable way is to get the UTC equivalent time and work from there.
-    const dateInSelectedTz = new Date(new Date(selectedDate).toLocaleString('en-US', { timeZone: selectedTimezone }));
-    const localDate = new Date(selectedDate);
-    const diff = localDate.getTime() - dateInSelectedTz.getTime();
-    return Math.floor((localDate.getTime() - diff) / 1000);
+    try {
+      // This function correctly interprets the local datetime string as being in the selected timezone.
+      // It does this by creating a date string with a specific ISO 8601 offset.
+      const d = new Date(selectedDate); // Create a date to get a reference point.
+
+      // Get the offset string (e.g., "GMT-5") for the target timezone at the time of the selected date.
+      const offsetString = new Intl.DateTimeFormat('en', {
+        timeZone: selectedTimezone,
+        timeZoneName: 'longOffset',
+      }).format(d);
+
+      // Extract the numerical offset from the string.
+      const offsetMatch = offsetString.match(/GMT([+-]\d+)/);
+
+      if (offsetMatch) {
+        const offsetHours = parseInt(offsetMatch[1], 10);
+        // Format to "YYYY-MM-DDTHH:mm:ss.sss[+/-]HH:00"
+        const dateWithOffset = `${selectedDate}:00.000${offsetHours < 0 ? '-' : '+'}${String(Math.abs(offsetHours)).padStart(2, '0')}:00`;
+        return Math.floor(new Date(dateWithOffset).getTime() / 1000);
+      }
+
+      // Fallback for rare cases where the offset can't be parsed.
+      return Math.floor(new Date(selectedDate).getTime() / 1000);
+    } catch (e) {
+      console.error("Error in getUnixTimestamp:", e);
+      return Math.floor(Date.now() / 1000);
+    }
   };
 
   const formatPreview = (type) => {
@@ -101,7 +119,16 @@ const DiscordTimestampGenerator = () => {
       case 'D': return date.toLocaleDateString(undefined, { ...options, year: 'numeric', month: 'long', day: 'numeric' });
       case 'f': return date.toLocaleString(undefined, { ...options, year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' });
       case 'F': return date.toLocaleString(undefined, { ...options, weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: '2-digit' });
-      case 'R': return formatRelativeTime(date);
+      case 'R': {
+        const now = new Date();
+        const diff = Math.floor((date.getTime() - now.getTime()) / 1000);
+        const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
+
+        if (Math.abs(diff) < 60) return rtf.format(Math.round(diff), 'second');
+        if (Math.abs(diff) < 3600) return rtf.format(Math.round(diff / 60), 'minute');
+        if (Math.abs(diff) < 86400) return rtf.format(Math.round(diff / 3600), 'hour');
+        return rtf.format(Math.round(diff / 86400), 'day');
+      }
       default: return date.toLocaleString(undefined, options);
     }
   };
@@ -124,9 +151,11 @@ const DiscordTimestampGenerator = () => {
     setCopiedTimestamp(type);
     setTimeout(() => setCopiedTimestamp(null), 2000);
 
-    if (type !== 'siteLink' && !text.startsWith('0liman')) {
-      const unixTimestamp = getUnixTimestamp();
-      addToHistory(unixTimestamp);
+    if (type !== 'siteLink' && text.startsWith('<t:')) {
+      const unixTimestamp = parseInt(text.split(':')[1], 10);
+      if (!isNaN(unixTimestamp)) {
+        addToHistory(unixTimestamp);
+      }
     }
   };
 
@@ -147,17 +176,6 @@ const DiscordTimestampGenerator = () => {
   const getTimezoneDisplay = (timezone) => {
     const abbreviation = getTimezoneAbbreviation(timezone);
     return `${timezone} (${abbreviation})`;
-  };
-
-  const formatRelativeTime = (date) => {
-    const now = new Date();
-    const diff = Math.floor((date.getTime() - now.getTime()) / 1000);
-    const rtf = new Intl.RelativeTimeFormat('en', { numeric: 'auto' });
-
-    if (Math.abs(diff) < 60) return rtf.format(Math.round(diff), 'second');
-    if (Math.abs(diff) < 3600) return rtf.format(Math.round(diff / 60), 'minute');
-    if (Math.abs(diff) < 86400) return rtf.format(Math.round(diff / 3600), 'hour');
-    return rtf.format(Math.round(diff / 86400), 'day');
   };
 
   const longFormDate = new Date(getUnixTimestamp() * 1000).toLocaleString(undefined, {
@@ -271,11 +289,11 @@ const DiscordTimestampGenerator = () => {
                     type="datetime-local"
                     value={selectedDate}
                     onChange={(e) => setSelectedDate(e.target.value)}
-                    className={`w-full pl-3 pr-10 py-2.5 ${currentTheme.text} bg-transparent focus:outline-none`}
+                    className={`w-full pl-4 pr-10 py-3 ${currentTheme.text} bg-transparent focus:outline-none`}
                     style={{ colorScheme: theme }}
                   />
                   <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                    <Calendar className={`w-5 h-5 ${currentTheme.textSecondary} group-hover:text-indigo-400 transition-colors`} />
+                    <Calendar className={`w-5 h-5 ${currentTheme.textSecondary}`} />
                   </div>
                 </div>
               </div>
@@ -381,15 +399,15 @@ const DiscordTimestampGenerator = () => {
               
               return (
                 <div key={type.id} className={`${currentTheme.card} rounded-xl p-4 md:p-5 ${currentTheme.shadow} border ${currentTheme.border} transition-all duration-200 hover:border-indigo-500`}>
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <h3 className="text-lg font-semibold w-full sm:w-auto">{type.name}</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4">
+                    <h3 className="text-lg font-semibold">{type.name}</h3>
                     
-                    <div className="flex items-center gap-4">
-                      <div className="text-center">
-                        <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1 hidden md:block`}>Preview</div>
-                        <div className="text-xl font-medium text-indigo-400">{preview}</div>
-                      </div>
-                      
+                    <div className="text-center">
+                      <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1 hidden md:block`}>Preview</div>
+                      <div className="text-xl font-medium text-indigo-400">{preview}</div>
+                    </div>
+                    
+                    <div className="flex justify-start md:justify-end">
                       <button
                         onMouseEnter={() => setHoveredTimestamp(type.id)}
                         onMouseLeave={() => setHoveredTimestamp(null)}
@@ -444,7 +462,7 @@ const DiscordTimestampGenerator = () => {
               ) : (
                 <>
                   <Link className="w-4 h-4" />
-                  <span>Copy Link</span>
+                  <span>Copy WebApp Link</span>
                 </>
               )}
             </button>

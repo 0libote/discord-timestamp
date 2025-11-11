@@ -26,7 +26,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-white dark:bg-gray-800 rounded-lg px-4 py-3 text-gray-900 dark:text-white cursor-pointer flex items-center justify-between border border-gray-300 dark:border-gray-700 hover:border-indigo-500 dark:hover:border-indigo-500 transition-colors"
+        className="w-full bg-white dark:bg-gray-800 rounded-lg px-4 py-3 text-gray-900 dark:text-white cursor-pointer flex items-center justify-between border border-gray-300 dark:border-gray-700 hover:border-discord-500 dark:hover:border-discord-500 transition-colors"
         whileTap={{ scale: 0.98 }}
       >
         <span className="text-sm truncate">{`${selectedTimezone} (${getTimezoneAbbreviation(selectedTimezone)})`}</span>
@@ -49,7 +49,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
                   placeholder="Search timezones..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-gray-100 dark:bg-gray-900 rounded px-10 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-transparent focus:border-transparent"
+                  className="w-full bg-gray-100 dark:bg-gray-900 rounded px-10 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-discord-500 border border-transparent focus:border-transparent"
                   autoFocus
                 />
               </div>
@@ -63,7 +63,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
                     setIsOpen(false);
                     setSearchTerm('');
                   }}
-                  className="px-4 py-2 hover:bg-indigo-500 hover:text-white dark:hover:bg-indigo-500 cursor-pointer text-sm"
+                  className="px-4 py-2 hover:bg-discord-500 hover:text-white dark:hover:bg-discord-500 cursor-pointer text-sm"
                 >
                   {tz} <span className="text-xs opacity-70">{getTimezoneAbbreviation(tz)}</span>
                 </div>
@@ -109,7 +109,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                     <History className="w-4 h-4 mr-2" />
                     History
                 </span>
-                <motion.button onClick={() => setShowHistorySave(!showHistorySave)} className="text-sm bg-indigo-600 hover:bg-indigo-700 text-white p-1.5 rounded-md" whileTap={{scale: 0.9}}>
+                <motion.button onClick={() => setShowHistorySave(!showHistorySave)} className="text-sm bg-discord-600 hover:bg-discord-700 text-white p-1.5 rounded-md" whileTap={{scale: 0.9}}>
                     <Save className="w-4 h-4" />
                 </motion.button>
             </label>
@@ -122,9 +122,9 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                         placeholder="Name for timestamp..."
                         value={historyName}
                         onChange={(e) => setHistoryName(e.target.value)}
-                        className="w-full bg-white dark:bg-gray-800 rounded-md px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 border border-gray-300 dark:border-gray-700"
+                        className="w-full bg-white dark:bg-gray-800 rounded-md px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-discord-500 border border-gray-300 dark:border-gray-700"
                     />
-                    <motion.button onClick={saveToHistory} className="bg-indigo-600 hover:bg-indigo-700 text-white px-4 rounded-md text-sm" whileTap={{scale: 0.95}}>Save</motion.button>
+                    <motion.button onClick={saveToHistory} className="bg-discord-600 hover:bg-discord-700 text-white px-4 rounded-md text-sm" whileTap={{scale: 0.95}}>Save</motion.button>
                 </motion.div>
             )}
             </AnimatePresence>
@@ -182,7 +182,7 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
     >
       <div className="space-y-6">
         <div className="p-4 bg-white/50 dark:bg-black/20 rounded-lg border border-gray-200/50 dark:border-gray-800/50 text-center">
-          <p className="font-semibold text-indigo-500 dark:text-indigo-400">Your Local Time</p>
+          <p className="font-semibold text-discord-500 dark:text-discord-400">Selected Time</p>
           <div className="text-center font-medium text-sm text-gray-800 dark:text-gray-200">{longFormDate}</div>
         </div>
         
@@ -196,7 +196,7 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
               type="datetime-local"
               value={selectedDate}
               onChange={(e) => setSelectedDate(e.target.value)}
-              className="w-full pl-4 pr-10 py-3 bg-white dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-colors"
+              className="w-full pl-4 pr-10 py-3 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-discord-500 transition-colors"
               style={{ colorScheme: theme }}
             />
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">

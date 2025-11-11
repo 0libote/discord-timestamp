@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      colors: {
+        discord: '#5865F2',
+      },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
       },

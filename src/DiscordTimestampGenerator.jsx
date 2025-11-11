@@ -436,15 +436,15 @@ const DiscordTimestampGenerator = () => {
               
               return (
                 <div key={type.id} className={`${currentTheme.card} rounded-xl p-4 md:p-5 ${currentTheme.shadow} border ${currentTheme.border} transition-all duration-200 hover:border-indigo-500`}>
-                  <div className="flex flex-col md:flex-row items-center md:justify-between gap-4 w-full">
+                  <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
                     <h3 className="text-lg font-semibold">{type.name}</h3>
                     
-                    <div className="flex flex-col md:flex-row items-center gap-4">
-                      <div className="text-center">
-                        <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1 hidden md:block`}>Preview</div>
-                        <div className="text-xl font-medium text-indigo-400">{preview}</div>
-                      </div>
-                      
+                    <div className="text-center">
+                      <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1 hidden md:block`}>Preview</div>
+                      <div className="text-xl font-medium text-indigo-400">{preview}</div>
+                    </div>
+                    
+                    <div className="flex justify-center md:justify-end">
                       <button
                         onMouseEnter={() => setHoveredTimestamp(type.id)}
                         onMouseLeave={() => setHoveredTimestamp(null)}
@@ -488,8 +488,10 @@ const DiscordTimestampGenerator = () => {
               View on GitHub
             </a>
             <button
+              onMouseEnter={() => setHoveredTimestamp("siteLink")}
+              onMouseLeave={() => setHoveredTimestamp(null)}
               onClick={() => copyToClipboard("0liman.top/timestamp", "siteLink")}
-              className={`inline-flex items-center gap-2 ${currentTheme.button} text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm`}
+              className={`relative inline-flex items-center gap-2 ${currentTheme.button} text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm`}
             >
               {copiedTimestamp === "siteLink" ? (
                 <>
@@ -501,6 +503,11 @@ const DiscordTimestampGenerator = () => {
                   <Link className="w-4 h-4" />
                   <span>Copy WebApp Link</span>
                 </>
+              )}
+              {hoveredTimestamp === "siteLink" && (
+                <div className={`absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 ${currentTheme.card} ${currentTheme.border} ${currentTheme.text} border rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg`}>
+                  0liman.top/timestamp
+                </div>
               )}
             </button>
           </div>

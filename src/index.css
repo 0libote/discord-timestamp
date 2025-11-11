@@ -8,4 +8,58 @@
   body {
     @apply font-sans bg-background-light text-text-light dark:bg-background-dark dark:text-text-dark transition-colors duration-300;
   }
+
+  /* Custom Scrollbar Styles */
+  /* For Webkit browsers (Chrome, Safari) */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #5865F2; /* Discord blurple */
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #4752C4; /* Darker blurple on hover */
+  }
+
+  /* For Firefox */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #5865F2 transparent;
+  }
+
+  /* Invisible/Tiny Scrollbar for specific elements */
+  .scrollbar-hide {
+    /* For Webkit browsers */
+    &::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
+    }
+    /* For Firefox */
+    scrollbar-width: none;
+  }
+
+  .scrollbar-thin-discord {
+    /* For Webkit browsers */
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    &::-webkit-scrollbar-thumb {
+      background-color: #5865F2;
+      border-radius: 3px;
+    }
+    /* For Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: #5865F2 transparent;
+  }
 }

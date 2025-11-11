@@ -77,7 +77,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-card-light dark:bg-card-dark text-text-light dark:text-text-dark rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between"
+        className="w-full bg-discord/10 dark:bg-discord/20 text-text-light dark:text-text-dark rounded-lg border border-discord focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between"
         whileTap={{ scale: 0.98 }}
       >
         <span>{formattedDateDisplay}</span>
@@ -188,7 +188,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-card-light dark:bg-card-dark text-text-light dark:text-text-dark rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between"
+        className="w-full bg-discord/10 dark:bg-discord/20 text-text-light dark:text-text-dark rounded-lg border border-discord focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between"
         whileTap={{ scale: 0.98 }}
       >
         <span>{formattedTimeDisplay}</span>
@@ -205,7 +205,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
           >
             <div className="flex-1 pr-2 border-r border-gray-200 dark:border-gray-700">
               <h4 className="text-center font-semibold mb-2 text-text-light dark:text-text-dark">Hour</h4>
-              <div className="grid grid-cols-4 gap-1 max-h-48 overflow-y-auto pr-1">
+              <div className="grid grid-cols-4 gap-1 max-h-48 overflow-y-auto pr-1 scrollbar-thin-discord">
                 {hours.map((h) => (
                   <motion.button
                     key={h}
@@ -223,7 +223,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
             </div>
             <div className="flex-1 pl-2">
               <h4 className="text-center font-semibold mb-2 text-text-light dark:text-text-dark">Minute</h4>
-              <div className="grid grid-cols-4 gap-1 max-h-48 overflow-y-auto pl-1">
+              <div className="grid grid-cols-4 gap-1 max-h-48 overflow-y-auto pl-1 scrollbar-thin-discord">
                 {minutes.map((m) => (
                   <motion.button
                     key={m}

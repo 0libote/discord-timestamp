@@ -22,13 +22,13 @@ const Footer = ({ currentTheme }) => {
       transition={{ duration: 0.5, delay: 0.5 }}
       className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 text-center"
     >
-      <div className="flex justify-center items-center gap-4">
-        <div className="relative inline-block w-full">
+      <div className="flex justify-center items-center gap-2">
+        <div className="relative">
           <motion.a
             href={githubLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker w-48"
+            className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker flex-1"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setHoveredLink('github')}
@@ -47,10 +47,10 @@ const Footer = ({ currentTheme }) => {
             </motion.div>
           )}
         </div>
-        <div className="relative inline-block w-full">
+        <div className="relative">
           <motion.button
             onClick={copyLink}
-            className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker w-48"
+            className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker flex-1"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setHoveredLink('webapp')}

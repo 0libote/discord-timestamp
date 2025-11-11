@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Copy, Calendar, Globe, Search, Sun, Moon, Check, Github, Link, History } from 'lucide-react';
+import { Copy, Calendar, Globe, Search, Sun, Moon, Check, Github, Link, History, Save, Trash2 } from 'lucide-react';
 
 const DiscordTimestampGenerator = () => {
   // Set default time to 1 hour from now
@@ -20,6 +20,8 @@ const DiscordTimestampGenerator = () => {
     const savedHistory = localStorage.getItem('timestampHistory');
     return savedHistory ? JSON.parse(savedHistory) : [];
   });
+  const [historyName, setHistoryName] = useState('');
+  const [showHistorySave, setShowHistorySave] = useState(false);
   
   const timezones = Intl.supportedValuesOf('timeZone').sort();
   const filteredTimezones = timezones.filter(tz => 
@@ -137,26 +139,32 @@ const DiscordTimestampGenerator = () => {
     localStorage.setItem('timestampHistory', JSON.stringify(history));
   }, [history]);
 
-  const addToHistory = (unixTimestamp) => {
-    setHistory(prevHistory => {
-      const newHistoryEntry = { timestamp: unixTimestamp, date: new Date().toISOString() };
-      const filteredHistory = prevHistory.filter(item => item.timestamp !== unixTimestamp);
-      const newHistory = [newHistoryEntry, ...filteredHistory];
-      return newHistory.slice(0, 10); // Keep last 10
-    });
+  const saveToHistory = () => {
+    if (!historyName) return;
+    const newHistoryItem = {
+      id: Date.now(),
+      name: historyName,
+      timestamp: getUnixTimestamp(),
+    };
+    setHistory([newHistoryItem, ...history]);
+    setHistoryName('');
+    setShowHistorySave(false);
+  };
+
+  const deleteHistoryItem = (id) => {
+    setHistory(history.filter(item => item.id !== id));
+  };
+
+  const clearAllHistory = () => {
+    if (window.confirm('Are you sure you want to clear all history?')) {
+      setHistory([]);
+    }
   };
 
   const copyToClipboard = (text, type) => {
     navigator.clipboard.writeText(text);
     setCopiedTimestamp(type);
     setTimeout(() => setCopiedTimestamp(null), 2000);
-
-    if (type !== 'siteLink' && text.startsWith('<t:')) {
-      const unixTimestamp = parseInt(text.split(':')[1], 10);
-      if (!isNaN(unixTimestamp)) {
-        addToHistory(unixTimestamp);
-      }
-    }
   };
 
   const getTimezoneAbbreviation = (timezone) => {
@@ -362,33 +370,62 @@ const DiscordTimestampGenerator = () => {
                 </div>
               </div>
 
-              {history.length > 0 && (
-                <div>
-                  <label className={`flex items-center text-sm font-medium ${currentTheme.textSecondary} mb-2`}>
+              <div>
+                <label className={`flex items-center justify-between text-sm font-medium ${currentTheme.textSecondary} mb-2`}>
+                  <span className="flex items-center">
                     <History className="w-4 h-4 mr-2" />
                     History
-                  </label>
-                  <div className={`space-y-2 max-h-40 overflow-y-auto pr-2`}>
-                    {history.map((item, index) => (
-                      <div
-                        key={index}
-                        onClick={() => {
-                          const date = new Date(item.timestamp * 1000);
-                          setSelectedDate(date.toISOString().slice(0, 16));
-                        }}
-                        className={`w-full ${currentTheme.input} rounded-lg px-4 py-2 cursor-pointer border ${currentTheme.border} ${currentTheme.hover} transition-all`}
-                      >
-                        <div className="text-sm font-medium">
-                          {new Date(item.timestamp * 1000).toLocaleString(undefined, {
-                            year: 'numeric', month: 'short', day: 'numeric',
-                            hour: 'numeric', minute: '2-digit'
-                          })}
+                  </span>
+                  <button onClick={() => setShowHistorySave(!showHistorySave)} className={`text-sm ${currentTheme.button} text-white p-1 rounded-md`}>
+                    <Save className="w-4 h-4" />
+                  </button>
+                </label>
+
+                {showHistorySave && (
+                  <div className="flex gap-2 mb-2">
+                    <input
+                      type="text"
+                      placeholder="Name for timestamp..."
+                      value={historyName}
+                      onChange={(e) => setHistoryName(e.target.value)}
+                      className={`w-full ${currentTheme.input} rounded px-3 py-2 text-sm ${currentTheme.text} focus:outline-none focus:ring-1 ${currentTheme.focus} border ${currentTheme.border}`}
+                    />
+                    <button onClick={saveToHistory} className={`${currentTheme.button} text-white px-3 rounded-md`}>Save</button>
+                  </div>
+                )}
+
+                {history.length > 0 ? (
+                  <div className={`space-y-2 max-h-48 overflow-y-auto pr-2`}>
+                    {history.map((item) => (
+                      <div key={item.id} className={`group w-full flex items-center justify-between ${currentTheme.input} rounded-lg px-4 py-2 cursor-pointer border ${currentTheme.border} ${currentTheme.hover} transition-all`}>
+                        <div
+                          className="flex-grow"
+                          onClick={() => {
+                            const date = new Date(item.timestamp * 1000);
+                            setSelectedDate(date.toISOString().slice(0, 16));
+                          }}
+                        >
+                          <div className="text-sm font-medium">{item.name}</div>
+                          <div className={`text-xs ${currentTheme.textSecondary}`}>
+                            {new Date(item.timestamp * 1000).toLocaleString(undefined, {
+                              year: 'numeric', month: 'short', day: 'numeric',
+                              hour: 'numeric', minute: '2-digit'
+                            })}
+                          </div>
                         </div>
+                        <button onClick={() => deleteHistoryItem(item.id)} className="p-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Trash2 className="w-4 h-4 text-red-500" />
+                        </button>
                       </div>
                     ))}
+                    <button onClick={clearAllHistory} className="text-xs text-red-500 hover:underline w-full text-center mt-2">
+                      Clear All History
+                    </button>
                   </div>
-                </div>
-              )}
+                ) : (
+                  <p className={`text-sm ${currentTheme.textSecondary} text-center py-4`}>No saved history.</p>
+                )}
+              </div>
             </div>
           </div>
 
@@ -399,15 +436,15 @@ const DiscordTimestampGenerator = () => {
               
               return (
                 <div key={type.id} className={`${currentTheme.card} rounded-xl p-4 md:p-5 ${currentTheme.shadow} border ${currentTheme.border} transition-all duration-200 hover:border-indigo-500`}>
-                  <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4">
+                  <div className="flex flex-col md:flex-row items-center md:justify-between gap-4 w-full">
                     <h3 className="text-lg font-semibold">{type.name}</h3>
                     
-                    <div className="text-center">
-                      <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1 hidden md:block`}>Preview</div>
-                      <div className="text-xl font-medium text-indigo-400">{preview}</div>
-                    </div>
-                    
-                    <div className="flex justify-start md:justify-end">
+                    <div className="flex flex-col md:flex-row items-center gap-4">
+                      <div className="text-center">
+                        <div className={`text-xs ${currentTheme.textSecondary} uppercase tracking-wide mb-1 hidden md:block`}>Preview</div>
+                        <div className="text-xl font-medium text-indigo-400">{preview}</div>
+                      </div>
+                      
                       <button
                         onMouseEnter={() => setHoveredTimestamp(type.id)}
                         onMouseLeave={() => setHoveredTimestamp(null)}

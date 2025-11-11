@@ -90,6 +90,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
+            transition={{ duration: 0.3 }}
             className="absolute z-20 mt-2 w-full bg-card-light dark:bg-card-dark rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 p-4"
           >
             {/* Calendar Header */}
@@ -151,21 +152,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
     setSelectedDate(newDate.toISOString().slice(0, 16));
   }, [selectedHour, selectedMinute, selectedDate]);
 
-  const handleHourChange = (e) => {
-    let value = parseInt(e.target.value, 10);
-    if (isNaN(value)) value = 0;
-    if (value < 0) value = 23;
-    if (value > 23) value = 0;
-    setSelectedHour(value);
-  };
 
-  const handleMinuteChange = (e) => {
-    let value = parseInt(e.target.value, 10);
-    if (isNaN(value)) value = 0;
-    if (value < 0) value = 59;
-    if (value > 59) value = 0;
-    setSelectedMinute(value);
-  };
 
   const incrementHour = () => {
     setSelectedHour((prev) => (prev === 23 ? 0 : prev + 1));
@@ -199,16 +186,22 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
           >
             <ChevronLeft className="w-4 h-4" />
           </motion.button>
-          <input
-            type="number"
-            value={String(selectedHour).padStart(2, '0')}
-            onChange={handleHourChange}
-            onBlur={handleHourChange} // Ensure value is formatted on blur
+          <div
             className="w-12 text-center bg-transparent text-text-light dark:text-text-dark text-lg font-semibold focus:outline-none"
-            min="0"
-            max="23"
-            aria-label="Hour"
-          />
+            tabIndex="0"
+            aria-label="Selected Hour"
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                incrementHour();
+              } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                decrementHour();
+              }
+            }}
+          >
+            {String(selectedHour).padStart(2, '0')}
+          </div>
           <motion.button
             onClick={incrementHour}
             className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
@@ -229,16 +222,22 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
           >
             <ChevronLeft className="w-4 h-4" />
           </motion.button>
-          <input
-            type="number"
-            value={String(selectedMinute).padStart(2, '0')}
-            onChange={handleMinuteChange}
-            onBlur={handleMinuteChange} // Ensure value is formatted on blur
+          <div
             className="w-12 text-center bg-transparent text-text-light dark:text-text-dark text-lg font-semibold focus:outline-none"
-            min="0"
-            max="59"
-            aria-label="Minute"
-          />
+            tabIndex="0"
+            aria-label="Selected Minute"
+            onKeyDown={(e) => {
+              if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                incrementMinute();
+              } else if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                decrementMinute();
+              }
+            }}
+          >
+            {String(selectedMinute).padStart(2, '0')}
+          </div>
           <motion.button
             onClick={incrementMinute}
             className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"

@@ -6,7 +6,9 @@
 
 @layer base {
   body {
-    @apply font-sans bg-background-light text-text-light dark:bg-background-dark dark:text-text-dark transition-colors duration-500;
+        'html': {
+          '@apply transition-colors duration-700': {},
+        },
   }
 
   /* Custom Scrollbar Styles */
@@ -62,4 +64,6 @@
     scrollbar-width: thin;
     scrollbar-color: #5865F2 transparent;
   }
+
+
 }

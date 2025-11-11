@@ -17,9 +17,9 @@ const Footer = ({ currentTheme }) => {
 
   return (
     <motion.footer
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5, delay: 0.5 }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.4 }}
       className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 text-center"
     >
       <div className="flex justify-center items-center gap-2">

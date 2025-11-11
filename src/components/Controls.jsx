@@ -40,7 +40,8 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="absolute z-10 mt-2 w-full max-h-60 overflow-y-auto scrollbar-thin-discord bg-card-light dark:bg-card-dark rounded-lg border border-gray-300 dark:border-gray-700 shadow-lg"
+            transition={{ duration: 0.3 }}
+            className="absolute z-10 mt-2 w-full max-h-60 overflow-y-auto scrollbar-hide bg-card-light dark:bg-card-dark rounded-lg border border-gray-300 dark:border-gray-700 shadow-lg"
           >
             <div className="p-2">
               <div className="relative">
@@ -117,7 +118,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
 
             <AnimatePresence>
             {showHistorySave && (
-                <motion.div initial={{opacity: 0, height: 0}} animate={{opacity: 1, height: 'auto'}} exit={{opacity: 0, height: 0}} className="flex gap-2 mb-2 overflow-hidden">
+                <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.3}} className="flex gap-2 mb-2 overflow-hidden">
                     <input
                         type="text"
                         placeholder="Name for timestamp..."
@@ -131,7 +132,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
             </AnimatePresence>
 
             {history.length > 0 ? (
-                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 -mr-2 scrollbar-thin-discord">
+                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 -mr-2 scrollbar-hide">
                     {history.map((item) => (
                         <motion.div
                             key={item.id}
@@ -139,6 +140,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, x: -20 }}
+                            transition={{ duration: 0.3 }}
                             className="group w-full flex items-center justify-between bg-discord/10 dark:bg-discord/20 rounded-lg px-3 py-2 border border-discord"
                         >
                             <div
@@ -148,7 +150,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                                     setSelectedDate(date.toISOString().slice(0, 16));
                                 }}
                             >
-                                <div className="text-sm font-medium text-discord">{item.name}</div>
+                                <div className="text-sm font-medium text-text-light dark:text-text-dark">{item.name}</div>
                                 <div className="text-xs text-text-light/70 dark:text-text-dark/70">
                                     {new Date(item.timestamp * 1000).toLocaleString(undefined, {
                                         year: 'numeric', month: 'short', day: 'numeric',
@@ -178,13 +180,13 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
       className="bg-card-light dark:bg-card-dark rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700"
     >
       <div className="space-y-6">
         <div className="p-4 bg-discord/10 dark:bg-discord/20 rounded-lg border border-discord text-center">
           <p className="font-semibold text-discord mb-1">Selected Time</p>
-          <div className="text-center font-medium text-base text-white">{longFormDate}</div>
+          <div className="text-center font-medium text-base text-text-light dark:text-text-dark">{longFormDate}</div>
         </div>
 
         <div className="flex flex-col gap-4">

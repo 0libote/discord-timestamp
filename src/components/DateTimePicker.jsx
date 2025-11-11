@@ -71,17 +71,17 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
 
   return (
     <div className="relative" ref={pickerRef}>
-      <label className="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+      <label className="flex items-center text-sm font-medium text-text-light dark:text-text-dark mb-2">
         <Calendar className="w-4 h-4 mr-2 text-discord" />
         Date
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-discord-50 dark:bg-discord-900 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between"
+        className="w-full bg-card-light dark:bg-card-dark text-text-light dark:text-text-dark rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between"
         whileTap={{ scale: 0.98 }}
       >
         <span>{formattedDateDisplay}</span>
-        <Calendar className="w-5 h-5 text-gray-400" />
+        <Calendar className="w-5 h-5 text-text-light/70 dark:text-text-dark/70" />
       </motion.button>
 
       <AnimatePresence>
@@ -90,23 +90,23 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="absolute z-20 mt-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-discord p-4"
+            className="absolute z-20 mt-2 w-full bg-card-light dark:bg-card-dark rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 p-4"
           >
             {/* Calendar Header */}
             <div className="flex justify-between items-center mb-4">
-              <motion.button onClick={handlePrevMonth} className="p-2 rounded-full hover:bg-discord-50 dark:hover:bg-discord-darker" whileTap={{ scale: 0.9 }}>
-                <ChevronLeft className="w-5 h-5" />
+              <motion.button onClick={handlePrevMonth} className="p-2 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20" whileTap={{ scale: 0.9 }}>
+                <ChevronLeft className="w-5 h-5 text-text-light dark:text-text-dark" />
               </motion.button>
-              <span className="font-semibold text-lg">
+              <span className="font-semibold text-lg text-text-light dark:text-text-dark">
                 {months[currentMonth]} {currentYear}
               </span>
-              <motion.button onClick={handleNextMonth} className="p-2 rounded-full hover:bg-discord-50 dark:hover:bg-discord-darker" whileTap={{ scale: 0.9 }}>
-                <ChevronRight className="w-5 h-5" />
+              <motion.button onClick={handleNextMonth} className="p-2 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20" whileTap={{ scale: 0.9 }}>
+                <ChevronRight className="w-5 h-5 text-text-light dark:text-text-dark" />
               </motion.button>
             </div>
 
             {/* Weekdays */}
-            <div className="grid grid-cols-7 text-center text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+            <div className="grid grid-cols-7 text-center text-sm font-medium text-text-light/70 dark:text-text-dark/70 mb-2">
               {weekdays.map((day) => (
                 <div key={day}>{day}</div>
               ))}
@@ -121,10 +121,10 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
                   className={`p-2 rounded-full transition-colors
                     ${day === null ? 'cursor-default' : ''}
                     ${day === new Date(selectedDate).getDate() && currentMonth === new Date(selectedDate).getMonth() && currentYear === new Date(selectedDate).getFullYear()
-                      ? 'bg-discord-500 text-white'
-                      : 'hover:bg-discord-50 dark:hover:bg-discord-darker'
+                      ? 'bg-discord text-white'
+                      : 'hover:bg-discord/20 dark:hover:bg-discord/20'
                     }
-                    ${day !== null ? 'text-gray-900 dark:text-white' : 'text-gray-300 dark:text-gray-600'}
+                    ${day !== null ? 'text-text-light dark:text-text-dark' : 'text-gray-300 dark:text-gray-600'}
                   `}
                   whileTap={{ scale: day !== null ? 0.9 : 1 }}
                   disabled={day === null}
@@ -182,17 +182,17 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
 
   return (
     <div className="relative" ref={pickerRef}>
-      <label className="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+      <label className="flex items-center text-sm font-medium text-text-light dark:text-text-dark mb-2">
         <Clock className="w-4 h-4 mr-2 text-discord" />
         Time
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-discord-50 dark:bg-discord-900 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between"
+        className="w-full bg-card-light dark:bg-card-dark text-text-light dark:text-text-dark rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between"
         whileTap={{ scale: 0.98 }}
       >
         <span>{formattedTimeDisplay}</span>
-        <Clock className="w-5 h-5 text-gray-400" />
+        <Clock className="w-5 h-5 text-text-light/70 dark:text-text-dark/70" />
       </motion.button>
 
       <AnimatePresence>
@@ -201,18 +201,18 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="absolute z-20 mt-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-discord p-4 flex"
+            className="absolute z-20 mt-2 w-full bg-card-light dark:bg-card-dark rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 p-4 flex"
           >
             <div className="flex-1 pr-2 border-r border-gray-200 dark:border-gray-700">
-              <h4 className="text-center font-semibold mb-2">Hour</h4>
+              <h4 className="text-center font-semibold mb-2 text-text-light dark:text-text-dark">Hour</h4>
               <div className="grid grid-cols-4 gap-1 max-h-48 overflow-y-auto pr-1">
                 {hours.map((h) => (
                   <motion.button
                     key={h}
                     onClick={() => handleTimeClick(h, selectedMinute)}
                     className={`p-2 rounded-full transition-colors text-sm
-                      ${h === selectedHour ? 'bg-discord-500 text-white' : 'hover:bg-discord-50 dark:hover:bg-discord-darker'}
-                      text-gray-900 dark:text-white
+                      ${h === selectedHour ? 'bg-discord text-white' : 'hover:bg-discord/20 dark:hover:bg-discord/20'}
+                      text-text-light dark:text-text-dark
                     `}
                     whileTap={{ scale: 0.9 }}
                   >
@@ -222,15 +222,15 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
               </div>
             </div>
             <div className="flex-1 pl-2">
-              <h4 className="text-center font-semibold mb-2">Minute</h4>
+              <h4 className="text-center font-semibold mb-2 text-text-light dark:text-text-dark">Minute</h4>
               <div className="grid grid-cols-4 gap-1 max-h-48 overflow-y-auto pl-1">
                 {minutes.map((m) => (
                   <motion.button
                     key={m}
                     onClick={() => handleTimeClick(selectedHour, m)}
                     className={`p-2 rounded-full transition-colors text-sm
-                      ${m === selectedMinute ? 'bg-discord-500 text-white' : 'hover:bg-discord-50 dark:hover:bg-discord-darker'}
-                      text-gray-900 dark:text-white
+                      ${m === selectedMinute ? 'bg-discord text-white' : 'hover:bg-discord/20 dark:hover:bg-discord/20'}
+                      text-text-light dark:text-text-dark
                     `}
                     whileTap={{ scale: 0.9 }}
                   >

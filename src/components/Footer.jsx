@@ -20,7 +20,7 @@ const Footer = ({ currentTheme }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.5 }}
-      className="mt-12 pt-8 border-t border-discord-200 dark:border-discord-800 text-center"
+      className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-700 text-center"
     >
       <div className="flex justify-center items-center gap-4">
         <div className="relative inline-block w-full">
@@ -28,7 +28,7 @@ const Footer = ({ currentTheme }) => {
             href={githubLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-primary-light text-white dark:bg-primary-dark dark:text-text-dark px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-primary-light dark:border-primary-dark hover:bg-primary-dark dark:hover:bg-primary-light w-48"
+            className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker w-48"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setHoveredLink('github')}
@@ -41,7 +41,7 @@ const Footer = ({ currentTheme }) => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-card-dark text-white border border-primary-dark rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
+              className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-discord-darker text-white border border-discord rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
             >
               {githubLink}
             </motion.div>
@@ -50,7 +50,7 @@ const Footer = ({ currentTheme }) => {
         <div className="relative inline-block w-full">
           <motion.button
             onClick={copyLink}
-            className="inline-flex items-center justify-center gap-2 bg-secondary-light text-white dark:bg-secondary-dark dark:text-text-dark px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium hover:bg-secondary-dark dark:hover:bg-secondary-light w-48"
+            className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker w-48"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setHoveredLink('webapp')}
@@ -72,7 +72,7 @@ const Footer = ({ currentTheme }) => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-card-dark text-white border border-secondary-dark rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
+              className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-discord-darker text-white border border-discord rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
             >
               {webappLink}
             </motion.div>
@@ -80,7 +80,7 @@ const Footer = ({ currentTheme }) => {
                   </div>
       </div>
       <p className="mt-6 text-sm text-text-light/60 dark:text-text-dark/60">
-        Made with ❤️ by <a href="https://github.com/0libote" target="_blank" rel="noopener noreferrer" className="text-primary-light dark:text-primary-dark hover:underline">0libote</a>
+        Made with ❤️ by <a href="https://github.com/0libote" target="_blank" rel="noopener noreferrer" className="text-discord hover:underline">0libote</a>
       </p>
     </motion.footer>
   );

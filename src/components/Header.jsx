@@ -21,14 +21,14 @@ const Header = ({ theme, toggleTheme }) => {
               <path fill="#FFFFFF" d="M128 72a56 56 0 1 0 0 112a56 56 0 0 0 0-112Z"/>
             </svg>
           </motion.div>
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-xl font-bold text-text-light dark:text-text-dark">
             <span className="text-discord">Discord</span> Timestamp
           </h1>
         </div>
         
         <motion.button
           onClick={toggleTheme}
-          className="p-2 rounded-full bg-discord-100/50 dark:bg-discord-900/50 text-gray-800 dark:text-gray-200 hover:bg-discord-200/50 dark:hover:bg-discord-800/50 transition-colors focus:outline-none focus:ring-2 focus:ring-discord-500"
+          className="p-2 rounded-full bg-discord/20 text-text-light dark:text-text-dark hover:bg-discord/40 transition-colors focus:outline-none focus:ring-2 focus:ring-discord"
           aria-label="Toggle theme"
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}

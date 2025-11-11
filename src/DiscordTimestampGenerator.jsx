@@ -104,10 +104,10 @@ const DiscordTimestampGenerator = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-center mb-8 md:mb-12"
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-text-light dark:text-text-dark mb-2">
+          <h2 className="text-3xl md:text-4xl font-bold text-discord dark:text-discord mb-2">
             Create Dynamic Discord Timestamps
           </h2>
-          <p className="text-base md:text-lg max-w-3xl mx-auto text-text-light/70 dark:text-text-dark/70">
+          <p className="text-base md:text-lg max-w-3xl mx-auto text-text-light/80 dark:text-text-dark/80">
             Select a date, time, and timezone, then copy the code for your desired format. These timestamps appear in each user's local timezone.
           </p>
         </motion.div>

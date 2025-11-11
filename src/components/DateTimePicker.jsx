@@ -80,6 +80,9 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
         className="w-full bg-discord-50 dark:bg-discord-900 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between"
         whileTap={{ scale: 0.98 }}
       >
+        <span>{formattedDateDisplay}</span>
+        <Calendar className="w-5 h-5 text-gray-400" />
+      </motion.button>
 
       <AnimatePresence>
         {isOpen && (

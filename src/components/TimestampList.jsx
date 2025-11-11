@@ -49,12 +49,12 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
         const preview = formatPreview(type.id);
         
         return (
-                    <motion.div
-                      key={type.id}
-                      className="bg-discord-50/50 dark:bg-discord-900/50 rounded-2xl p-4 md:p-5 shadow-lg border border-discord-200/50 dark:border-discord-800/50 transition-all duration-200 discord"
-                      variants={itemVariants}
-                    >
-                      <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
+                              <motion.div
+                                key={type.id}
+                                className="bg-discord-50/50 dark:bg-discord-900/50 rounded-2xl p-4 md:p-5 shadow-lg border border-discord-200/50 dark:border-discord-800/50 transition-all duration-200 discord"
+                                variants={itemVariants}
+                                whileHover={{ scale: 1.01 }}
+                              >                      <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{type.name}</h3>
           
                         <div className="text-center">

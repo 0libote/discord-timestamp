@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Calendar, Globe, Search, History, Save, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
-import DateTimePicker from './DateTimePicker';
+import { DatePickerInput, TimePickerInput } from './DateTimePicker';
 
 const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -187,11 +187,18 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
           <div className="text-center font-medium text-sm text-gray-800 dark:text-gray-200">{longFormDate}</div>
         </div>
 
-        <DateTimePicker
-          selectedDate={selectedDate}
-          setSelectedDate={setSelectedDate}
-          theme={theme}
-        />
+        <div className="flex flex-col gap-4">
+            <DatePickerInput
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            theme={theme}
+            />
+            <TimePickerInput
+            selectedDate={selectedDate}
+            setSelectedDate={setSelectedDate}
+            theme={theme}
+            />
+        </div>
 
         <TimezonePicker
           selectedTimezone={selectedTimezone}

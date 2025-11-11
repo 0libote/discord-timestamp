@@ -77,7 +77,9 @@ const Footer = ({ currentTheme }) => {
               {webappLink}
             </motion.div>
                     )}
-                  </div>      <p className="mt-6 text-sm text-text-light/60 dark:text-text-dark/60">
+                  </div>
+      </div>
+      <p className="mt-6 text-sm text-text-light/60 dark:text-text-dark/60">
         Made with ❤️ by <a href="https://github.com/0libote" target="_blank" rel="noopener noreferrer" className="text-primary-light dark:text-primary-dark hover:underline">0libote</a>
       </p>
     </motion.footer>

@@ -27,7 +27,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-white dark:bg-gray-800 rounded-lg px-4 py-3 text-gray-900 dark:text-white cursor-pointer flex items-center justify-between border border-gray-300 dark:border-gray-700 hover:border-discord-500 dark:hover:border-discord-500 transition-colors"
+        className="w-full bg-discord-50 dark:bg-discord-900 rounded-lg px-4 py-3 text-gray-900 dark:text-white cursor-pointer flex items-center justify-between border border-discord-200 dark:border-discord-800 hover:border-discord-500 dark:hover:border-discord-500 transition-colors"
         whileTap={{ scale: 0.98 }}
       >
         <span className="text-sm truncate">{`${selectedTimezone} (${getTimezoneAbbreviation(selectedTimezone)})`}</span>
@@ -50,7 +50,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
                   placeholder="Search timezones..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-gray-100 dark:bg-gray-900 rounded px-10 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-discord-500 border border-transparent focus:border-transparent"
+                  className="w-full bg-discord-100 dark:bg-discord-950 rounded px-10 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-discord-500 border border-transparent focus:border-transparent"
                   autoFocus
                 />
               </div>
@@ -123,7 +123,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                         placeholder="Name for timestamp..."
                         value={historyName}
                         onChange={(e) => setHistoryName(e.target.value)}
-                        className="w-full bg-white dark:bg-gray-800 rounded-md px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-discord-500 border border-gray-300 dark:border-gray-700"
+                        className="w-full bg-discord-50 dark:bg-discord-900 rounded-md px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-discord-500 border border-discord-200 dark:border-discord-800"
                     />
                     <motion.button onClick={saveToHistory} className="bg-discord-600 hover:bg-discord-700 text-white px-4 rounded-md text-sm" whileTap={{scale: 0.95}}>Save</motion.button>
                 </motion.div>
@@ -139,7 +139,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
                             exit={{ opacity: 0, x: -20 }}
-                            className="group w-full flex items-center justify-between bg-white dark:bg-gray-800 rounded-lg px-3 py-2 border border-gray-300 dark:border-gray-700"
+                            className="group w-full flex items-center justify-between bg-discord-50 dark:bg-discord-900 rounded-lg px-3 py-2 border border-discord-200 dark:border-discord-800"
                         >
                             <div
                                 className="flex-grow cursor-pointer"

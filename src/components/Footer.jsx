@@ -20,15 +20,15 @@ const Footer = ({ currentTheme }) => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5, delay: 0.5 }}
-      className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-center"
+      className="mt-12 pt-8 border-t border-discord-200 dark:border-discord-800 text-center"
     >
       <div className="flex justify-center items-center gap-4">
-        <div className="relative inline-block">
+        <div className="relative inline-block w-full">
           <motion.a
             href={githubLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-gray-800 dark:bg-gray-200 text-white dark:text-gray-900 px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium hover:bg-gray-700 dark:hover:bg-gray-300"
+            className="inline-flex items-center gap-2 bg-discord-800 dark:bg-discord-200 text-white dark:text-gray-900 px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium hover:bg-discord-700 dark:hover:bg-discord-300"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setHoveredLink('github')}
@@ -41,13 +41,13 @@ const Footer = ({ currentTheme }) => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-gray-800 text-white border border-gray-700 rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
+              className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-discord-800 text-white border border-discord-700 rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
             >
               {githubLink}
             </motion.div>
           )}
         </div>
-        <div className="relative inline-block">
+        <div className="relative inline-block w-full">
           <motion.button
             onClick={copyLink}
             className="inline-flex items-center gap-2 bg-discord-600 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium hover:bg-discord-700"
@@ -72,7 +72,7 @@ const Footer = ({ currentTheme }) => {
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-gray-800 text-white border border-gray-700 rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
+              className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-discord-800 text-white border border-discord-700 rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
             >
               {webappLink}
             </motion.div>

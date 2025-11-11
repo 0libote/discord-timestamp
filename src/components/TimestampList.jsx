@@ -49,54 +49,54 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
         const preview = formatPreview(type.id);
         
         return (
-          <motion.div 
-            key={type.id} 
-            className="bg-white/50 dark:bg-gray-900/50 rounded-2xl p-4 md:p-5 shadow-lg border border-gray-200/50 dark:border-gray-800/50 transition-all duration-200 discord"
-            variants={itemVariants}
-          >
-            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
-              <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{type.name}</h3>
-              
-              <div className="text-center">
-                <div className="text-xl font-medium text-discord-500 dark:text-discord-400">{preview}</div>
-              </div>
-              
-                            <div className="flex justify-center md:justify-end relative">
-                              <motion.button
-                                onMouseEnter={() => setHoveredTimestamp(type.id)}
-                                onMouseLeave={() => setHoveredTimestamp(null)}
-                                onClick={() => copyToClipboard(timestampCode, type.id)}
-                                className="flex items-center justify-center gap-2 bg-discord-600 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[110px] shadow-md hover:bg-discord-700"
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                              >
-                                {copiedTimestamp === type.id ? (
-                                  <>
-                                    <Check className="w-4 h-4" />
-                                    <span>Copied!</span>
-                                  </>
-                                ) : (
-                                  <>
-                                    <Copy className="w-4 h-4" />
-                                    <span>Copy</span>
-                                  </>
-                                )}
-                              </motion.button>
-                              {hoveredTimestamp === type.id && (
-                                <motion.div
-                                  initial={{ opacity: 0, y: 10 }}
-                                  animate={{ opacity: 1, y: 0 }}
-                                  className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-gray-800 text-white border border-gray-700 rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
-                                >
-                                  {timestampCode}
-                                </motion.div>
-                              )}
-                            </div>            </div>
-          </motion.div>
-        );
-      })}
-    </motion.div>
-  );
-};
-
-export default TimestampList;
+                    <motion.div
+                      key={type.id}
+                      className="bg-discord-50/50 dark:bg-discord-900/50 rounded-2xl p-4 md:p-5 shadow-lg border border-discord-200/50 dark:border-discord-800/50 transition-all duration-200 discord"
+                      variants={itemVariants}
+                    >
+                      <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{type.name}</h3>
+          
+                        <div className="text-center">
+                          <div className="text-xl font-medium text-discord-500 dark:text-discord-400">{preview}</div>
+                        </div>
+          
+                                      <div className="flex justify-center md:justify-end relative">
+                                        <motion.button
+                                          onMouseEnter={() => setHoveredTimestamp(type.id)}
+                                          onMouseLeave={() => setHoveredTimestamp(null)}
+                                          onClick={() => copyToClipboard(timestampCode, type.id)}
+                                          className="flex items-center justify-center gap-2 bg-discord-600 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[110px] shadow-md hover:bg-discord-700"
+                                          whileHover={{ scale: 1.05 }}
+                                          whileTap={{ scale: 0.95 }}
+                                        >
+                                          {copiedTimestamp === type.id ? (
+                                            <>
+                                              <Check className="w-4 h-4" />
+                                              <span>Copied!</span>
+                                            </>
+                                          ) : (
+                                            <>
+                                              <Copy className="w-4 h-4" />
+                                              <span>Copy</span>
+                                            </>
+                                          )}
+                                        </motion.button>
+                                        {hoveredTimestamp === type.id && (
+                                          <motion.div
+                                            initial={{ opacity: 0, y: 10 }}
+                                            animate={{ opacity: 1, y: 0 }}
+                                            className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-discord-800 text-white border border-discord-700 rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
+                                          >
+                                            {timestampCode}
+                                          </motion.div>
+                                        )}
+                                      </div>            </div>
+                    </motion.div>
+                  );
+                })}
+              </motion.div>
+            );
+          };
+          
+          export default TimestampList;

@@ -37,7 +37,12 @@ const Footer = ({ currentTheme }) => {
             <Github className="w-4 h-4" />
             View on GitHub
           </motion.a>
+          {hoveredLink === 'github' && (
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
               className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-card-dark text-white border border-primary-dark rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
+            >
               {githubLink}
             </motion.div>
           )}
@@ -71,10 +76,8 @@ const Footer = ({ currentTheme }) => {
             >
               {webappLink}
             </motion.div>
-          )}
-        </div>
-      </div>
-      <p className="mt-6 text-sm text-text-light/60 dark:text-text-dark/60">
+                    )}
+                  </div>      <p className="mt-6 text-sm text-text-light/60 dark:text-text-dark/60">
         Made with ❤️ by <a href="https://github.com/0libote" target="_blank" rel="noopener noreferrer" className="text-primary-light dark:text-primary-dark hover:underline">0libote</a>
       </p>
     </motion.footer>

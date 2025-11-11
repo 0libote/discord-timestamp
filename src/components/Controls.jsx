@@ -122,7 +122,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                         type="text"
                         placeholder="Name for timestamp..."
                         value={historyName}
-                        onChange={(e) => setSearchTerm(e.target.value)}
+                        onChange={(e) => setHistoryName(e.target.value)}
                         className="w-full bg-discord/10 dark:bg-discord/20 rounded-md px-3 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-discord"
                     />
                     <motion.button onClick={saveToHistory} className="bg-discord hover:bg-discord-darker text-white px-4 rounded-md text-sm" whileTap={{scale: 0.95}}>Save</motion.button>
@@ -176,15 +176,15 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
 const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelectedTimezone, history, setHistory, getUnixTimestamp, longFormDate, theme }) => {
   return (
     <motion.div
-      initial={{ opacity: 0, x: -100 }}
-      animate={{ opacity: 1, x: 0 }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="bg-card-light dark:bg-card-dark rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700"
     >
       <div className="space-y-6">
         <div className="p-4 bg-discord/10 dark:bg-discord/20 rounded-lg border border-discord text-center">
           <p className="font-semibold text-discord mb-1">Selected Time</p>
-          <div className="text-center font-medium text-base text-text-light dark:text-text-dark">{longFormDate}</div>
+          <div className="text-center font-medium text-base text-white">{longFormDate}</div>
         </div>
 
         <div className="flex flex-col gap-4">

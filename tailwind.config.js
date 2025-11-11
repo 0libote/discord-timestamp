@@ -12,6 +12,10 @@ export default {
           DEFAULT: '#5865F2',
           darker: '#4752C4', // A darker shade for hover effects
         },
+        github: {
+          DEFAULT: '#181717',
+          darker: '#24292E', // A slightly lighter shade for hover effects
+        },
         // Custom colors for light and dark themes
         background: {
           light: '#F9FAFB', // Gray 50

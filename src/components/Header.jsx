@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 const Header = ({ theme, toggleTheme }) => {
   return (
     <motion.header 
-      initial={{ y: -100 }}
+      initial={{ opacity: 0, y: -10 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
       className="sticky top-0 z-50 backdrop-blur-lg border-b border-gray-200/50 dark:border-gray-800/50"
@@ -22,7 +22,7 @@ const Header = ({ theme, toggleTheme }) => {
             </svg>
           </motion.div>
           <h1 className="text-xl font-bold text-text-light dark:text-text-dark">
-            <span className="text-discord">Discord</span> Timestamp
+            <span className="text-discord">Discord</span> Timestamp Generator
           </h1>
         </div>
         

@@ -141,24 +141,9 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
 };
 
 const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const pickerRef = useRef(null);
-
   const dateObj = new Date(selectedDate);
   const [selectedHour, setSelectedHour] = useState(dateObj.getHours());
   const [selectedMinute, setSelectedMinute] = useState(dateObj.getMinutes());
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (pickerRef.current && !pickerRef.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, []);
 
   useEffect(() => {
     const newDate = new Date(selectedDate);
@@ -166,82 +151,103 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
     setSelectedDate(newDate.toISOString().slice(0, 16));
   }, [selectedHour, selectedMinute, selectedDate]);
 
-  const handleTimeClick = (hour, minute) => {
-    setSelectedHour(hour);
-    setSelectedMinute(minute);
-    setIsOpen(false);
+  const handleHourChange = (e) => {
+    let value = parseInt(e.target.value, 10);
+    if (isNaN(value)) value = 0;
+    if (value < 0) value = 23;
+    if (value > 23) value = 0;
+    setSelectedHour(value);
   };
 
-  const formattedTimeDisplay = new Date(selectedDate).toLocaleString(undefined, {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  const handleMinuteChange = (e) => {
+    let value = parseInt(e.target.value, 10);
+    if (isNaN(value)) value = 0;
+    if (value < 0) value = 59;
+    if (value > 59) value = 0;
+    setSelectedMinute(value);
+  };
 
-  const hours = Array.from({ length: 24 }, (_, i) => i);
-  const minutes = Array.from({ length: 60 }, (_, i) => i);
+  const incrementHour = () => {
+    setSelectedHour((prev) => (prev === 23 ? 0 : prev + 1));
+  };
+
+  const decrementHour = () => {
+    setSelectedHour((prev) => (prev === 0 ? 23 : prev - 1));
+  };
+
+  const incrementMinute = () => {
+    setSelectedMinute((prev) => (prev === 59 ? 0 : prev + 1));
+  };
+
+  const decrementMinute = () => {
+    setSelectedMinute((prev) => (prev === 0 ? 59 : prev - 1));
+  };
 
   return (
-    <div className="relative" ref={pickerRef}>
+    <div className="relative">
       <label className="flex items-center text-sm font-medium text-text-light dark:text-text-dark mb-2">
         <Clock className="w-4 h-4 mr-2 text-discord" />
         Time
       </label>
-      <motion.button
-        onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-discord/10 dark:bg-discord/20 text-text-light dark:text-text-dark rounded-lg border border-discord focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between"
-        whileTap={{ scale: 0.98 }}
-      >
-        <span>{formattedTimeDisplay}</span>
-        <Clock className="w-5 h-5 text-text-light/70 dark:text-text-dark/70" />
-      </motion.button>
-
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 10 }}
-            className="absolute z-20 mt-2 w-full bg-card-light dark:bg-card-dark rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 p-4 flex"
+      <div className="flex items-center justify-center gap-2">
+        {/* Hour Input */}
+        <div className="flex items-center bg-discord/10 dark:bg-discord/20 rounded-lg border border-discord px-2 py-1">
+          <motion.button
+            onClick={decrementHour}
+            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
+            whileTap={{ scale: 0.9 }}
           >
-            <div className="flex-1 pr-2 border-r border-gray-200 dark:border-gray-700">
-              <h4 className="text-center font-semibold mb-2 text-text-light dark:text-text-dark">Hour</h4>
-              <div className="grid grid-cols-4 gap-1 max-h-48 overflow-y-auto pr-1 scrollbar-thin-discord">
-                {hours.map((h) => (
-                  <motion.button
-                    key={h}
-                    onClick={() => handleTimeClick(h, selectedMinute)}
-                    className={`p-2 rounded-full transition-colors text-sm
-                      ${h === selectedHour ? 'bg-discord text-white' : 'hover:bg-discord/20 dark:hover:bg-discord/20'}
-                      text-text-light dark:text-text-dark
-                    `}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    {String(h).padStart(2, '0')}
-                  </motion.button>
-                ))}
-              </div>
-            </div>
-            <div className="flex-1 pl-2">
-              <h4 className="text-center font-semibold mb-2 text-text-light dark:text-text-dark">Minute</h4>
-              <div className="grid grid-cols-4 gap-1 max-h-48 overflow-y-auto pl-1 scrollbar-thin-discord">
-                {minutes.map((m) => (
-                  <motion.button
-                    key={m}
-                    onClick={() => handleTimeClick(selectedHour, m)}
-                    className={`p-2 rounded-full transition-colors text-sm
-                      ${m === selectedMinute ? 'bg-discord text-white' : 'hover:bg-discord/20 dark:hover:bg-discord/20'}
-                      text-text-light dark:text-text-dark
-                    `}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    {String(m).padStart(2, '0')}
-                  </motion.button>
-                ))}
-              </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <ChevronLeft className="w-4 h-4" />
+          </motion.button>
+          <input
+            type="number"
+            value={String(selectedHour).padStart(2, '0')}
+            onChange={handleHourChange}
+            onBlur={handleHourChange} // Ensure value is formatted on blur
+            className="w-12 text-center bg-transparent text-text-light dark:text-text-dark text-lg font-semibold focus:outline-none"
+            min="0"
+            max="23"
+            aria-label="Hour"
+          />
+          <motion.button
+            onClick={incrementHour}
+            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
+            whileTap={{ scale: 0.9 }}
+          >
+            <ChevronRight className="w-4 h-4" />
+          </motion.button>
+        </div>
+
+        <span className="text-xl font-bold text-text-light dark:text-text-dark">:</span>
+
+        {/* Minute Input */}
+        <div className="flex items-center bg-discord/10 dark:bg-discord/20 rounded-lg border border-discord px-2 py-1">
+          <motion.button
+            onClick={decrementMinute}
+            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
+            whileTap={{ scale: 0.9 }}
+          >
+            <ChevronLeft className="w-4 h-4" />
+          </motion.button>
+          <input
+            type="number"
+            value={String(selectedMinute).padStart(2, '0')}
+            onChange={handleMinuteChange}
+            onBlur={handleMinuteChange} // Ensure value is formatted on blur
+            className="w-12 text-center bg-transparent text-text-light dark:text-text-dark text-lg font-semibold focus:outline-none"
+            min="0"
+            max="59"
+            aria-label="Minute"
+          />
+          <motion.button
+            onClick={incrementMinute}
+            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
+            whileTap={{ scale: 0.9 }}
+          >
+            <ChevronRight className="w-4 h-4" />
+          </motion.button>
+        </div>
+      </div>
     </div>
   );
 };

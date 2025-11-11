@@ -23,7 +23,7 @@ const Footer = ({ currentTheme }) => {
       className="mt-12 pt-8 border-t border-gray-200 dark:border-gray-800 text-center"
     >
       <div className="flex justify-center items-center gap-4">
-        <div className="relative">
+        <div className="relative inline-block">
           <motion.a
             href={githubLink}
             target="_blank"
@@ -47,7 +47,7 @@ const Footer = ({ currentTheme }) => {
             </motion.div>
           )}
         </div>
-        <div className="relative">
+        <div className="relative inline-block">
           <motion.button
             onClick={copyLink}
             className="inline-flex items-center gap-2 bg-discord-600 text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium hover:bg-discord-700"

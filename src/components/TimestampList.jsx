@@ -53,13 +53,12 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
             key={type.id} 
             className="bg-white/50 dark:bg-gray-900/50 rounded-2xl p-4 md:p-5 shadow-lg border border-gray-200/50 dark:border-gray-800/50 transition-all duration-200 discord"
             variants={itemVariants}
-            whileHover={{ scale: 1.02 }}
           >
             <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
               <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{type.name}</h3>
               
               <div className="text-center">
-                <div className="text-xl font-medium text-gray-700 dark:text-gray-300">{preview}</div>
+                <div className="text-xl font-medium text-discord-500 dark:text-discord-400">{preview}</div>
               </div>
               
                             <div className="flex justify-center md:justify-end relative">

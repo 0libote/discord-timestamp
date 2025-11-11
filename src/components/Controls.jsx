@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Calendar, Globe, Search, History, Save, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
+import DateTimePicker from './DateTimePicker';
 
 const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -132,8 +133,8 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
             {history.length > 0 ? (
                 <div className="space-y-2 max-h-40 overflow-y-auto pr-2 -mr-2">
                     {history.map((item) => (
-                        <motion.div 
-                            key={item.id} 
+                        <motion.div
+                            key={item.id}
                             layout
                             initial={{ opacity: 0, y: -10 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -174,7 +175,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
 
 const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelectedTimezone, history, setHistory, getUnixTimestamp, longFormDate, theme }) => {
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, x: -100 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.5 }}
@@ -185,28 +186,15 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
           <p className="font-semibold text-discord-500 dark:text-discord-400">Selected Time</p>
           <div className="text-center font-medium text-sm text-gray-800 dark:text-gray-200">{longFormDate}</div>
         </div>
-        
-        <div>
-          <label className="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-            <Calendar className="w-4 h-4 mr-2" />
-            Date & Time
-          </label>
-          <div className="group relative">
-            <input
-              type="datetime-local"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-              className="w-full pl-4 pr-10 py-3 bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white rounded-lg border border-gray-300 dark:border-gray-700 focus:outline-none focus:ring-2 focus:ring-discord-500 transition-colors"
-              style={{ colorScheme: theme }}
-            />
-            <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-              <Calendar className="w-5 h-5 text-gray-400" />
-            </div>
-          </div>
-        </div>
 
-        <TimezonePicker 
-          selectedTimezone={selectedTimezone} 
+        <DateTimePicker
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          theme={theme}
+        />
+
+        <TimezonePicker
+          selectedTimezone={selectedTimezone}
           setSelectedTimezone={setSelectedTimezone}
           currentTheme={theme}
         />

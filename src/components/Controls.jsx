@@ -22,12 +22,12 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
   return (
     <div className="relative">
       <label className="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-        <Globe className="w-4 h-4 mr-2" />
+        <Globe className="w-4 h-4 mr-2 text-discord" />
         Timezone
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-discord-50 dark:bg-discord-900 rounded-lg px-4 py-3 text-gray-900 dark:text-white cursor-pointer flex items-center justify-between border border-discord-200 dark:border-discord-800 hover:border-discord transition-colors"
+        className="w-full bg-discord-50 dark:bg-discord-900 rounded-lg px-4 py-3 text-gray-900 dark:text-white cursor-pointer flex items-center justify-between border border-discord hover:border-discord transition-colors"
         whileTap={{ scale: 0.98 }}
       >
         <span className="text-sm truncate">{`${selectedTimezone} (${getTimezoneAbbreviation(selectedTimezone)})`}</span>
@@ -50,7 +50,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
                   placeholder="Search timezones..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-discord-100 dark:bg-discord-950 rounded px-10 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-discord border border-transparent focus:border-transparent"
+                  className="w-full bg-discord-100 dark:bg-discord-950 rounded px-10 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-discord border border-transparent focus:border-discord"
                   autoFocus
                 />
               </div>
@@ -107,7 +107,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
         <div>
             <label className="flex items-center justify-between text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
                 <span className="flex items-center">
-                    <History className="w-4 h-4 mr-2" />
+                    <History className="w-4 h-4 mr-2 text-discord" />
                     History
                 </span>
                 <motion.button onClick={() => setShowHistorySave(!showHistorySave)} className="text-sm bg-discord hover:bg-discord-700 text-white p-1.5 rounded-md" whileTap={{scale: 0.9}}>
@@ -123,7 +123,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                         placeholder="Name for timestamp..."
                         value={historyName}
                         onChange={(e) => setHistoryName(e.target.value)}
-                        className="w-full bg-discord-50 dark:bg-discord-900 rounded-md px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-discord-500 border border-discord-200 dark:border-discord-800"
+                        className="w-full bg-discord-50 dark:bg-discord-900 rounded-md px-3 py-2 text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-discord-500 border border-discord"
                     />
                     <motion.button onClick={saveToHistory} className="bg-discord hover:bg-discord-700 text-white px-4 rounded-md text-sm" whileTap={{scale: 0.95}}>Save</motion.button>
                 </motion.div>

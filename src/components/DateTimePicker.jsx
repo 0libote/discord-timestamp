@@ -72,7 +72,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
   return (
     <div className="relative" ref={pickerRef}>
       <label className="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-        <Calendar className="w-4 h-4 mr-2" />
+        <Calendar className="w-4 h-4 mr-2 text-discord" />
         Date
       </label>
       <motion.button
@@ -90,7 +90,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="absolute z-20 mt-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 p-4"
+            className="absolute z-20 mt-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-discord p-4"
           >
             {/* Calendar Header */}
             <div className="flex justify-between items-center mb-4">
@@ -183,7 +183,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
   return (
     <div className="relative" ref={pickerRef}>
       <label className="flex items-center text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
-        <Clock className="w-4 h-4 mr-2" />
+        <Clock className="w-4 h-4 mr-2 text-discord" />
         Time
       </label>
       <motion.button
@@ -201,7 +201,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
-            className="absolute z-20 mt-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 p-4 flex"
+            className="absolute z-20 mt-2 w-full bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-discord p-4 flex"
           >
             <div className="flex-1 pr-2 border-r border-gray-200 dark:border-gray-700">
               <h4 className="text-center font-semibold mb-2">Hour</h4>

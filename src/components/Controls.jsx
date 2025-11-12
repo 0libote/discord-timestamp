@@ -27,7 +27,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-card-light dark:bg-card-dark rounded-lg px-4 py-3 text-text-light dark:text-text-dark cursor-pointer flex items-center justify-between border border-discord transition-colors shadow-md"
+        className="w-full bg-card-light dark:bg-card-dark rounded-lg px-4 py-3 text-text-light dark:text-text-dark cursor-pointer flex items-center justify-between border border-discord transition-colors shadow-xl"
         whileTap={{ scale: 0.98 }}
       >
         <span className="text-sm truncate">{`${selectedTimezone} (${getTimezoneAbbreviation(selectedTimezone)})`}</span>
@@ -117,7 +117,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                     placeholder="Name for timestamp..."
                     value={historyName}
                     onChange={(e) => setHistoryName(e.target.value)}
-                    className="w-full bg-discord/10 dark:bg-discord/20 rounded-md px-3 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-discord"
+                    className="w-full bg-card-light dark:bg-card-dark rounded-md px-3 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-discord shadow-md"
                 />
                 <motion.button onClick={saveToHistory} className="bg-discord hover:bg-discord-darker text-white px-4 rounded-md text-sm" whileTap={{scale: 0.95}}>Save</motion.button>
             </motion.div>
@@ -133,8 +133,8 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, x: -20 }}
-                                className={`group w-full flex items-center justify-between rounded-lg px-3 py-2 border border-discord ${isSelected ? 'bg-discord text-white' : 'bg-discord/10 dark:bg-discord/20'}`}
-                                whileHover={{ scale: 1.02, backgroundColor: isSelected ? '#5865F2' : '#5865F2', borderColor: '#5865F2' }}
+                                className={`group w-full flex items-center justify-between rounded-lg px-3 py-2 border border-discord ${isSelected ? 'bg-discord text-white' : 'bg-discord/10 dark:bg-discord/20 hover:bg-discord/20 dark:hover:bg-discord/20'}`}
+                                whileHover={{ scale: 1.02, borderColor: '#5865F2' }}
                             >
                                 <div
                                     className="flex-grow cursor-pointer"
@@ -178,7 +178,7 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
       className="bg-card-light dark:bg-card-dark rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700"
     >
       <div className="space-y-6">
-        <div className="p-4 bg-discord/10 dark:bg-discord/20 rounded-lg border border-discord text-center">
+        <div className="p-4 bg-card-light dark:bg-card-dark rounded-lg border border-discord text-center shadow-xl">
           <p className="font-semibold text-discord mb-1">Selected Time</p>
           <div className="text-center font-medium text-base text-text-light dark:text-text-dark">{longFormDate}</div>
         </div>

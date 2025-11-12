@@ -77,7 +77,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-card-light dark:bg-card-dark text-text-light dark:text-text-dark rounded-lg border border-discord focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between shadow-md"
+        className="w-full bg-card-light dark:bg-card-dark text-text-light dark:text-text-dark rounded-lg border border-discord focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between shadow-xl"
         whileTap={{ scale: 0.98 }}
       >
         <span>{formattedDateDisplay}</span>
@@ -201,8 +201,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
         Time
       </label>
       <div className="flex items-center justify-center gap-2">
-        {/* Hour Input */}
-        <div className="flex items-center bg-card-light dark:bg-card-dark rounded-lg border border-discord px-2 py-1 shadow-md">
+        <div className="flex items-center bg-card-light dark:bg-card-dark rounded-lg border border-discord px-2 py-1 shadow-xl">
           <motion.button
             onClick={decrementHour}
             className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
@@ -239,7 +238,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
         <span className="text-xl font-bold text-text-light dark:text-text-dark">:</span>
 
         {/* Minute Input */}
-        <div className="flex items-center bg-card-light dark:bg-card-dark rounded-lg border border-discord px-2 py-1 shadow-md">
+        <div className="flex items-center bg-card-light dark:bg-card-dark rounded-lg border border-discord px-2 py-1 shadow-xl">
           <motion.button
             onClick={decrementMinute}
             className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"

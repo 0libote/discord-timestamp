@@ -28,7 +28,7 @@ const Footer = ({ currentTheme }) => {
             href={githubLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 bg-github text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-github hover:bg-github-darker flex-1"
+            className="inline-flex items-center justify-center gap-2 bg-github text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-github hover:bg-github-darker flex-1 relative"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setHoveredLink('github')}
@@ -36,7 +36,6 @@ const Footer = ({ currentTheme }) => {
           >
             <Github className="w-4 h-4" />
             View on GitHub
-          </motion.a>
           {hoveredLink === 'github' && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -46,11 +45,12 @@ const Footer = ({ currentTheme }) => {
               {githubLink}
             </motion.div>
           )}
+          </motion.a>
         </div>
         <div className="relative">
           <motion.button
             onClick={copyLink}
-            className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker flex-1"
+            className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker flex-1 relative"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onMouseEnter={() => setHoveredLink('webapp')}
@@ -67,7 +67,6 @@ const Footer = ({ currentTheme }) => {
                 <span>Copy WebApp Link</span>
               </>
             )}
-          </motion.button>
           {hoveredLink === 'webapp' && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -77,7 +76,8 @@ const Footer = ({ currentTheme }) => {
               {webappLink}
             </motion.div>
                     )}
-                  </div>
+                  </motion.button>
+                </div>
       </div>
       <p className="mt-6 text-sm text-text-light/60 dark:text-text-dark/60">
         Made with ❤️ by <a href="https://github.com/0libote" target="_blank" rel="noopener noreferrer" className="text-discord hover:underline">0libote</a>

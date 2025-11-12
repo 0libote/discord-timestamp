@@ -81,7 +81,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
         whileTap={{ scale: 0.98 }}
       >
         <span>{formattedDateDisplay}</span>
-        <Calendar className="w-5 h-5 text-text-light/70 dark:text-text-dark/70" />
+        <Calendar className="w-4 h-4 text-text-light/70 dark:text-text-dark/70" />
       </motion.button>
 
       <AnimatePresence>
@@ -91,7 +91,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.3 }}
-            className="absolute z-20 mt-2 w-full bg-card-light dark:bg-card-dark rounded-lg shadow-lg border border-gray-300 dark:border-gray-700 p-4"
+            className="absolute z-20 mt-2 w-full bg-card-light dark:bg-card-dark rounded-lg shadow-lg border border-discord p-4"
           >
             {/* Calendar Header */}
             <div className="flex justify-between items-center mb-4">
@@ -200,8 +200,9 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
         <Clock className="w-4 h-4 mr-2 text-discord" />
         Time
       </label>
-      <div className="flex items-center justify-center gap-2">
-        <div className="flex items-center bg-card-light dark:bg-card-dark rounded-lg border border-discord px-2 py-1 shadow-xl">
+      <div className="flex items-center justify-around bg-card-light dark:bg-card-dark rounded-lg border border-discord px-2 py-2 shadow-xl text-text-light dark:text-text-dark">
+        {/* Hour Input */}
+        <div className="flex items-center">
           <motion.button
             onClick={decrementHour}
             className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
@@ -238,7 +239,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
         <span className="text-xl font-bold text-text-light dark:text-text-dark">:</span>
 
         {/* Minute Input */}
-        <div className="flex items-center bg-card-light dark:bg-card-dark rounded-lg border border-discord px-2 py-1 shadow-xl">
+        <div className="flex items-center">
           <motion.button
             onClick={decrementMinute}
             className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"

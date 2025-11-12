@@ -5,8 +5,8 @@
 @tailwind utilities;
 
 @layer base {
-  html {
-    @apply transition-colors duration-700;
+  *, ::before, ::after {
+    @apply transition-colors duration-300;
   }
   body {
     @apply bg-background-light dark:bg-background-dark;

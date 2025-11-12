@@ -35,13 +35,5 @@ export default {
       },
     },
   },
-  plugins: [
-    function ({ addBase }) {
-      addBase({
-        'html': {
-          '@apply transition-colors duration-500': {},
-        },
-      });
-    },
-  ],
+  plugins: [],
 }

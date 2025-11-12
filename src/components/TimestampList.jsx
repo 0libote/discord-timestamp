@@ -61,7 +61,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
                           <div className="text-xl font-medium text-discord">{preview}</div>
                         </div>
           
-                                      <div className="flex justify-center md:justify-end relative">
+                                      <div className="flex justify-center md:justify-end">
                                         <motion.button
                                           onMouseEnter={() => setHoveredTimestamp(type.id)}
                                           onMouseLeave={() => setHoveredTimestamp(null)}

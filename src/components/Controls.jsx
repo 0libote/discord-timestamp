@@ -41,7 +41,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="absolute z-10 mt-2 w-full max-h-60 overflow-y-auto scrollbar-hide bg-card-light dark:bg-card-dark rounded-lg border border-gray-300 dark:border-gray-700 shadow-lg"
+            className="absolute z-10 mt-2 w-full max-h-60 overflow-y-auto scrollbar-hide bg-card-light dark:bg-card-dark rounded-lg border border-discord shadow-lg"
           >
             <div className="p-2">
               <div className="relative">

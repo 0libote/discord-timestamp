@@ -15,7 +15,11 @@ const DiscordTimestampGenerator = () => {
 
   const [selectedDate, setSelectedDate] = useState(getDefaultTime());
   const [selectedTimezone, setSelectedTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) return savedTheme;
+    return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+  });
   const [history, setHistory] = useState(() => {
     const savedHistory = localStorage.getItem('timestampHistory');
     return savedHistory ? JSON.parse(savedHistory) : [];
@@ -28,17 +32,14 @@ const DiscordTimestampGenerator = () => {
   const getUnixTimestamp = () => {
     try {
       const d = new Date(selectedDate);
-      const offsetString = new Intl.DateTimeFormat('en', {
-        timeZone: selectedTimezone,
-        timeZoneName: 'longOffset',
-      }).format(d);
-      const offsetMatch = offsetString.match(/GMT([+-]\d+)/);
-      if (offsetMatch) {
-        const offsetHours = parseInt(offsetMatch[1], 10);
-        const dateWithOffset = `${selectedDate}:00.000${offsetHours < 0 ? '-' : '+'}${String(Math.abs(offsetHours)).padStart(2, '0')}:00`;
-        return Math.floor(new Date(dateWithOffset).getTime() / 1000);
-      }
-      return Math.floor(new Date(selectedDate).getTime() / 1000);
+      // Note: The logic for timezone offset calculation can be complex.
+      // This is a simplified approach and might not cover all edge cases.
+      // For robust timezone handling, a library like `date-fns-tz` would be recommended.
+      const dateWithOffset = new Date(d.toLocaleString('en-US', { timeZone: selectedTimezone }));
+      const localDate = new Date(d.toLocaleString('en-US', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }));
+      const diff = localDate.getTime() - dateWithOffset.getTime();
+      
+      return Math.floor((d.getTime() - diff) / 1000);
     } catch (e) {
       console.error("Error in getUnixTimestamp:", e);
       return Math.floor(Date.now() / 1000);
@@ -82,19 +83,21 @@ const DiscordTimestampGenerator = () => {
     });
 
   const toggleTheme = () => {
-    setTheme(theme === 'dark' ? 'light' : 'dark');
+    setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
   };
 
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
     } else {
       document.documentElement.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
     }
   }, [theme]);
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-sans transition-colors duration-700">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-sans">
       <Header theme={theme} toggleTheme={toggleTheme} />
 
       <main className="max-w-7xl mx-auto p-4 md:p-6">

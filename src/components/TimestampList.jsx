@@ -54,6 +54,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
                                 className="bg-card-light dark:bg-card-dark rounded-2xl p-4 md:p-5 shadow-lg border border-gray-200 dark:border-gray-700"
                                 variants={itemVariants}
                                 whileHover={{ scale: 1.02, borderColor: '#5865F2' }}
+                                transition={{ type: 'tween', duration: 0.2, borderColor: { type: 'tween', duration: 0 } }}
                               >                      <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
                         <h3 className="text-lg font-semibold text-text-light dark:text-text-dark">{type.name}</h3>
           

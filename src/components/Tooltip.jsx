@@ -6,7 +6,7 @@ const Tooltip = ({ children, text }) => {
 
   return (
     <div
-      className="relative inline-flex"
+      className="relative inline-block"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >

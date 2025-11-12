@@ -80,7 +80,6 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
 
 const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, currentTheme }) => {
     const [historyName, setHistoryName] = useState('');
-    const [showHistorySave, setShowHistorySave] = useState(false);
 
     const saveToHistory = () => {
         if (!historyName) return;
@@ -91,7 +90,6 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
         };
         setHistory([newHistoryItem, ...history]);
         setHistoryName('');
-        setShowHistorySave(false);
     };
 
     const deleteHistoryItem = (id) => {
@@ -111,25 +109,18 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                     <History className="w-4 h-4 mr-2 text-discord" />
                     History
                 </span>
-                <motion.button onClick={() => setShowHistorySave(!showHistorySave)} className="text-sm bg-discord hover:bg-discord-darker text-white p-1.5 rounded-md" whileTap={{scale: 0.9}}>
-                    <Save className="w-4 h-4" />
-                </motion.button>
             </label>
 
-            <AnimatePresence>
-            {showHistorySave && (
-                <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.3}} className="flex gap-2 mb-2 overflow-hidden">
-                    <input
-                        type="text"
-                        placeholder="Name for timestamp..."
-                        value={historyName}
-                        onChange={(e) => setHistoryName(e.target.value)}
-                        className="w-full bg-discord/10 dark:bg-discord/20 rounded-md px-3 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-discord"
-                    />
-                    <motion.button onClick={saveToHistory} className="bg-discord hover:bg-discord-darker text-white px-4 rounded-md text-sm" whileTap={{scale: 0.95}}>Save</motion.button>
-                </motion.div>
-            )}
-            </AnimatePresence>
+            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.3}} className="flex gap-2 mb-2 overflow-hidden">
+                <input
+                    type="text"
+                    placeholder="Name for timestamp..."
+                    value={historyName}
+                    onChange={(e) => setHistoryName(e.target.value)}
+                    className="w-full bg-discord/10 dark:bg-discord/20 rounded-md px-3 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-discord"
+                />
+                <motion.button onClick={saveToHistory} className="bg-discord hover:bg-discord-darker text-white px-4 rounded-md text-sm" whileTap={{scale: 0.95}}>Save</motion.button>
+            </motion.div>
 
             {history.length > 0 ? (
                 <div className="space-y-2 max-h-40 overflow-y-auto pr-2 -mr-2 scrollbar-hide">

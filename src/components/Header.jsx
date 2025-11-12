@@ -6,7 +6,7 @@ const Header = ({ theme, toggleTheme }) => {
   return (
     <motion.header 
       initial={{ opacity: 0, y: -10 }}
-      animate={{ y: 0 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="sticky top-0 z-50 backdrop-blur-lg border-b border-gray-200/50 dark:border-gray-800/50"
     >

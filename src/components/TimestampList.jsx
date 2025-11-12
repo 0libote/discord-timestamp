@@ -51,7 +51,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
         return (
                               <motion.div
                                 key={type.id}
-                                className="bg-card-light dark:bg-card-dark rounded-2xl p-4 md:p-5 shadow-lg border border-gray-200 dark:border-gray-700 transition-all duration-300"
+                                className="bg-card-light dark:bg-card-dark rounded-2xl p-4 md:p-5 shadow-lg border border-gray-200 dark:border-gray-700"
                                 variants={itemVariants}
                                 whileHover={{ scale: 1.02, borderColor: '#5865F2' }}
                               >                      <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
@@ -66,7 +66,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
                                           onMouseEnter={() => setHoveredTimestamp(type.id)}
                                           onMouseLeave={() => setHoveredTimestamp(null)}
                                           onClick={() => copyToClipboard(timestampCode, type.id)}
-                                          className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[110px] shadow-md hover:bg-discord-darker"
+                                          className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[110px] shadow-md hover:bg-discord-darker relative"
                                           whileHover={{ scale: 1.05 }}
                                           whileTap={{ scale: 0.95 }}
                                         >
@@ -81,16 +81,16 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
                                               <span>Copy</span>
                                             </>
                                           )}
+                                          {hoveredTimestamp === type.id && (
+                                            <motion.div
+                                              initial={{ opacity: 0, y: 10 }}
+                                              animate={{ opacity: 1, y: 0 }}
+                                              className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-discord-darker text-white border border-discord rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
+                                            >
+                                              {timestampCode}
+                                            </motion.div>
+                                          )}
                                         </motion.button>
-                                        {hoveredTimestamp === type.id && (
-                                          <motion.div
-                                            initial={{ opacity: 0, y: 10 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            className="absolute bottom-[calc(100%+8px)] left-1/2 transform -translate-x-1/2 bg-discord-darker text-white border border-discord rounded-lg px-3 py-2 text-xs font-mono whitespace-nowrap z-10 shadow-lg"
-                                          >
-                                            {timestampCode}
-                                          </motion.div>
-                                        )}
                                       </div>            </div>
                     </motion.div>
                   );

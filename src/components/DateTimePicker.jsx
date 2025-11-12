@@ -150,9 +150,33 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
     const newDate = new Date(selectedDate);
     newDate.setHours(selectedHour, selectedMinute);
     setSelectedDate(newDate.toISOString().slice(0, 16));
-  }, [selectedHour, selectedMinute, selectedDate]);
+  }, [selectedHour, selectedMinute]);
 
+  const handleHourChange = (e) => {
+    const value = e.target.value;
+    if (value === '' || (parseInt(value, 10) >= 0 && parseInt(value, 10) <= 23)) {
+      setSelectedHour(value === '' ? '' : parseInt(value, 10));
+    }
+  };
 
+  const handleMinuteChange = (e) => {
+    const value = e.target.value;
+    if (value === '' || (parseInt(value, 10) >= 0 && parseInt(value, 10) <= 59)) {
+      setSelectedMinute(value === '' ? '' : parseInt(value, 10));
+    }
+  };
+
+  const handleHourBlur = () => {
+    if (selectedHour === '') {
+      setSelectedHour(0);
+    }
+  };
+
+  const handleMinuteBlur = () => {
+    if (selectedMinute === '') {
+      setSelectedMinute(0);
+    }
+  };
 
   const incrementHour = () => {
     setSelectedHour((prev) => (prev === 23 ? 0 : prev + 1));
@@ -186,9 +210,12 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
           >
             <ChevronLeft className="w-4 h-4" />
           </motion.button>
-          <div
+          <input
+            type="text"
+            value={selectedHour === '' ? '' : String(selectedHour).padStart(2, '0')}
+            onChange={handleHourChange}
+            onBlur={handleHourBlur}
             className="w-12 text-center bg-transparent text-text-light dark:text-text-dark text-lg font-semibold focus:outline-none"
-            tabIndex="0"
             aria-label="Selected Hour"
             onKeyDown={(e) => {
               if (e.key === 'ArrowUp') {
@@ -199,9 +226,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
                 decrementHour();
               }
             }}
-          >
-            {String(selectedHour).padStart(2, '0')}
-          </div>
+          />
           <motion.button
             onClick={incrementHour}
             className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
@@ -222,9 +247,12 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
           >
             <ChevronLeft className="w-4 h-4" />
           </motion.button>
-          <div
+          <input
+            type="text"
+            value={selectedMinute === '' ? '' : String(selectedMinute).padStart(2, '0')}
+            onChange={handleMinuteChange}
+            onBlur={handleMinuteBlur}
             className="w-12 text-center bg-transparent text-text-light dark:text-text-dark text-lg font-semibold focus:outline-none"
-            tabIndex="0"
             aria-label="Selected Minute"
             onKeyDown={(e) => {
               if (e.key === 'ArrowUp') {
@@ -235,9 +263,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
                 decrementMinute();
               }
             }}
-          >
-            {String(selectedMinute).padStart(2, '0')}
-          </div>
+          />
           <motion.button
             onClick={incrementMinute}
             className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"

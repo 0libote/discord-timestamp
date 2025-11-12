@@ -6,7 +6,7 @@
 
 @layer base {
   *, ::before, ::after {
-    @apply transition-colors duration-300;
+    @apply transition-colors duration-600;
   }
   body {
     @apply bg-background-light dark:bg-background-dark;

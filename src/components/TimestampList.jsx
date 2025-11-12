@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import Tooltip from './Tooltip';
+import { Tooltip, TooltipTrigger, TooltipContent } from './Tooltip';
 
 const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
   const [copiedTimestamp, setCopiedTimestamp] = useState(null);
@@ -63,25 +63,30 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
                         </div>
           
                                       <div className="flex justify-center md:justify-end">
-                                        <Tooltip text={timestampCode}>
-                                          <motion.button
-                                            onClick={() => copyToClipboard(timestampCode, type.id)}
-                                            className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[110px] shadow-md hover:bg-discord-darker"
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                          >
-                                            {copiedTimestamp === type.id ? (
-                                              <>
-                                                <Check className="w-4 h-4" />
-                                                <span>Copied!</span>
-                                              </>
-                                            ) : (
-                                              <>
-                                                <Copy className="w-4 h-4" />
-                                                <span>Copy</span>
-                                              </>
-                                            )}
-                                          </motion.button>
+                                        <Tooltip>
+                                          <TooltipTrigger asChild>
+                                            <motion.button
+                                              onClick={() => copyToClipboard(timestampCode, type.id)}
+                                              className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[110px] shadow-md hover:bg-discord-darker"
+                                              whileHover={{ scale: 1.05 }}
+                                              whileTap={{ scale: 0.95 }}
+                                            >
+                                              {copiedTimestamp === type.id ? (
+                                                <>
+                                                  <Check className="w-4 h-4" />
+                                                  <span>Copied!</span>
+                                                </>
+                                              ) : (
+                                                <>
+                                                  <Copy className="w-4 h-4" />
+                                                  <span>Copy</span>
+                                                </>
+                                              )}
+                                            </motion.button>
+                                          </TooltipTrigger>
+                                          <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap z-10">
+                                            <p>{timestampCode}</p>
+                                          </TooltipContent>
                                         </Tooltip>
                                       </div>            </div>
                     </motion.div>

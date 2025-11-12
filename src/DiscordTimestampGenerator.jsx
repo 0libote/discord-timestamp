@@ -115,20 +115,22 @@ const DiscordTimestampGenerator = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
-          <Controls 
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-            selectedTimezone={selectedTimezone}
-            setSelectedTimezone={setSelectedTimezone}
-            history={history}
-            setHistory={setHistory}
-            getUnixTimestamp={getUnixTimestamp}
-            longFormDate={longFormDate}
-            theme={theme}
-          />
+        <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
+          <div className="lg:w-96 lg:flex-shrink-0">
+            <Controls 
+              selectedDate={selectedDate}
+              setSelectedDate={setSelectedDate}
+              selectedTimezone={selectedTimezone}
+              setSelectedTimezone={setSelectedTimezone}
+              history={history}
+              setHistory={setHistory}
+              getUnixTimestamp={getUnixTimestamp}
+              longFormDate={longFormDate}
+              theme={theme}
+            />
+          </div>
           
-          <div className="lg:col-span-2">
+          <div className="flex-1">
             <TimestampList 
               getUnixTimestamp={getUnixTimestamp}
               formatPreview={formatPreview}

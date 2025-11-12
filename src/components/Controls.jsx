@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, Globe, Search, History, Save, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DatePickerInput, TimePickerInput } from './DateTimePicker';
+import { Tooltip, TooltipTrigger, TooltipContent } from './Tooltip';
 
 const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -70,17 +71,25 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
             </div>
             <div className="border-t border-gray-200 dark:border-gray-700">
               {filteredTimezones.map((tz) => (
-                <div
-                  key={tz}
-                  onClick={() => {
-                    setSelectedTimezone(tz);
-                    setIsOpen(false);
-                    setSearchTerm('');
-                  }}
-                  className="px-4 py-2 hover:bg-discord hover:text-white dark:hover:bg-discord cursor-pointer text-sm"
-                >
-                  {tz} <span className="text-xs opacity-70">{getTimezoneAbbreviation(tz)}</span>
-                </div>
+                <Tooltip key={tz} placement="right">
+                  <TooltipTrigger
+                    asChild
+                    onClick={() => {
+                      setSelectedTimezone(tz);
+                      setIsOpen(false);
+                      setSearchTerm('');
+                    }}
+                  >
+                    <div
+                      className="px-4 py-2 hover:bg-discord hover:text-white dark:hover:bg-discord cursor-pointer text-sm truncate"
+                    >
+                      {tz} <span className="text-xs opacity-70">{getTimezoneAbbreviation(tz)}</span>
+                    </div>
+                  </TooltipTrigger>
+                  <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap z-10">
+                    <p>{tz}</p>
+                  </TooltipContent>
+                </Tooltip>
               ))}
             </div>
           </motion.div>
@@ -115,13 +124,19 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
     };
 
     return (
-        <div className="space-y-4">
-            <label className="flex items-center justify-between text-sm font-medium text-text-light dark:text-text-dark">
-                <span className="flex items-center">
+        <div className="space-y-4 border-t border-gray-200 dark:border-gray-700/50 pt-6">
+            <div className="flex items-center justify-between">
+                <label className="flex items-center text-sm font-medium text-text-light dark:text-text-dark">
                     <History className="w-4 h-4 mr-2 text-discord" />
                     History
-                </span>
-            </label>
+                </label>
+                {history.length > 0 && (
+                    <button onClick={clearAllHistory} className="flex items-center text-xs text-red-500 hover:underline">
+                        <Trash2 className="w-3 h-3 mr-1" />
+                        Clear All
+                    </button>
+                )}
+            </div>
 
             <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.3}} className="flex gap-2">
                 <input
@@ -135,45 +150,40 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
             </motion.div>
 
             {history.length > 0 ? (
-                <div className="space-y-2">
-                    <div className="space-y-2 max-h-40 overflow-y-auto pr-2 -mr-2 scrollbar-hide">
-                        {history.map((item) => {
-                            const isSelected = new Date(item.timestamp * 1000).toISOString().slice(0, 16) === selectedDate;
-                            return (
-                                <motion.div
-                                    key={item.id}
-                                    layout
-                                    initial={{ opacity: 0, y: -10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, x: -20 }}
-                                    className={`group w-full flex items-center justify-between rounded-lg px-3 py-2 border border-transparent ${isSelected ? 'bg-discord text-white' : 'hover:bg-discord/20 dark:hover:bg-discord/20'}`}
-                                    whileHover={{ scale: 1.02, borderColor: '#5865F2' }}
+                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 -mr-2 scrollbar-thin-discord">
+                    {history.map((item) => {
+                        const isSelected = new Date(item.timestamp * 1000).toISOString().slice(0, 16) === selectedDate;
+                        return (
+                            <motion.div
+                                key={item.id}
+                                layout
+                                initial={{ opacity: 0, y: -10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, x: -20 }}
+                                className={`group w-full flex items-center justify-between rounded-lg px-3 py-2 border ${isSelected ? 'border-discord bg-discord/10' : 'border-transparent hover:bg-discord/5'}`}
+                                whileHover={{ scale: 1.02 }}
+                            >
+                                <div
+                                    className="flex-grow cursor-pointer"
+                                    onClick={() => {
+                                        const date = new Date(item.timestamp * 1000);
+                                        setSelectedDate(date.toISOString().slice(0, 16));
+                                    }}
                                 >
-                                    <div
-                                        className="flex-grow cursor-pointer"
-                                        onClick={() => {
-                                            const date = new Date(item.timestamp * 1000);
-                                            setSelectedDate(date.toISOString().slice(0, 16));
-                                        }}
-                                    >
-                                        <div className="text-sm font-medium text-text-light dark:text-text-dark">{item.name}</div>
-                                        <div className="text-xs text-text-light/70 dark:text-text-dark/70">
-                                            {new Date(item.timestamp * 1000).toLocaleString(undefined, {
-                                                year: 'numeric', month: 'short', day: 'numeric',
-                                                hour: 'numeric', minute: '2-digit'
-                                            })}
-                                        </div>
+                                    <div className={`text-sm font-medium ${isSelected ? 'text-discord' : 'text-text-light dark:text-text-dark'}`}>{item.name}</div>
+                                    <div className="text-xs text-text-light/70 dark:text-text-dark/70">
+                                        {new Date(item.timestamp * 1000).toLocaleString(undefined, {
+                                            year: 'numeric', month: 'short', day: 'numeric',
+                                            hour: 'numeric', minute: '2-digit'
+                                        })}
                                     </div>
-                                    <motion.button onClick={() => deleteHistoryItem(item.id)} className="p-1 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700" whileTap={{scale: 0.9}}>
-                                        <Trash2 className="w-4 h-4" />
-                                    </motion.button>
-                                </motion.div>
-                            );
-                        })}
-                    </div>
-                    <button onClick={clearAllHistory} className="text-xs text-red-500 hover:underline w-full text-center pt-2">
-                      Clear All History
-                    </button>
+                                </div>
+                                <motion.button onClick={() => deleteHistoryItem(item.id)} className="p-1 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700" whileTap={{scale: 0.9}}>
+                                    <Trash2 className="w-4 h-4" />
+                                </motion.button>
+                            </motion.div>
+                        );
+                    })}
                 </div>
             ) : (
                 <p className="text-sm text-text-light/70 dark:text-text-dark/70 text-center py-4">No saved history.</p>
@@ -215,7 +225,7 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
           />
         </div>
 
-        <div className="border-t border-gray-200 dark:border-gray-700/50"></div>
+
 
         <HistoryPanel
             selectedDate={selectedDate}

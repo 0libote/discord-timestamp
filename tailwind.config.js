@@ -7,6 +7,9 @@ export default {
   ],
   theme: {
     extend: {
+      transitionDuration: {
+        '600': '600ms',
+      },
       colors: {
         discord: {
           DEFAULT: '#5865F2',

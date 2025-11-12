@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Calendar, Globe, Search, History, Save, Trash2 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { DatePickerInput, TimePickerInput } from './DateTimePicker';
@@ -7,11 +7,23 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const timezones = Intl.supportedValuesOf('timeZone').sort();
+  const pickerRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (pickerRef.current && !pickerRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   const filteredTimezones = timezones.filter(tz =>
     tz.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
   const getTimezoneAbbreviation = (timezone) => {
     try {
       const formatter = new Intl.DateTimeFormat('en', { timeZone: timezone, timeZoneName: 'short' });
@@ -20,7 +32,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
   };
 
   return (
-    <div className="relative">
+    <div className="relative" ref={pickerRef}>
       <label className="flex items-center text-sm font-medium text-text-light dark:text-text-dark mb-2">
         <Globe className="w-4 h-4 mr-2 text-discord" />
         Timezone
@@ -111,7 +123,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                 </span>
             </label>
 
-            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.3}} className="flex gap-2 mb-2 overflow-hidden">
+            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.3}} className="flex gap-2 mb-2">
                 <input
                     type="text"
                     placeholder="Name for timestamp..."
@@ -133,7 +145,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, x: -20 }}
-                                className={`group w-full flex items-center justify-between rounded-lg px-3 py-2 border border-discord ${isSelected ? 'bg-discord text-white' : 'bg-discord/10 dark:bg-discord/20 hover:bg-discord/20 dark:hover:bg-discord/20'}`}
+                                className={`group w-full flex items-center justify-between rounded-lg px-3 py-2 border border-transparent ${isSelected ? 'bg-discord text-white' : 'hover:bg-discord/20 dark:hover:bg-discord/20'}`}
                                 whileHover={{ scale: 1.02, borderColor: '#5865F2' }}
                             >
                                 <div

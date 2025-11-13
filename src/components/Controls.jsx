@@ -40,7 +40,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-card-light dark:bg-card-dark rounded-lg px-4 py-3 text-text-light dark:text-text-dark cursor-pointer flex items-center justify-between border border-discord transition-colors duration-0 shadow-xl"
+        className="w-full bg-card-light dark:bg-card-dark rounded-lg px-4 py-3 text-text-light dark:text-text-dark cursor-pointer flex items-center justify-between border border-discord transition-colors shadow-xl"
         whileTap={{ scale: 0.98 }}
       >
         <span className="text-sm truncate">{`${selectedTimezone} (${getTimezoneAbbreviation(selectedTimezone)})`}</span>
@@ -81,7 +81,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
                     }}
                   >
                     <div
-                      className="px-4 py-2 hover:bg-discord hover:text-white dark:hover:bg-discord cursor-pointer text-sm truncate transition-colors duration-0"
+                      className="px-4 py-2 hover:bg-discord hover:text-white dark:hover:bg-discord cursor-pointer text-sm truncate transition-colors"
                     >
                       {tz} <span className="text-xs opacity-70">{getTimezoneAbbreviation(tz)}</span>
                     </div>
@@ -131,7 +131,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                     History
                 </label>
                 {history.length > 0 && (
-                    <button onClick={clearAllHistory} className="flex items-center text-xs text-red-500 hover:underline transition-all duration-0">
+                    <button onClick={clearAllHistory} className="flex items-center text-xs text-red-500 hover:underline transition-all">
                         <Trash2 className="w-3 h-3 mr-1" />
                         Clear All
                     </button>
@@ -146,7 +146,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                     onChange={(e) => setHistoryName(e.target.value)}
                     className="w-full bg-card-light dark:bg-card-dark rounded-md px-3 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-discord shadow-md"
                 />
-                <motion.button onClick={saveToHistory} className="bg-discord hover:bg-discord-darker text-white px-4 rounded-md text-sm transition-colors duration-0" whileTap={{scale: 0.95}}>Save</motion.button>
+                <motion.button onClick={saveToHistory} className="bg-discord hover:bg-discord-darker text-white px-4 rounded-md text-sm transition-colors" whileTap={{scale: 0.95}}>Save</motion.button>
             </motion.div>
 
             {history.length > 0 ? (
@@ -160,7 +160,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                                 initial={{ opacity: 0, y: -10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, x: -20 }}
-                                className={`group w-full flex items-center justify-between rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-700/50 transition-colors duration-0 ${isSelected ? 'border-discord bg-discord/10' : 'hover:border-discord hover:bg-discord/5'}`}
+                                className={`group w-full flex items-center justify-between rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-700/50 transition-colors ${isSelected ? 'border-discord bg-discord/10' : 'hover:border-discord hover:bg-discord/5'}`}
                                 
                             >
                                 <div
@@ -178,7 +178,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                                         })}
                                     </div>
                                 </div>
-                                                                 <motion.button onClick={() => deleteHistoryItem(item.id)} className="p-1 opacity-0 group-hover:opacity-100 transition-opacity duration-0 text-red-500 hover:text-red-700" whileTap={{scale: 0.9}}>                                    <Trash2 className="w-4 h-4" />
+                                                                 <motion.button onClick={() => deleteHistoryItem(item.id)} className="p-1 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700" whileTap={{scale: 0.9}}>                                    <Trash2 className="w-4 h-4" />
                                 </motion.button>
                             </motion.div>
                         );

@@ -27,7 +27,7 @@ const Header = ({ theme, toggleTheme }) => {
         
         <motion.button
           onClick={toggleTheme}
-          className="p-2 rounded-full bg-discord/20 text-text-light dark:text-text-dark hover:bg-discord/40 transition-all duration-0 focus:outline-none focus:ring-2 focus:ring-discord hover:scale-110"
+          className="p-2 rounded-full bg-discord/20 text-text-light dark:text-text-dark hover:bg-discord/40 transition-all transition-transform duration-0 focus:outline-none focus:ring-2 focus:ring-discord hover:scale-110"
           aria-label="Toggle theme"
           
           whileTap={{ scale: 0.9 }}

@@ -29,7 +29,7 @@ const Footer = ({ currentTheme }) => {
               href={githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-github text-white px-4 py-2 rounded-lg transition-colors duration-0 transition-transform duration-0 whitespace-nowrap text-sm font-medium border border-github hover:bg-github-darker hover:scale-105"
+              className="inline-flex items-center justify-center gap-2 bg-github text-white px-4 py-2 rounded-lg transition-colors transition-transform whitespace-nowrap text-sm font-medium border border-github hover:bg-github-darker hover:scale-105"
               
               whileTap={{ scale: 0.95 }}
             >
@@ -37,7 +37,7 @@ const Footer = ({ currentTheme }) => {
               View on GitHub
             </motion.a>
           </TooltipTrigger>
-          <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap z-10">
+          <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap">
             <p>{githubLink}</p>
           </TooltipContent>
         </Tooltip>
@@ -45,7 +45,7 @@ const Footer = ({ currentTheme }) => {
           <TooltipTrigger asChild>
             <motion.button
               onClick={copyLink}
-              className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors duration-0 transition-transform duration-0 whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker hover:scale-105"
+              className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors transition-transform whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker hover:scale-105"
               
               whileTap={{ scale: 0.95 }}
             >
@@ -62,13 +62,13 @@ const Footer = ({ currentTheme }) => {
               )}
             </motion.button>
           </TooltipTrigger>
-          <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap z-10">
+          <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap">
             <p>{webappLink}</p>
           </TooltipContent>
         </Tooltip>
       </div>
       <p className="mt-6 text-sm text-text-light/60 dark:text-text-dark/60">
-        Made with ❤️ by <a href="https://github.com/0libote" target="_blank" rel="noopener noreferrer" className="text-discord hover:underline transition-all duration-0">0libote</a>
+        Made with ❤️ by <a href="https://github.com/0libote" target="_blank" rel="noopener noreferrer" className="text-discord hover:underline transition-all">0libote</a>
       </p>
     </motion.footer>
   );

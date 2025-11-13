@@ -62,7 +62,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
           
                                       <div className="flex justify-center md:justify-end">
                                         <Tooltip>
-                                          <TooltipTrigger asChild>
+                                          <TooltipTrigger>
                                             <motion.button
                                               onClick={() => copyToClipboard(timestampCode, type.id)}
                                               className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[110px] shadow-md hover:bg-discord-darker"

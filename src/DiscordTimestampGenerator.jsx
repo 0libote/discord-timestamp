@@ -26,7 +26,7 @@ const DiscordTimestampGenerator = () => {
   });
 
   useEffect(() => {
-    localStorage.setItem('timestampHistory'about:blank#blocked, JSON.stringify(history));
+    localStorage.setItem('timestampHistory', JSON.stringify(history));
   }, [history]);
 
   const getUnixTimestamp = () => {

@@ -40,7 +40,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-card-light dark:bg-card-dark rounded-lg px-4 py-3 text-text-light dark:text-text-dark cursor-pointer flex items-center justify-between border border-discord transition-colors shadow-xl"
+        className="w-full bg-background-light dark:bg-background-dark rounded-lg px-4 py-3 text-text-light dark:text-text-dark cursor-pointer flex items-center justify-between border border-discord transition-colors shadow-xl"
         whileTap={{ scale: 0.98 }}
       >
         <span className="text-sm truncate">{`${selectedTimezone} (${getTimezoneAbbreviation(selectedTimezone)})`}</span>
@@ -71,16 +71,14 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
             </div>
             <div className="border-t border-gray-200 dark:border-gray-700">
               {filteredTimezones.map((tz) => (
-                <Tooltip key={tz} placement="right">
-                  <TooltipTrigger
-                    asChild
-                    onClick={() => {
-                      setSelectedTimezone(tz);
-                      setIsOpen(false);
-                      setSearchTerm('');
-                    }}
-                  >
+                <Tooltip key={tz}>
+                  <TooltipTrigger>
                     <div
+                      onClick={() => {
+                        setSelectedTimezone(tz);
+                        setIsOpen(false);
+                        setSearchTerm('');
+                      }}
                       className="px-4 py-2 hover:bg-discord hover:text-white dark:hover:bg-discord cursor-pointer text-sm truncate transition-colors"
                     >
                       {tz} <span className="text-xs opacity-70">{getTimezoneAbbreviation(tz)}</span>
@@ -144,7 +142,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                     placeholder="Name for timestamp..."
                     value={historyName}
                     onChange={(e) => setHistoryName(e.target.value)}
-                    className="w-full bg-card-light dark:bg-card-dark rounded-md px-3 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-discord shadow-md"
+                    className="w-full bg-background-light dark:bg-background-dark rounded-md px-3 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-discord shadow-md"
                 />
                 <motion.button onClick={saveToHistory} className="bg-discord hover:bg-discord-darker text-white px-4 rounded-md text-sm transition-colors" whileTap={{scale: 0.95}}>Save</motion.button>
             </motion.div>
@@ -201,7 +199,7 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
       className="bg-card-light dark:bg-card-dark rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700"
     >
       <div className="space-y-6">
-        <div className="p-4 bg-card-light dark:bg-card-dark rounded-lg border border-discord text-center shadow-xl">
+        <div className="p-4 bg-background-light dark:bg-background-dark rounded-lg border border-discord text-center shadow-xl">
           <p className="font-semibold text-discord mb-1">Selected Time</p>
           <div className="text-center font-medium text-base text-text-light dark:text-text-dark">{longFormDate}</div>
         </div>

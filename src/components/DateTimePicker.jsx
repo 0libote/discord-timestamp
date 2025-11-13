@@ -77,7 +77,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-card-light dark:bg-card-dark text-text-light dark:text-text-dark rounded-lg border border-discord focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between shadow-xl"
+        className="w-full bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark rounded-lg border border-discord focus:outline-none focus:ring-2 focus:ring-discord transition-colors px-4 py-3 flex items-center justify-between shadow-xl"
         whileTap={{ scale: 0.98 }}
       >
         <span>{formattedDateDisplay}</span>
@@ -200,7 +200,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
         <Clock className="w-4 h-4 mr-2 text-discord" />
         Time
       </label>
-      <div className="flex items-center justify-around bg-card-light dark:bg-card-dark rounded-lg border border-discord px-2 py-2 shadow-xl text-text-light dark:text-text-dark">
+      <div className="flex items-center justify-around bg-background-light dark:bg-background-dark rounded-lg border border-discord px-2 py-2 shadow-xl text-text-light dark:text-text-dark">
         {/* Hour Input */}
         <div className="flex items-center">
           <motion.button

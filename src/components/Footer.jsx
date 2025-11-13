@@ -24,7 +24,7 @@ const Footer = ({ currentTheme }) => {
     >
       <div className="flex justify-center items-center gap-2">
         <Tooltip>
-          <TooltipTrigger asChild>
+          <TooltipTrigger>
             <motion.a
               href={githubLink}
               target="_blank"
@@ -42,7 +42,7 @@ const Footer = ({ currentTheme }) => {
           </TooltipContent>
         </Tooltip>
         <Tooltip>
-          <TooltipTrigger asChild>
+          <TooltipTrigger>
             <motion.button
               onClick={copyLink}
               className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors transition-transform whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker hover:scale-105"

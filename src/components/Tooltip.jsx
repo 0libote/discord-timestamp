@@ -1,5 +1,10 @@
 import React from 'react';
 import {
+  useFloating,
+  autoUpdate,
+  offset,
+  flip,
+  shift,
   useHover,
   useFocus,
   useDismiss,
@@ -7,13 +12,6 @@ import {
   useInteractions,
   FloatingPortal,
 } from '@floating-ui/react';
-import {
-  useFloating,
-  autoUpdate,
-  offset,
-  flip,
-  shift,
-} from '@floating-ui/react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
 export function useTooltip({

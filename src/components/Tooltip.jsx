@@ -151,6 +151,7 @@ export const TooltipContent = React.forwardRef(function TooltipContent({ style, 
             style={{
               ...context.floatingStyles,
               ...style,
+              zIndex: 50,
             }}
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}

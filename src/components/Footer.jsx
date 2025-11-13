@@ -29,8 +29,8 @@ const Footer = ({ currentTheme }) => {
               href={githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-github text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-github hover:bg-github-darker"
-              whileHover={{ scale: 1.05 }}
+              className="inline-flex items-center justify-center gap-2 bg-github text-white px-4 py-2 rounded-lg transition-colors duration-0 transition-transform duration-0 whitespace-nowrap text-sm font-medium border border-github hover:bg-github-darker hover:scale-105"
+              
               whileTap={{ scale: 0.95 }}
             >
               <Github className="w-4 h-4" />
@@ -45,8 +45,8 @@ const Footer = ({ currentTheme }) => {
           <TooltipTrigger asChild>
             <motion.button
               onClick={copyLink}
-              className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker"
-              whileHover={{ scale: 1.05 }}
+              className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors duration-0 transition-transform duration-0 whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker hover:scale-105"
+              
               whileTap={{ scale: 0.95 }}
             >
               {copied ? (
@@ -68,7 +68,7 @@ const Footer = ({ currentTheme }) => {
         </Tooltip>
       </div>
       <p className="mt-6 text-sm text-text-light/60 dark:text-text-dark/60">
-        Made with ❤️ by <a href="https://github.com/0libote" target="_blank" rel="noopener noreferrer" className="text-discord hover:underline">0libote</a>
+        Made with ❤️ by <a href="https://github.com/0libote" target="_blank" rel="noopener noreferrer" className="text-discord hover:underline transition-all duration-0">0libote</a>
       </p>
     </motion.footer>
   );

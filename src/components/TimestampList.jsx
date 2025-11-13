@@ -51,10 +51,8 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
         return (
                               <motion.div
                                 key={type.id}
-                                className="bg-card-light dark:bg-card-dark rounded-2xl p-4 md:p-5 shadow-lg border border-gray-200 dark:border-gray-700"
+                                className="bg-card-light dark:bg-card-dark rounded-2xl p-4 md:p-5 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-discord transition-colors duration-0"
                                 variants={itemVariants}
-                                whileHover={{ scale: 1.02, borderColor: '#5865F2' }}
-                                transition={{ type: 'tween', duration: 0.2, borderColor: { type: 'tween', duration: 0 } }}
                               >                      <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
                         <h3 className="text-lg font-semibold text-text-light dark:text-text-dark">{type.name}</h3>
           
@@ -67,8 +65,8 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
                                           <TooltipTrigger asChild>
                                             <motion.button
                                               onClick={() => copyToClipboard(timestampCode, type.id)}
-                                              className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[110px] shadow-md hover:bg-discord-darker"
-                                              whileHover={{ scale: 1.05 }}
+                                              className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors duration-0 whitespace-nowrap text-sm min-w-[110px] shadow-md hover:bg-discord-darker"
+                                              
                                               whileTap={{ scale: 0.95 }}
                                             >
                                               {copiedTimestamp === type.id ? (

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 
 import Header from './components/Header';
 import Controls from './components/Controls';
@@ -97,23 +96,18 @@ const DiscordTimestampGenerator = () => {
   }, [theme]);
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-sans transition-colors duration-1000">
+    <div className="min-h-screen bg-background font-sans">
       <Header theme={theme} toggleTheme={toggleTheme} />
 
       <main className="max-w-7xl mx-auto p-4 md:p-6">
-        <motion.div 
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-          className="text-center mb-8 md:mb-12"
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-discord dark:text-discord mb-2">
+        <div className="text-center mb-8 md:mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">
             Create Dynamic Discord Timestamps
           </h2>
-          <p className="text-base md:text-lg max-w-3xl mx-auto text-text-light/80 dark:text-text-dark/80">
+          <p className="text-base md:text-lg max-w-3xl mx-auto text-muted-foreground">
             Select a date, time, and timezone, then copy the code for your desired format. These timestamps appear in each user's local timezone.
           </p>
-        </motion.div>
+        </div>
 
         <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
           <div className="lg:w-96 lg:flex-shrink-0">

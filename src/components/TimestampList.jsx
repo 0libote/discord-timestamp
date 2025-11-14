@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
-import { motion } from 'framer-motion';
 import { Tooltip, TooltipTrigger, TooltipContent } from './Tooltip';
 
 const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
@@ -22,76 +21,55 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
     setTimeout(() => setCopiedTimestamp(null), 2000);
   };
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.07
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
   return (
-    <motion.div 
-      className="space-y-4"
-      variants={containerVariants}
-      initial="hidden"
-      animate="visible"
-    >
+    <div className="space-y-4">
       {timestampTypes.map((type) => {
         const timestampCode = `<t:${getUnixTimestamp()}:${type.id}>`;
         const preview = formatPreview(type.id);
         
         return (
-                              <motion.div
-                                key={type.id}
-                                className="bg-card-light dark:bg-card-dark rounded-2xl p-4 md:p-5 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-discord transition-colors"
-                                variants={itemVariants}
-                              >                      <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
-                        <h3 className="text-lg font-semibold text-text-light dark:text-text-dark transition-colors duration-1000">{type.name}</h3>
-          
-                        <div className="text-center">
-                          <div className="text-xl md:text-2xl font-medium text-discord">{preview}</div>
-                        </div>
-          
-                                      <div className="flex justify-center md:justify-end">
-                                        <Tooltip>
-                                          <TooltipTrigger>
-                                            <motion.button
-                                              onClick={() => copyToClipboard(timestampCode, type.id)}
-                                              className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm min-w-[110px] shadow-md hover:bg-discord-darker"
-                                              
-                                              whileTap={{ scale: 0.95 }}
-                                            >
-                                              {copiedTimestamp === type.id ? (
-                                                <>
-                                                  <Check className="w-4 h-4" />
-                                                  <span>Copied!</span>
-                                                </>
-                                              ) : (
-                                                <>
-                                                  <Copy className="w-4 h-4" />
-                                                  <span>Copy</span>
-                                                </>
-                                              )}
-                                            </motion.button>
-                                          </TooltipTrigger>
-                                          <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap">
-                                            <p>{timestampCode}</p>
-                                          </TooltipContent>
-                                        </Tooltip>
-                                      </div>            </div>
-                    </motion.div>
-                  );
-                })}
-              </motion.div>
-            );
-          };
-          
-          export default TimestampList;
+          <div
+            key={type.id}
+            className="bg-card rounded-lg p-4 md:p-5 border hover:border-discord"
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
+              <h3 className="text-lg font-semibold">{type.name}</h3>
+
+              <div className="text-center">
+                <div className="text-xl md:text-2xl font-medium text-discord">{preview}</div>
+              </div>
+
+              <div className="flex justify-center md:justify-end">
+                <Tooltip>
+                  <TooltipTrigger>
+                    <button
+                      onClick={() => copyToClipboard(timestampCode, type.id)}
+                      className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg whitespace-nowrap text-sm min-w-[110px] hover:bg-discord-darker"
+                    >
+                      {copiedTimestamp === type.id ? (
+                        <>
+                          <Check className="w-4 h-4" />
+                          <span>Copied!</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-4 h-4" />
+                          <span>Copy</span>
+                        </>
+                      )}
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap">
+                    <p>{timestampCode}</p>
+                  </TooltipContent>
+                </Tooltip>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+};
+
+export default TimestampList;

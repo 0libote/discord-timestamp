@@ -71,7 +71,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
   return (
     <div className="relative" ref={pickerRef}>
       <label className="flex items-center text-sm font-medium mb-2">
-        <Calendar className="w-4 h-4 mr-2 text-primary" />
+        <Calendar className="w-4 h-4 mr-2 text-discord" />
         Date
       </label>
       <button
@@ -115,7 +115,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
                 className={`p-2 rounded-full
                   ${day === null ? 'cursor-default' : ''}
                   ${day === new Date(selectedDate).getDate() && currentMonth === new Date(selectedDate).getMonth() && currentYear === new Date(selectedDate).getFullYear()
-                    ? 'bg-primary text-primary-foreground'
+                    ? 'bg-discord text-white'
                     : 'hover:bg-accent'
                   }
                   ${day !== null ? '' : 'text-muted-foreground'}
@@ -188,7 +188,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
   return (
     <div className="relative">
       <label className="flex items-center text-sm font-medium mb-2">
-        <Clock className="w-4 h-4 mr-2 text-primary" />
+        <Clock className="w-4 h-4 mr-2 text-discord" />
         Time
       </label>
       <div className="flex items-center justify-around bg-background rounded-lg border px-2 py-2">

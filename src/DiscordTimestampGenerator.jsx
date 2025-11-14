@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 
 import Header from './components/Header';
 import Controls from './components/Controls';
@@ -100,17 +101,28 @@ const DiscordTimestampGenerator = () => {
       <Header theme={theme} toggleTheme={toggleTheme} />
 
       <main className="max-w-7xl mx-auto p-4 md:p-6">
-        <div className="text-center mb-8 md:mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-2">
+        <motion.div 
+          className="text-center mb-8 md:mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h2 className="text-3xl md:text-4xl font-bold text-discord mb-2">
             Create Dynamic Discord Timestamps
           </h2>
           <p className="text-base md:text-lg max-w-3xl mx-auto text-muted-foreground">
-            Select a date, time, and timezone, then copy the code for your desired format. These timestamps appear in each user's local timezone.
+            Super simple tool to create dynamic timestamps for Discord in multiple different formats. <br /> <br />
+            Dynamic timestamps are timestamps that let all users view the date and time in their local timezone.
           </p>
-        </div>
+        </motion.div>
 
         <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
-          <div className="lg:w-96 lg:flex-shrink-0">
+          <motion.div 
+            className="lg:w-96 lg:flex-shrink-0"
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
             <Controls 
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
@@ -122,18 +134,29 @@ const DiscordTimestampGenerator = () => {
               longFormDate={longFormDate}
               theme={theme}
             />
-          </div>
+          </motion.div>
           
-          <div className="flex-1">
+          <motion.div 
+            className="flex-1"
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <TimestampList 
               getUnixTimestamp={getUnixTimestamp}
               formatPreview={formatPreview}
               currentTheme={theme}
             />
-          </div>
+          </motion.div>
         </div>
 
-        <Footer currentTheme={theme} />
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          <Footer currentTheme={theme} />
+        </motion.div>
       </main>
     </div>
   );

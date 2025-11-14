@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Github, Link, Check } from 'lucide-react';
 import { Tooltip, TooltipTrigger, TooltipContent } from './Tooltip';
 
@@ -15,21 +16,26 @@ const Footer = ({ currentTheme }) => {
   };
 
   return (
-    <footer
+    <motion.footer
       className="mt-12 pt-8 border-t text-center"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, delay: 0.3 }}
     >
-      <div className="flex justify-center items-center gap-2">
+      <div className="flex justify-center items-center gap-2 flex-wrap">
         <Tooltip>
           <TooltipTrigger>
-            <a
+            <motion.a
               href={githubLink}
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 bg-github text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-github hover:bg-github-darker"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               <Github className="w-4 h-4" />
               View on GitHub
-            </a>
+            </motion.a>
           </TooltipTrigger>
           <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap">
             <p>{githubLink}</p>
@@ -37,9 +43,11 @@ const Footer = ({ currentTheme }) => {
         </Tooltip>
         <Tooltip>
           <TooltipTrigger>
-            <button
+            <motion.button
               onClick={copyLink}
               className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker min-w-[180px]"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {copied ? (
                 <>
@@ -52,7 +60,7 @@ const Footer = ({ currentTheme }) => {
                   <span>Copy WebApp Link</span>
                 </>
               )}
-            </button>
+            </motion.button>
           </TooltipTrigger>
           <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap">
             <p>{webappLink}</p>
@@ -62,7 +70,7 @@ const Footer = ({ currentTheme }) => {
       <p className="mt-6 text-sm text-muted-foreground">
         Made with ❤️ by <a href="https://github.com/0libote" target="_blank" rel="noopener noreferrer" className="text-discord hover:underline">0libote</a>
       </p>
-    </footer>
+    </motion.footer>
   );
 };
 

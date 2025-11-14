@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { Copy, Check } from 'lucide-react';
 import { Tooltip, TooltipTrigger, TooltipContent } from './Tooltip';
 
@@ -22,29 +23,42 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
   };
 
   return (
-    <div className="space-y-4">
+    <motion.div 
+      className="space-y-4"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ staggerChildren: 0.1, delayChildren: 0.2 }}
+    >
       {timestampTypes.map((type) => {
         const timestampCode = `<t:${getUnixTimestamp()}:${type.id}>`;
         const preview = formatPreview(type.id);
         
         return (
-          <div
+          <motion.div
             key={type.id}
             className="bg-card rounded-lg p-4 md:p-5 border hover:border-discord"
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileHover={{ scale: 1.02, y: -2 }}
+            transition={{ type: "spring", stiffness: 200 }}
           >
-            <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
-              <h3 className="text-lg font-semibold">{type.name}</h3>
-
-              <div className="text-center">
-                <div className="text-xl md:text-2xl font-medium text-discord">{preview}</div>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+              <div className="flex-1 md:flex-initial">
+                <h3 className="text-lg font-semibold">{type.name}</h3>
               </div>
 
-              <div className="flex justify-center md:justify-end">
+              <div className="flex-1 text-center">
+                <div className="text-lg md:text-xl font-medium text-discord whitespace-normal break-words">{preview}</div>
+              </div>
+
+              <div className="flex-1 md:flex-initial flex justify-center md:justify-end">
                 <Tooltip>
                   <TooltipTrigger>
-                    <button
+                    <motion.button
                       onClick={() => copyToClipboard(timestampCode, type.id)}
                       className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg whitespace-nowrap text-sm min-w-[110px] hover:bg-discord-darker"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       {copiedTimestamp === type.id ? (
                         <>
@@ -57,7 +71,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
                           <span>Copy</span>
                         </>
                       )}
-                    </button>
+                    </motion.button>
                   </TooltipTrigger>
                   <TooltipContent className="px-3 py-2 bg-gray-800 dark:bg-black text-white text-xs font-mono rounded-lg shadow-lg whitespace-nowrap">
                     <p>{timestampCode}</p>
@@ -65,10 +79,10 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
                 </Tooltip>
               </div>
             </div>
-          </div>
+          </motion.div>
         );
       })}
-    </div>
+    </motion.div>
   );
 };
 

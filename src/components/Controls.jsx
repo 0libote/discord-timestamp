@@ -35,7 +35,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
   return (
     <div className="relative" ref={pickerRef}>
       <label className="flex items-center text-sm font-medium mb-2">
-        <Globe className="w-4 h-4 mr-2 text-discord" />
+        <Globe className="w-4 h-4 mr-2 text-discord-blurple" />
         Timezone
       </label>
       <button
@@ -47,8 +47,11 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
       </button>
 
       {isOpen && (
-        <div
-          className="absolute z-10 mt-2 w-full max-h-60 overflow-y-auto scrollbar-hide bg-card rounded-lg border shadow-lg"
+        <motion.div
+          className="absolute z-10 mt-2 w-full max-h-60 overflow-y-auto bg-card rounded-lg border border-border/50 shadow-lg"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
         >
           <div className="p-2">
             <div className="relative">
@@ -58,26 +61,28 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
                 placeholder="Search timezones..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full bg-background rounded px-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-ring border"
+                className="w-full bg-background rounded px-10 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-discord-blurple/30 border border-border/60"
                 autoFocus
               />
             </div>
           </div>
-          <div className="border-t">
+          <div className="border-t border-border/50">
             {filteredTimezones.map((tz) => (
-              <div
+              <motion.div
+                key={tz}
                 onClick={() => {
                   setSelectedTimezone(tz);
                   setIsOpen(false);
                   setSearchTerm('');
                 }}
-                className="px-4 py-2 hover:bg-accent cursor-pointer text-sm w-full"
+                className="px-4 py-2 hover:bg-accent/50 cursor-pointer text-sm w-full transition-colors"
+                whileHover={{ x: 4 }}
               >
                 {tz} <span className="text-xs opacity-70">{getTimezoneAbbreviation(tz)}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   );
@@ -138,7 +143,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                     />
                     <motion.button 
                         onClick={saveToHistory} 
-                        className="bg-discord hover:bg-discord-darker text-white px-4 rounded-md text-sm font-semibold"
+                        className="bg-discord-blurple hover:bg-blue-600 text-white px-4 rounded-md text-sm font-semibold shadow-sm transition-all"
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                     >
@@ -219,18 +224,18 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
 const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelectedTimezone, history, setHistory, getUnixTimestamp, longFormDate, theme }) => {
   return (
     <motion.div
-      className="bg-card rounded-lg p-6 border"
+      className="bg-card rounded-lg p-6 border border-border/50 shadow-sm"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
       <div className="space-y-8">
         <motion.div 
-          className="p-4 bg-background rounded-lg border text-center"
+          className="p-4 bg-background rounded-lg border border-border/60 text-center hover:border-discord-blurple/40 transition-all"
           whileHover={{ scale: 1.02 }}
           transition={{ type: "spring", stiffness: 300 }}
         >
-          <p className="font-semibold text-discord mb-1">Selected Time</p>
+          <p className="font-semibold text-discord-blurple mb-1 text-sm">Selected Time</p>
           <div className="text-center font-medium text-base">{longFormDate}</div>
         </motion.div>
 

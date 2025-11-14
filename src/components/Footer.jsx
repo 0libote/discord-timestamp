@@ -22,14 +22,14 @@ const Footer = ({ currentTheme }) => {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
     >
-      <div className="flex justify-center items-center gap-2 flex-wrap">
+      <div className="flex justify-center items-center gap-3 flex-wrap">
         <Tooltip>
           <TooltipTrigger>
             <motion.a
               href={githubLink}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 bg-github text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-github hover:bg-github-darker"
+              className="inline-flex items-center justify-center gap-2 bg-github text-white px-4 py-2 rounded-lg transition-all shadow-sm hover:shadow-md whitespace-nowrap text-sm font-semibold border border-github/80"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
@@ -45,7 +45,7 @@ const Footer = ({ currentTheme }) => {
           <TooltipTrigger>
             <motion.button
               onClick={copyLink}
-              className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker min-w-[180px]"
+              className="inline-flex items-center justify-center gap-2 bg-discord-blurple text-white px-4 py-2 rounded-lg transition-all shadow-sm hover:shadow-md whitespace-nowrap text-sm font-semibold border border-discord-blurple/80 min-w-[180px]"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

@@ -41,7 +41,7 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
         discord: {
-          DEFAULT: '#5865F2',
+          blurple: '#5865F2',
           darker: '#4752C4',
         },
         github: {
@@ -55,7 +55,7 @@ module.exports = {
         sm: 'calc(var(--radius) - 4px)',
       },
       fontFamily: {
-        sans: ['Roboto', ...fontFamily.sans],
+        sans: ['Inter', ...fontFamily.sans],
       },
     },
   },

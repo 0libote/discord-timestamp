@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import { Calendar, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
 
 const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
@@ -71,32 +72,47 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
   return (
     <div className="relative" ref={pickerRef}>
       <label className="flex items-center text-sm font-medium mb-2">
-        <Calendar className="w-4 h-4 mr-2 text-discord" />
+        <Calendar className="w-4 h-4 mr-2 text-discord-blurple" />
         Date
       </label>
-      <button
+      <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-background text-foreground rounded-lg border focus:outline-none focus:ring-2 focus:ring-ring px-4 py-3 flex items-center justify-between"
+        className="w-full bg-background text-foreground rounded-lg border border-border/60 hover:border-discord-blurple/40 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-discord-blurple/30 px-4 py-3 flex items-center justify-between transition-all"
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
       >
-        <span>{formattedDateDisplay}</span>
-        <Calendar className="w-4 h-4 text-muted-foreground" />
-      </button>
+        <span className="font-medium">{formattedDateDisplay}</span>
+        <Calendar className="w-4 h-4 text-discord-blurple" />
+      </motion.button>
 
       {isOpen && (
-        <div
-          className="absolute z-20 mt-2 w-full bg-card rounded-lg shadow-lg border p-4"
+        <motion.div
+          className="absolute z-20 mt-2 w-full bg-card rounded-lg shadow-lg border border-border/50 p-4"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.2 }}
         >
           {/* Calendar Header */}
           <div className="flex justify-between items-center mb-4">
-            <button onClick={handlePrevMonth} className="p-2 rounded-full hover:bg-accent">
+            <motion.button 
+              onClick={handlePrevMonth} 
+              className="p-2 rounded-lg hover:bg-accent/50 transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <ChevronLeft className="w-5 h-5" />
-            </button>
-            <span className="font-semibold text-lg">
+            </motion.button>
+            <span className="font-semibold text-lg text-discord-blurple">
               {months[currentMonth]} {currentYear}
             </span>
-            <button onClick={handleNextMonth} className="p-2 rounded-full hover:bg-accent">
+            <motion.button 
+              onClick={handleNextMonth} 
+              className="p-2 rounded-lg hover:bg-accent/50 transition-colors"
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.95 }}
+            >
               <ChevronRight className="w-5 h-5" />
-            </button>
+            </motion.button>
           </div>
 
           {/* Weekdays */}
@@ -109,24 +125,26 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
           {/* Days */}
           <div className="grid grid-cols-7 gap-1 text-center text-sm">
             {generateCalendarDays().map((day, index) => (
-              <button
+              <motion.button
                 key={index}
                 onClick={() => handleDayClick(day)}
-                className={`p-2 rounded-full
+                className={`p-2 rounded-lg font-medium transition-colors
                   ${day === null ? 'cursor-default' : ''}
                   ${day === new Date(selectedDate).getDate() && currentMonth === new Date(selectedDate).getMonth() && currentYear === new Date(selectedDate).getFullYear()
-                    ? 'bg-discord text-white'
-                    : 'hover:bg-accent'
+                    ? 'bg-discord-blurple text-white'
+                    : 'hover:bg-accent/50'
                   }
                   ${day !== null ? '' : 'text-muted-foreground'}
                 `}
                 disabled={day === null}
+                whileHover={day !== null ? { scale: 1.1 } : {}}
+                whileTap={day !== null ? { scale: 0.95 } : {}}
               >
                 {day}
-              </button>
+              </motion.button>
             ))}
           </div>
-        </div>
+        </motion.div>
       )}
     </div>
   );
@@ -188,18 +206,20 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
   return (
     <div className="relative">
       <label className="flex items-center text-sm font-medium mb-2">
-        <Clock className="w-4 h-4 mr-2 text-discord" />
+        <Clock className="w-4 h-4 mr-2 text-discord-blurple" />
         Time
       </label>
-      <div className="flex items-center justify-around bg-background rounded-lg border px-2 py-2">
+      <div className="flex items-center justify-around bg-background rounded-lg border border-border/60 px-2 py-2 hover:border-discord-blurple/40 transition-all">
         {/* Hour Input */}
         <div className="flex items-center">
-          <button
+          <motion.button
             onClick={decrementHour}
-            className="p-1 rounded-full hover:bg-accent"
+            className="p-1 rounded-lg hover:bg-accent/50 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
             <ChevronLeft className="w-4 h-4" />
-          </button>
+          </motion.button>
           <input
             type="text"
             value={selectedHour === '' ? '' : String(selectedHour).padStart(2, '0')}
@@ -217,24 +237,28 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
               }
             }}
           />
-          <button
+          <motion.button
             onClick={incrementHour}
-            className="p-1 rounded-full hover:bg-accent"
+            className="p-1 rounded-lg hover:bg-accent/50 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
             <ChevronRight className="w-4 h-4" />
-          </button>
+          </motion.button>
         </div>
 
-        <span className="text-xl font-bold">:</span>
+        <span className="text-xl font-bold text-discord-blurple">:</span>
 
         {/* Minute Input */}
         <div className="flex items-center">
-          <button
+          <motion.button
             onClick={decrementMinute}
-            className="p-1 rounded-full hover:bg-accent"
+            className="p-1 rounded-lg hover:bg-accent/50 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
             <ChevronLeft className="w-4 h-4" />
-          </button>
+          </motion.button>
           <input
             type="text"
             value={selectedMinute === '' ? '' : String(selectedMinute).padStart(2, '0')}
@@ -252,12 +276,14 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
               }
             }}
           />
-          <button
+          <motion.button
             onClick={incrementMinute}
-            className="p-1 rounded-full hover:bg-accent"
+            className="p-1 rounded-lg hover:bg-accent/50 transition-colors"
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
           >
             <ChevronRight className="w-4 h-4" />
-          </button>
+          </motion.button>
         </div>
       </div>
     </div>

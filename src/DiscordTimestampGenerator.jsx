@@ -97,7 +97,7 @@ const DiscordTimestampGenerator = () => {
   }, [theme]);
 
   return (
-    <div className="min-h-screen bg-background font-sans">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-background font-sans">
       <Header theme={theme} toggleTheme={toggleTheme} />
 
       <main className="max-w-7xl mx-auto p-4 md:p-6">
@@ -107,10 +107,10 @@ const DiscordTimestampGenerator = () => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-discord mb-2">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-discord-blurple bg-clip-text text-transparent mb-3">
             Create Dynamic Discord Timestamps
           </h2>
-          <p className="text-base md:text-lg max-w-3xl mx-auto text-muted-foreground">
+          <p className="text-base md:text-lg max-w-3xl mx-auto text-muted-foreground leading-relaxed">
             Super simple tool to create dynamic timestamps for Discord in multiple different formats. <br /> <br />
             Dynamic timestamps are timestamps that let all users view the date and time in their local timezone.
           </p>

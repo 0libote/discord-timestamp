@@ -36,7 +36,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
         return (
           <motion.div
             key={type.id}
-            className="bg-card rounded-lg p-4 md:p-5 border hover:border-discord"
+            className="bg-card rounded-lg p-4 md:p-5 border border-border/50 hover:border-discord-blurple/40 shadow-sm hover:shadow-md"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             whileHover={{ scale: 1.02, y: -2 }}
@@ -44,11 +44,11 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
           >
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
               <div className="flex-1 md:flex-initial">
-                <h3 className="text-lg font-semibold">{type.name}</h3>
+                <h3 className="text-lg font-semibold text-primary">{type.name}</h3>
               </div>
 
               <div className="flex-1 text-center">
-                <div className="text-lg md:text-xl font-medium text-discord whitespace-normal break-words">{preview}</div>
+                <div className="text-lg md:text-xl font-medium text-discord-blurple whitespace-normal break-words">{preview}</div>
               </div>
 
               <div className="flex-1 md:flex-initial flex justify-center md:justify-end">
@@ -56,7 +56,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
                   <TooltipTrigger>
                     <motion.button
                       onClick={() => copyToClipboard(timestampCode, type.id)}
-                      className="flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg whitespace-nowrap text-sm min-w-[110px] hover:bg-discord-darker"
+                      className="flex items-center justify-center gap-2 bg-discord-blurple hover:bg-blue-600 text-white px-4 py-2 rounded-lg whitespace-nowrap text-sm min-w-[110px] font-semibold shadow-sm transition-all"
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
                     >

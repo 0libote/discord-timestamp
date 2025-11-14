@@ -6,7 +6,7 @@ import { Tooltip, TooltipTrigger, TooltipContent } from './Tooltip';
 const Footer = ({ currentTheme }) => {
   const [copied, setCopied] = useState(false);
 
-  const webappLink = "0liman.top/timestamp";
+  const webappLink = "https://0libote.github.io/discord-timestamp";
   const githubLink = "https://github.com/0libote/discord-timestamp";
 
   const copyLink = () => {
@@ -45,7 +45,7 @@ const Footer = ({ currentTheme }) => {
           <TooltipTrigger>
             <motion.button
               onClick={copyLink}
-              className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors transition-transform whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker hover:scale-105"
+              className="inline-flex items-center justify-center gap-2 bg-discord text-white px-4 py-2 rounded-lg transition-colors transition-transform whitespace-nowrap text-sm font-medium border border-discord hover:bg-discord-darker hover:scale-105 min-w-[180px]"
               
               whileTap={{ scale: 0.95 }}
             >

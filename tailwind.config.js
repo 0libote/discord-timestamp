@@ -13,8 +13,8 @@ export default {
       },
       colors: {
         discord: {
-          DEFAULT: '#5865F2',
-          darker: '#4752C4', // A darker shade for hover effects
+          DEFAULT: '#5562f6',
+          darker: '#4f5bda', // A darker shade for hover effects
         },
         github: {
           DEFAULT: '#24292E',
@@ -23,7 +23,7 @@ export default {
         // Custom colors for light and dark themes
         background: {
           light: '#F9FAFB', // Gray 50
-          dark: '#1F2937',  // Gray 800
+          dark: '#111827',  // Gray 900
         },
         text: {
           light: '#111827', // Gray 900
@@ -31,7 +31,7 @@ export default {
         },
         card: {
           light: '#FFFFFF', // White
-          dark: '#374151',  // Gray 700
+          dark: '#1F2937',  // Gray 800
         },
       },
       fontFamily: {

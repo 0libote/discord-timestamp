@@ -20,14 +20,14 @@ const Header = ({ theme, toggleTheme }) => {
               <path fill="#FFFFFF" d="M128 72a56 56 0 1 0 0 112a56 56 0 0 0 0-112Z"/>
             </svg>
           </motion.div>
-          <h1 className="text-xl font-bold text-text-light dark:text-text-dark transition-colors duration-300">
+          <h1 className="text-xl font-bold text-text-light dark:text-text-dark transition-colors duration-1000">
             <span className="text-discord">Discord</span> Timestamp Generator
           </h1>
         </div>
         
         <motion.button
           onClick={toggleTheme}
-          className="p-2 rounded-full bg-discord/20 text-text-light dark:text-text-dark hover:bg-discord/40 transition-all transition-transform duration-300 focus:outline-none focus:ring-2 focus:ring-discord hover:scale-110"
+          className="p-2 rounded-full bg-discord/20 text-text-light dark:text-text-dark hover:bg-discord/40 transition-all transition-transform duration-1000 focus:outline-none focus:ring-2 focus:ring-discord hover:scale-110"
           aria-label="Toggle theme"
           
           whileTap={{ scale: 0.9 }}

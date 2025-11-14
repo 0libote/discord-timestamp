@@ -54,7 +54,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="absolute z-10 mt-2 w-full max-h-60 overflow-y-auto scrollbar-hide bg-card-light dark:bg-card-dark rounded-lg border border-discord shadow-lg transition-colors duration-300"
+            className="absolute z-10 mt-2 w-full max-h-60 overflow-y-auto scrollbar-hide bg-card-light dark:bg-card-dark rounded-lg border border-discord shadow-lg transition-colors duration-1000"
           >
             <div className="p-2">
               <div className="relative">
@@ -64,7 +64,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone, currentTheme })
                   placeholder="Search timezones..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full bg-background-light dark:bg-background-dark rounded px-10 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-transparent focus:border-discord transition-colors duration-300"
+                  className="w-full bg-background-light dark:bg-background-dark rounded px-10 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-transparent focus:border-discord transition-colors duration-1000"
                   autoFocus
                 />
               </div>
@@ -129,59 +129,86 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp, 
                 )}
             </div>
 
-            <motion.div initial={{opacity: 0}} animate={{opacity: 1}} transition={{duration: 0.3}} className="flex gap-2">
-                <input
-                    type="text"
-                    placeholder="Name for timestamp..."
-                    value={historyName}
-                    onChange={(e) => setHistoryName(e.target.value)}
-                    className="w-full bg-background-light dark:bg-background-dark rounded-md px-3 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-discord shadow-md transition-colors duration-300"
-                />
-                <motion.button onClick={saveToHistory} className="bg-discord hover:bg-discord-darker text-white px-4 rounded-md text-sm transition-colors" whileTap={{scale: 0.95}}>Save</motion.button>
-            </motion.div>
+            <div className="bg-background-light dark:bg-background-dark p-4 rounded-lg shadow-inner">
+                <div className="flex gap-2">
+                    <input
+                        type="text"
+                        placeholder="Name for current timestamp..."
+                        value={historyName}
+                        onChange={(e) => setHistoryName(e.target.value)}
+                        className="w-full bg-white dark:bg-gray-800 rounded-md px-3 py-2 text-sm text-text-light dark:text-text-dark focus:outline-none focus:ring-2 focus:ring-discord border border-gray-300 dark:border-gray-600 transition-all duration-300"
+                    />
+                    <motion.button 
+                        onClick={saveToHistory} 
+                        className="bg-discord hover:bg-discord-darker text-white px-4 rounded-md text-sm font-semibold transition-colors" 
+                        whileTap={{scale: 0.95}}
+                    >
+                        <Save className="w-4 h-4" />
+                    </motion.button>
+                </div>
+            </div>
 
             {history.length > 0 ? (
-                <div className="space-y-2 max-h-40 overflow-y-auto pr-2 -mr-2 scrollbar-thin-discord">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-56 overflow-y-auto pr-2 -mr-2 scrollbar-thin-discord">
                     {history.map((item) => {
                         const isSelected = new Date(item.timestamp * 1000).toISOString().slice(0, 16) === selectedDate;
                         return (
                             <motion.div
                                 key={item.id}
                                 layout
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                exit={{ opacity: 0, x: -20 }}
-                                className={`group w-full flex items-center justify-between rounded-lg px-3 py-2 border border-gray-200 dark:border-gray-700/50 transition-all duration-200 ${isSelected ? 'border-discord bg-discord/10' : 'hover:border-discord hover:bg-discord/5 hover:scale-[1.02] hover:shadow-md'}`}
-                                
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                animate={{ opacity: 1, scale: 1 }}
+                                exit={{ opacity: 0, scale: 0.9 }}
+                                className={`group relative rounded-lg p-3 border transition-all duration-300 ${isSelected ? 'bg-discord/10 border-discord' : 'bg-background-light dark:bg-background-dark border-gray-200 dark:border-gray-700/50 hover:shadow-lg hover:border-discord'}`}
                             >
-                                <div
-                                    className="flex-grow cursor-pointer"
-                                    onClick={() => {
-                                        const date = new Date(item.timestamp * 1000);
-                                        setSelectedDate(date.toISOString().slice(0, 16));
-                                    }}
-                                >
-                                    <div className={`text-sm font-medium ${isSelected ? 'text-discord' : 'text-text-light dark:text-text-dark'} transition-colors duration-300`}>{item.name}</div>
-                                    <div className="text-xs text-text-light/70 dark:text-text-dark/70">
-                                        {new Date(item.timestamp * 1000).toLocaleString(undefined, {
-                                            year: 'numeric', month: 'short', day: 'numeric',
-                                            hour: 'numeric', minute: '2-digit'
-                                        })}
+                                <div className="flex flex-col h-full">
+                                    <div className="flex-grow mb-2">
+                                        <p className={`font-bold text-sm truncate ${isSelected ? 'text-discord' : 'text-text-light dark:text-text-dark'}`}>{item.name}</p>
+                                        <p className="text-xs text-text-light/70 dark:text-text-dark/70">
+                                            {new Date(item.timestamp * 1000).toLocaleString(undefined, {
+                                                year: 'numeric', month: 'short', day: 'numeric',
+                                                hour: 'numeric', minute: '2-digit'
+                                            })}
+                                        </p>
+                                    </div>
+                                    <div className="flex items-center justify-end gap-2 mt-auto">
+                                        <motion.button 
+                                            onClick={() => {
+                                                const date = new Date(item.timestamp * 1000);
+                                                setSelectedDate(date.toISOString().slice(0, 16));
+                                            }}
+                                            className="text-xs bg-discord/20 text-discord font-semibold px-3 py-1 rounded-md hover:bg-discord/30 transition-colors"
+                                            whileTap={{scale: 0.95}}
+                                        >
+                                            Use
+                                        </motion.button>
+                                        <motion.button 
+                                            onClick={() => deleteHistoryItem(item.id)} 
+                                            className="text-red-500 opacity-50 hover:opacity-100 transition-opacity"
+                                            whileTap={{scale: 0.9}}
+                                        >
+                                            <Trash2 className="w-4 h-4" />
+                                        </motion.button>
                                     </div>
                                 </div>
-                                                                 <motion.button onClick={() => deleteHistoryItem(item.id)} className="p-1 opacity-0 group-hover:opacity-100 transition-opacity text-red-500 hover:text-red-700" whileTap={{scale: 0.9}}>                                    <Trash2 className="w-4 h-4" />
-                                </motion.button>
                             </motion.div>
                         );
                     })}
                 </div>
             ) : (
-                <p className="text-sm text-text-light/70 dark:text-text-dark/70 text-center py-4">No saved history.</p>
+                <div className="text-center py-8">
+                    <History className="w-12 h-12 mx-auto text-gray-300 dark:text-gray-600" />
+                    <p className="mt-4 text-sm text-text-light/70 dark:text-text-dark/70">
+                        No saved history yet.
+                    </p>
+                    <p className="text-xs text-text-light/50 dark:text-text-dark/50 mt-1">
+                        Use the input above to save a timestamp.
+                    </p>
+                </div>
             )}
         </div>
     );
 };
-
 
 const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelectedTimezone, history, setHistory, getUnixTimestamp, longFormDate, theme }) => {
   return (
@@ -189,12 +216,12 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.3 }}
-      className="bg-card-light dark:bg-card-dark rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700 transition-colors duration-300"
+      className="bg-card-light dark:bg-card-dark rounded-2xl p-6 shadow-xl border border-gray-200 dark:border-gray-700 transition-colors duration-1000"
     >
       <div className="space-y-8">
-        <div className="p-4 bg-background-light dark:bg-background-dark rounded-lg border border-discord text-center shadow-xl transition-colors duration-300">
+        <div className="p-4 bg-background-light dark:bg-background-dark rounded-lg border border-discord text-center shadow-xl transition-colors duration-1000">
           <p className="font-semibold text-discord mb-1">Selected Time</p>
-          <div className="text-center font-medium text-base text-text-light dark:text-text-dark transition-colors duration-300">{longFormDate}</div>
+          <div className="text-center font-medium text-base text-text-light dark:text-text-dark transition-colors duration-1000">{longFormDate}</div>
         </div>
 
         <div className="space-y-4">

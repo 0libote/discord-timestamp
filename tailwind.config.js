@@ -8,6 +8,8 @@ export default {
   theme: {
     extend: {
       transitionDuration: {
+        '600': '600ms',
+        '1000': '1000ms',
         '1200': '1200ms',
         '2400': '2400ms',
       },

@@ -54,7 +54,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, currentTheme }) => {
                                 className="bg-card-light dark:bg-card-dark rounded-2xl p-4 md:p-5 shadow-lg border border-gray-200 dark:border-gray-700 hover:border-discord transition-colors"
                                 variants={itemVariants}
                               >                      <div className="grid grid-cols-1 md:grid-cols-3 items-center gap-4 text-center md:text-left">
-                        <h3 className="text-lg font-semibold text-text-light dark:text-text-dark transition-colors duration-300">{type.name}</h3>
+                        <h3 className="text-lg font-semibold text-text-light dark:text-text-dark transition-colors duration-1000">{type.name}</h3>
           
                         <div className="text-center">
                           <div className="text-xl md:text-2xl font-medium text-discord">{preview}</div>

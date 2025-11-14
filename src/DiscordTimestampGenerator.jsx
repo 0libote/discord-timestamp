@@ -97,7 +97,7 @@ const DiscordTimestampGenerator = () => {
   }, [theme]);
 
   return (
-    <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-sans transition-colors duration-300">
+    <div className="min-h-screen bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark font-sans transition-colors duration-1000">
       <Header theme={theme} toggleTheme={toggleTheme} />
 
       <main className="max-w-7xl mx-auto p-4 md:p-6">

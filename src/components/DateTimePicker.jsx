@@ -91,17 +91,17 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 10 }}
             transition={{ duration: 0.3 }}
-            className="absolute z-20 mt-2 w-full bg-card-light dark:bg-card-dark rounded-lg shadow-lg border border-discord p-4"
+            className="absolute z-20 mt-2 w-full bg-card-light dark:bg-card-dark rounded-lg shadow-lg border border-discord p-4 transition-colors duration-1000"
           >
             {/* Calendar Header */}
             <div className="flex justify-between items-center mb-4">
-              <motion.button onClick={handlePrevMonth} className="p-2 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20" whileTap={{ scale: 0.9 }}>
+              <motion.button onClick={handlePrevMonth} className="p-2 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 transition-colors duration-1000" whileTap={{ scale: 0.9 }}>
                 <ChevronLeft className="w-5 h-5 text-text-light dark:text-text-dark" />
               </motion.button>
-              <span className="font-semibold text-lg text-text-light dark:text-text-dark">
+              <span className="font-semibold text-lg text-text-light dark:text-text-dark transition-colors duration-1000">
                 {months[currentMonth]} {currentYear}
               </span>
-              <motion.button onClick={handleNextMonth} className="p-2 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20" whileTap={{ scale: 0.9 }}>
+              <motion.button onClick={handleNextMonth} className="p-2 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 transition-colors duration-1000" whileTap={{ scale: 0.9 }}>
                 <ChevronRight className="w-5 h-5 text-text-light dark:text-text-dark" />
               </motion.button>
             </div>
@@ -119,7 +119,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
                 <motion.button
                   key={index}
                   onClick={() => handleDayClick(day)}
-                  className={`p-2 rounded-full transition-colors
+                  className={`p-2 rounded-full transition-colors duration-1000
                     ${day === null ? 'cursor-default' : ''}
                     ${day === new Date(selectedDate).getDate() && currentMonth === new Date(selectedDate).getMonth() && currentYear === new Date(selectedDate).getFullYear()
                       ? 'bg-discord text-white'
@@ -200,12 +200,12 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
         <Clock className="w-4 h-4 mr-2 text-discord" />
         Time
       </label>
-      <div className="flex items-center justify-around bg-background-light dark:bg-background-dark rounded-lg border border-discord px-2 py-2 shadow-xl text-text-light dark:text-text-dark">
+      <div className="flex items-center justify-around bg-background-light dark:bg-background-dark rounded-lg border border-discord px-2 py-2 shadow-xl text-text-light dark:text-text-dark transition-colors duration-1000">
         {/* Hour Input */}
         <div className="flex items-center">
           <motion.button
             onClick={decrementHour}
-            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
+            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark transition-colors duration-1000"
             whileTap={{ scale: 0.9 }}
           >
             <ChevronLeft className="w-4 h-4" />
@@ -215,7 +215,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
             value={selectedHour === '' ? '' : String(selectedHour).padStart(2, '0')}
             onChange={handleHourChange}
             onBlur={handleHourBlur}
-            className="w-12 text-center bg-transparent text-text-light dark:text-text-dark text-lg font-semibold focus:outline-none"
+            className="w-12 text-center bg-transparent text-text-light dark:text-text-dark text-lg font-semibold focus:outline-none transition-colors duration-1000"
             aria-label="Selected Hour"
             onKeyDown={(e) => {
               if (e.key === 'ArrowUp') {
@@ -229,20 +229,20 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
           />
           <motion.button
             onClick={incrementHour}
-            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
+            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark transition-colors duration-1000"
             whileTap={{ scale: 0.9 }}
           >
             <ChevronRight className="w-4 h-4" />
           </motion.button>
         </div>
 
-        <span className="text-xl font-bold text-text-light dark:text-text-dark">:</span>
+        <span className="text-xl font-bold text-text-light dark:text-text-dark transition-colors duration-1000">:</span>
 
         {/* Minute Input */}
         <div className="flex items-center">
           <motion.button
             onClick={decrementMinute}
-            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
+            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark transition-colors duration-1000"
             whileTap={{ scale: 0.9 }}
           >
             <ChevronLeft className="w-4 h-4" />
@@ -252,7 +252,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
             value={selectedMinute === '' ? '' : String(selectedMinute).padStart(2, '0')}
             onChange={handleMinuteChange}
             onBlur={handleMinuteBlur}
-            className="w-12 text-center bg-transparent text-text-light dark:text-text-dark text-lg font-semibold focus:outline-none"
+            className="w-12 text-center bg-transparent text-text-light dark:text-text-dark text-lg font-semibold focus:outline-none transition-colors duration-1000"
             aria-label="Selected Minute"
             onKeyDown={(e) => {
               if (e.key === 'ArrowUp') {
@@ -266,7 +266,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate, theme }) => {
           />
           <motion.button
             onClick={incrementMinute}
-            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark"
+            className="p-1 rounded-full hover:bg-discord/20 dark:hover:bg-discord/20 text-text-light dark:text-text-dark transition-colors duration-1000"
             whileTap={{ scale: 0.9 }}
           >
             <ChevronRight className="w-4 h-4" />

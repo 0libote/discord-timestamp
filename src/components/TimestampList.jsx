@@ -13,31 +13,28 @@ const TimestampItem = ({ format, description, code, preview }) => {
 
   return (
     <motion.div
-      className="group relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-4 hover:border-primary/30 hover:shadow-md transition-all duration-300"
+      className="group relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-4 hover:border-primary/30 hover:shadow-md transition-all duration-300 theme-transition"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.005 }}
     >
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex-1 space-y-1">
-          <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-md">
-              {format}
-            </span>
-            <span className="text-sm text-muted-foreground font-medium">
+          <div className="flex items-center gap-2 mb-1">
+            <span className="text-sm font-semibold text-foreground">
               {description}
             </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="text-base md:text-lg font-medium text-foreground">
+            <div className="text-base md:text-lg font-medium text-muted-foreground group-hover:text-foreground transition-colors">
               {preview}
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-3 md:w-auto w-full">
-          <div className="flex-1 md:flex-none bg-secondary/30 rounded-lg px-3 py-2 font-mono text-sm text-muted-foreground border border-border/50 select-all">
+          <div className="flex-1 md:flex-none bg-secondary/30 rounded-lg px-3 py-2 font-mono text-sm text-muted-foreground border border-border/50 select-all theme-transition">
             {code}
           </div>
 
@@ -82,13 +79,13 @@ const TimestampList = ({ getUnixTimestamp, formatPreview }) => {
   const unixTimestamp = getUnixTimestamp();
 
   const formats = [
-    { type: 'R', label: 'Relative Time', desc: 'Shows how long ago or until' },
-    { type: 't', label: 'Short Time', desc: '12/24hr based on locale' },
-    { type: 'T', label: 'Long Time', desc: 'With seconds' },
-    { type: 'd', label: 'Short Date', desc: 'Numeric date' },
-    { type: 'D', label: 'Long Date', desc: 'Month name' },
-    { type: 'f', label: 'Short Date/Time', desc: 'Date and time' },
-    { type: 'F', label: 'Long Date/Time', desc: 'Weekday, date, and time' },
+    { type: 'R', label: 'Relative', desc: 'Relative Time' },
+    { type: 't', label: 'Short Time', desc: 'Time (Short)' },
+    { type: 'T', label: 'Long Time', desc: 'Time (Long)' },
+    { type: 'd', label: 'Short Date', desc: 'Date (Short)' },
+    { type: 'D', label: 'Long Date', desc: 'Date (Long)' },
+    { type: 'f', label: 'Short Date/Time', desc: 'Date & Time (Short)' },
+    { type: 'F', label: 'Long Date/Time', desc: 'Date & Time (Long)' },
   ];
 
   return (

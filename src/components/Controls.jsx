@@ -133,33 +133,34 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
   return (
     <div className="space-y-4 border-t border-border/50 pt-6 mt-6">
       <div className="flex items-center justify-between mb-3">
-        <label className="text-sm font-medium text-foreground">
+        <label className="text-sm font-medium text-foreground flex items-center gap-2">
+          <History className="w-4 h-4 text-primary" />
           History
         </label>
         {history.length > 0 && (
           <motion.button
             onClick={clearAllHistory}
-            className="text-xs bg-destructive/10 text-destructive hover:bg-destructive/20 px-2 py-1 rounded-md transition-colors font-medium"
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            className="text-xs font-bold text-destructive bg-destructive/10 hover:bg-destructive/20 px-3 py-1.5 rounded-lg transition-colors theme-transition"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
           >
             Clear All
           </motion.button>
         )}
       </div>
 
-      <div className="bg-secondary/30 p-1.5 rounded-xl border border-border/50 flex gap-2">
+      <div className="bg-secondary/30 p-1.5 rounded-xl border border-border/50 flex gap-2 theme-transition">
         <input
           type="text"
           placeholder="Label this timestamp..."
           value={historyName}
           onChange={(e) => setHistoryName(e.target.value)}
-          className="flex-1 bg-transparent px-3 py-2 text-sm focus:outline-none placeholder:text-muted-foreground/50"
+          className="flex-1 bg-transparent px-3 py-2 text-sm focus:outline-none placeholder:text-muted-foreground/50 text-foreground"
           onKeyDown={(e) => e.key === 'Enter' && saveToHistory()}
         />
         <motion.button
           onClick={saveToHistory}
-          className="bg-primary text-primary-foreground px-4 rounded-lg text-sm font-medium shadow-sm hover:bg-primary/90 transition-colors"
+          className="bg-primary text-primary-foreground px-4 rounded-lg text-sm font-medium shadow-sm hover:bg-primary/90 transition-colors theme-transition"
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
           disabled={!historyName}
@@ -171,7 +172,8 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
       <AnimatePresence mode='popLayout'>
         {history.length > 0 ? (
           <motion.div
-            className="grid grid-cols-1 gap-2 max-h-60 overflow-y-auto pr-1 custom-scrollbar"
+            className="grid grid-cols-1 gap-2 max-h-60 overflow-y-auto pr-1"
+            layout
           >
             {history.map((item) => (
               <motion.div
@@ -180,7 +182,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                className="group relative bg-card hover:bg-accent/50 rounded-xl p-3 border border-border/50 hover:border-primary/30 transition-all flex items-center justify-between"
+                className="group relative bg-card/50 hover:bg-card rounded-xl p-3 border border-border/50 hover:border-primary/30 transition-all theme-transition flex items-center justify-between shadow-sm"
               >
                 <div className="min-w-0 flex-1 mr-3">
                   <p className="font-medium text-sm truncate text-foreground">{item.name}</p>
@@ -219,7 +221,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center py-8 border-2 border-dashed border-border/50 rounded-xl"
+            className="text-center py-8 border-2 border-dashed border-border/50 rounded-xl bg-secondary/10"
           >
             <History className="w-8 h-8 mx-auto text-muted-foreground/30 mb-2" />
             <p className="text-sm text-muted-foreground">No history yet</p>

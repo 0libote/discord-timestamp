@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Globe, Search, History, Save, Trash2, X, Clock } from 'lucide-react';
+import { Globe, Search, History, Save, Trash2, X, Clock, Copy, Check } from 'lucide-react';
 import { DatePickerInput, TimePickerInput } from './DateTimePicker';
 
 const TimezonePicker = ({ selectedTimezone, setSelectedTimezone }) => {
@@ -34,7 +34,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone }) => {
 
   return (
     <div className="relative" ref={pickerRef}>
-      <label className="block text-sm font-semibold mb-2 text-muted-foreground uppercase tracking-wider">
+      <label className="block text-sm font-bold mb-2 text-foreground uppercase tracking-wider">
         Timezone
       </label>
       <motion.button
@@ -135,14 +135,14 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
   return (
     <div className="space-y-4 border-t border-white/10 pt-6 mt-6">
       <div className="flex items-center justify-between mb-3">
-        <label className="text-sm font-semibold text-foreground flex items-center gap-2 uppercase tracking-wider">
+        <label className="text-sm font-bold text-foreground flex items-center gap-2 uppercase tracking-wider">
           <History className="w-4 h-4 text-primary" />
           History
         </label>
         {history.length > 0 && (
           <motion.button
             onClick={clearAllHistory}
-            className="text-xs font-bold text-destructive bg-destructive/10 hover:bg-destructive/20 px-3 py-1.5 rounded-lg transition-colors"
+            className="text-xs font-bold text-white bg-destructive hover:bg-destructive/90 px-3 py-1.5 rounded-lg transition-colors shadow-md shadow-destructive/20"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
@@ -174,7 +174,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
       <AnimatePresence mode='popLayout'>
         {history.length > 0 ? (
           <motion.div
-            className="grid grid-cols-1 gap-2 max-h-60 overflow-y-auto pr-1 custom-scrollbar"
+            className="grid grid-cols-1 gap-3 max-h-60 overflow-y-auto pr-1 custom-scrollbar"
             layout
           >
             {history.map((item) => (
@@ -184,38 +184,44 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                className="group relative bg-card/40 hover:bg-card/60 rounded-xl p-3 border border-white/5 hover:border-primary/30 transition-all flex items-center justify-between shadow-sm backdrop-blur-sm"
+                className="group relative glass-card rounded-xl p-4 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 overflow-hidden"
+                whileHover={{ scale: 1.01 }}
               >
-                <div className="min-w-0 flex-1 mr-3">
-                  <p className="font-medium text-sm truncate text-foreground group-hover:text-primary transition-colors">{item.name}</p>
-                  <p className="text-xs text-muted-foreground flex items-center gap-1 mt-0.5">
-                    <Clock className="w-3 h-3" />
-                    {new Date(item.timestamp * 1000).toLocaleString(undefined, {
-                      month: 'short', day: 'numeric',
-                      hour: 'numeric', minute: '2-digit'
-                    })}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                  <motion.button
-                    onClick={() => {
-                      const date = new Date(item.timestamp * 1000);
-                      setSelectedDate(date.toISOString().slice(0, 16));
-                    }}
-                    className="text-xs bg-primary/10 text-primary font-medium px-2.5 py-1.5 rounded-lg hover:bg-primary/20 transition-colors"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    Load
-                  </motion.button>
-                  <motion.button
-                    onClick={() => deleteHistoryItem(item.id)}
-                    className="p-1.5 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
-                    whileHover={{ scale: 1.1 }}
-                    whileTap={{ scale: 0.9 }}
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </motion.button>
+                {/* Hover glow effect */}
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 translate-x-[-100%] group-hover:animate-[shimmer_2s_infinite]" />
+
+                <div className="flex items-center justify-between relative z-10">
+                  <div className="min-w-0 flex-1 mr-3">
+                    <p className="font-bold text-sm truncate text-foreground group-hover:text-primary transition-colors">{item.name}</p>
+                    <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+                      <Clock className="w-3 h-3" />
+                      {new Date(item.timestamp * 1000).toLocaleString(undefined, {
+                        month: 'short', day: 'numeric',
+                        hour: 'numeric', minute: '2-digit'
+                      })}
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <motion.button
+                      onClick={() => {
+                        const date = new Date(item.timestamp * 1000);
+                        setSelectedDate(date.toISOString().slice(0, 16));
+                      }}
+                      className="text-xs bg-primary text-primary-foreground font-medium px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Load
+                    </motion.button>
+                    <motion.button
+                      onClick={() => deleteHistoryItem(item.id)}
+                      className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
+                      whileHover={{ scale: 1.1 }}
+                      whileTap={{ scale: 0.9 }}
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </motion.button>
+                  </div>
                 </div>
               </motion.div>
             ))}

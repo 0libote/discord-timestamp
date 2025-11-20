@@ -34,8 +34,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone }) => {
 
   return (
     <div className="relative" ref={pickerRef}>
-      <label className="flex items-center text-sm font-medium mb-2 text-muted-foreground">
-        <Globe className="w-4 h-4 mr-2 text-primary" />
+      <label className="block text-sm font-medium mb-2 text-foreground">
         Timezone
       </label>
       <motion.button
@@ -133,19 +132,17 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
 
   return (
     <div className="space-y-4 border-t border-border/50 pt-6 mt-6">
-      <div className="flex items-center justify-between">
-        <label className="flex items-center text-sm font-medium text-muted-foreground">
-          <History className="w-4 h-4 mr-2 text-primary" />
+      <div className="flex items-center justify-between mb-3">
+        <label className="text-sm font-medium text-foreground">
           History
         </label>
         {history.length > 0 && (
           <motion.button
             onClick={clearAllHistory}
-            className="flex items-center text-xs text-destructive hover:text-destructive/80 transition-colors"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="text-xs bg-destructive/10 text-destructive hover:bg-destructive/20 px-2 py-1 rounded-md transition-colors font-medium"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
-            <Trash2 className="w-3 h-3 mr-1" />
             Clear All
           </motion.button>
         )}
@@ -236,18 +233,18 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
 const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelectedTimezone, history, setHistory, getUnixTimestamp, longFormDate }) => {
   return (
     <motion.div
-      className="bg-card/50 backdrop-blur-xl rounded-2xl p-6 border border-border shadow-xl h-full flex flex-col"
-      initial={{ opacity: 0, x: -20 }}
-      animate={{ opacity: 1, x: 0 }}
+      className="bg-card rounded-xl p-6 border border-border shadow-sm h-full flex flex-col"
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
     >
       <div className="space-y-6 flex-1">
         <motion.div
-          className="p-4 bg-gradient-to-br from-primary/10 to-secondary/50 rounded-xl border border-primary/10 text-center"
+          className="p-4 bg-secondary/50 rounded-lg border border-border text-center"
           whileHover={{ scale: 1.01 }}
-          transition={{ type: "spring", stiffness: 300 }}
+          transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
-          <p className="font-medium text-primary mb-1 text-xs uppercase tracking-wider">Preview Time</p>
+          <p className="font-medium text-muted-foreground mb-1 text-xs uppercase tracking-wider">Preview Time</p>
           <div className="text-center font-semibold text-sm md:text-base text-foreground">{longFormDate}</div>
         </motion.div>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Moon, Sun, Github } from 'lucide-react';
+import { Moon, Sun, Github, Clock } from 'lucide-react';
 
 const Header = ({ theme, toggleTheme }) => {
   return (
@@ -11,10 +11,10 @@ const Header = ({ theme, toggleTheme }) => {
       transition={{ duration: 0.5 }}
     >
       <div className="flex items-center gap-3">
-        <div className="relative w-10 h-10 flex items-center justify-center bg-primary rounded-xl shadow-lg shadow-primary/20">
-          <span className="text-2xl">⏰</span>
+        <div className="relative w-10 h-10 flex items-center justify-center bg-primary/10 rounded-xl text-primary">
+          <Clock size={24} />
         </div>
-        <h1 className="text-xl font-bold tracking-tight hidden md:block">
+        <h1 className="text-xl font-bold tracking-tight hidden md:block text-foreground">
           Discord <span className="text-primary">Timestamps</span>
         </h1>
       </div>

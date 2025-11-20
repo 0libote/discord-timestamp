@@ -44,8 +44,8 @@ const TimestampItem = ({ format, description, code, preview }) => {
           <motion.button
             onClick={handleCopy}
             className={`p-2.5 rounded-lg transition-all duration-200 flex-shrink-0 ${copied
-                ? 'bg-green-500 text-white shadow-green-500/20 shadow-lg'
-                : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md'
+              ? 'bg-green-500 text-white shadow-green-500/20 shadow-lg'
+              : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md'
               }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -93,18 +93,17 @@ const TimestampList = ({ getUnixTimestamp, formatPreview }) => {
 
   return (
     <div className="space-y-4 h-full">
-      <div className="flex items-center gap-2 mb-6">
-        <Code2 className="w-5 h-5 text-primary" />
-        <h3 className="text-lg font-semibold">Generated Codes</h3>
+      <div className="mb-4">
+        <h3 className="text-lg font-semibold text-foreground">Generated Codes</h3>
       </div>
 
-      <div className="grid gap-4">
+      <div className="grid gap-3">
         {formats.map((fmt, index) => (
           <motion.div
             key={fmt.type}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
+            transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
           >
             <TimestampItem
               format={fmt.type}
@@ -117,12 +116,12 @@ const TimestampList = ({ getUnixTimestamp, formatPreview }) => {
       </div>
 
       <motion.div
-        className="mt-8 p-4 bg-accent/10 border border-accent/20 rounded-xl text-sm text-muted-foreground text-center"
+        className="mt-8 p-4 bg-secondary/50 border border-border rounded-lg text-sm text-muted-foreground text-center"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 0.5 }}
+        transition={{ delay: 0.4 }}
       >
-        <p>💡 Pro tip: Paste these codes directly into Discord to see the magic happen!</p>
+        <p>Paste the code directly into your Discord message to display the timestamp.</p>
       </motion.div>
     </div>
   );

@@ -67,45 +67,8 @@ const DiscordTimestampGenerator = () => {
       case 'd': return date.toLocaleDateString([], { year: 'numeric', month: '2-digit', day: '2-digit' });
       case 'D': return date.toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' });
       case 'f': return `${date.toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' })} ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
-      case 'F': return `${date.toLocaleDateString([], { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })} ${date.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' })}`;
-      case 'R': return '2 minutes ago'; // Dynamic relative time is hard to preview statically without a lib
-      default: return '';
-    }
-  };
 
-  const longFormDate = new Date(selectedDate).toLocaleDateString(undefined, {
-    weekday: 'long',
-    year: 'numeric',
-    animate={{ opacity: 1, x: 0 }}
-transition = {{ delay: 0.2, duration: 0.6 }}
-          >
-  <Controls
-    selectedDate={selectedDate}
-    setSelectedDate={setSelectedDate}
-    selectedTimezone={selectedTimezone}
-    setSelectedTimezone={setSelectedTimezone}
-    history={history}
-    setHistory={setHistory}
-    getUnixTimestamp={getUnixTimestamp}
-    longFormDate={longFormDate}
-  />
-          </motion.div >
-
-  <motion.div
-    className="lg:col-span-7"
-    initial={{ opacity: 0, x: 20 }}
-    animate={{ opacity: 1, x: 0 }}
-    transition={{ delay: 0.4, duration: 0.6 }}
-  >
-    <TimestampList
-      getUnixTimestamp={getUnixTimestamp}
-      formatPreview={formatPreview}
-    />
-  </motion.div>
-        </div >
-      </main >
-
-  <Footer />
+        <Footer />
     </div >
   );
 };

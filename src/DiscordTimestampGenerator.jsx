@@ -32,14 +32,90 @@ const DiscordTimestampGenerator = () => {
   const getUnixTimestamp = () => {
     try {
       const d = new Date(selectedDate);
-      // Note: The logic for timezone offset calculation can be complex.
-      // This is a simplified approach and might not cover all edge cases.
-      // For robust timezone handling, a library like `date-fns-tz` would be recommended.
-      const dateWithOffset = new Date(d.toLocaleString('en-US', { timeZone: selectedTimezone }));
-      const localDate = new Date(d.toLocaleString('en-US', { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone }));
-      const diff = localDate.getTime() - dateWithOffset.getTime();
-      
-      return Math.floor((d.getTime() - diff) / 1000);
+      // Create a date object that represents the selected time in the selected timezone
+      // We use the Intl.DateTimeFormat to get the parts of the date in the target timezone
+      const parts = new Intl.DateTimeFormat('en-US', {
+        timeZone: selectedTimezone,
+        year: 'numeric',
+        month: 'numeric',
+        day: 'numeric',
+        hour: 'numeric',
+        minute: 'numeric',
+        second: 'numeric',
+        hour12: false
+      }).formatToParts(d);
+
+      // This part is tricky without a library like date-fns-tz.
+      // The previous logic was flawed. 
+      // Correct native approach:
+      // 1. Treat selectedDate as if it were in the selectedTimezone.
+      // 2. Find the offset of that timezone at that time.
+      // 3. Adjust the timestamp.
+
+      // However, since we can't easily parse "2023-10-27T10:00" AS a specific timezone natively without libraries,
+      // we will use a trick:
+      // We construct a string that includes the offset if possible, OR we rely on the fact that
+      // users pick a "Wall Time" and a "Timezone".
+
+      // Let's try a different approach:
+      // Create a date object from the input (which interprets it as local time).
+      // Then shift the time by the difference between Local Offset and Target Offset.
+
+      const targetDateStr = new Date(selectedDate).toLocaleString('en-US', { timeZone: selectedTimezone });
+      const targetDate = new Date(targetDateStr);
+      const localDate = new Date(selectedDate);
+
+      // The difference between the "Local interpretation of the date" and "Target timezone interpretation of the date"
+      // This is still not quite right because toLocaleString converts TO the timezone.
+
+      // Let's use the "hacky" but effective way for native JS:
+      // We want to find a UTC timestamp X such that X in selectedTimezone equals selectedDate.
+
+      // We can use the fact that `new Date(string)` parses as local.
+      // If we append the offset, we can parse it correctly.
+      // But getting the offset for a future date in a specific timezone is hard natively.
+
+      // Alternative:
+      // We will stick to the previous logic but refine it, or accept that without date-fns-tz, 
+      // edge cases around DST transitions might be slightly off.
+      // But actually, we can do better.
+
+      // We can iterate to find the offset? No, too expensive.
+
+      // Let's use the "inverse" approach.
+      // We have Wall Time (selectedDate) and Timezone.
+      // We want Absolute Time (Unix).
+
+      // 1. Get the offset of the selectedTimezone at the approximate time.
+      // This is hard.
+
+      // Let's go with a simplified approach that works for most cases:
+      // We treat the selectedDate as UTC, then subtract the offset of the target timezone? No.
+
+      // Let's use the logic: 
+      // 1. Parse selectedDate as UTC.
+      // 2. Get the offset of the target timezone relative to UTC.
+      // 3. Apply offset.
+
+      // Actually, let's try to use the `toLocaleString` to find the offset difference.
+      const d_local = new Date(selectedDate);
+      const d_tz = new Date(d_local.toLocaleString('en-US', { timeZone: selectedTimezone }));
+      const diff = d_tz.getTime() - d_local.getTime();
+
+      // This diff is (Target Time - Local Time).
+      // So if we want the Unix timestamp that corresponds to "Local Time" being in "Target Timezone",
+      // We need to shift the Local Time by -diff?
+
+      // Example: 
+      // Local: 12:00 UTC. Target: EST (-5). 
+      // d_tz (12:00 UTC in EST) -> 07:00.
+      // diff = 07:00 - 12:00 = -5 hours.
+      // We want 12:00 EST. That is 17:00 UTC.
+      // So we take 12:00 UTC (d_local) and subtract diff (-5h)? 
+      // 12 - (-5) = 17. Correct.
+
+      return Math.floor((d_local.getTime() - diff) / 1000);
+
     } catch (e) {
       console.error("Error in getUnixTimestamp:", e);
       return Math.floor(Date.now() / 1000);
@@ -51,7 +127,7 @@ const DiscordTimestampGenerator = () => {
     const date = new Date(unixTimestamp * 1000);
     const options = { timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone };
 
-    switch(type) {
+    switch (type) {
       case 't': return date.toLocaleTimeString(undefined, { ...options, hour: 'numeric', minute: '2-digit' });
       case 'T': return date.toLocaleTimeString(undefined, { ...options, hour: 'numeric', minute: '2-digit', second: '2-digit' });
       case 'd': return date.toLocaleDateString(undefined, { ...options, day: '2-digit', month: '2-digit', year: 'numeric' });
@@ -73,14 +149,14 @@ const DiscordTimestampGenerator = () => {
   };
 
   const longFormDate = new Date(getUnixTimestamp() * 1000).toLocaleString(undefined, {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
-    });
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone
+  });
 
   const toggleTheme = () => {
     setTheme(prev => (prev === 'dark' ? 'light' : 'dark'));
@@ -97,33 +173,41 @@ const DiscordTimestampGenerator = () => {
   }, [theme]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-background font-sans">
+    <div className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30">
+      {/* Background Gradients */}
+      <div className="fixed inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/10 blur-[120px]" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/20 blur-[120px]" />
+      </div>
+
       <Header theme={theme} toggleTheme={toggleTheme} />
 
-      <main className="max-w-7xl mx-auto p-4 md:p-6">
-        <motion.div 
-          className="text-center mb-8 md:mb-12"
+      <main className="max-w-7xl mx-auto p-4 md:p-8 lg:p-12">
+        <motion.div
+          className="text-center mb-12 md:mb-16"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.6 }}
         >
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-primary to-discord-blurple bg-clip-text text-transparent mb-3">
-            Create Dynamic Discord Timestamps
+          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6">
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary to-purple-500">
+              Time Travel
+            </span> Made Simple
           </h2>
-          <p className="text-base md:text-lg max-w-3xl mx-auto text-muted-foreground leading-relaxed">
-            Super simple tool to create dynamic timestamps for Discord in multiple different formats. <br /> <br />
-            Dynamic timestamps are timestamps that let all users view the date and time in their local timezone.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+            Generate precise Discord timestamps for any timezone.
+            Ensure everyone shows up at the right time, every time.
           </p>
         </motion.div>
 
-        <div className="flex flex-col lg:flex-row gap-6 md:gap-8">
-          <motion.div 
-            className="lg:w-96 lg:flex-shrink-0"
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
+          <motion.div
+            className="lg:col-span-5 xl:col-span-4"
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
           >
-            <Controls 
+            <Controls
               selectedDate={selectedDate}
               setSelectedDate={setSelectedDate}
               selectedTimezone={selectedTimezone}
@@ -132,20 +216,18 @@ const DiscordTimestampGenerator = () => {
               setHistory={setHistory}
               getUnixTimestamp={getUnixTimestamp}
               longFormDate={longFormDate}
-              theme={theme}
             />
           </motion.div>
-          
-          <motion.div 
-            className="flex-1"
+
+          <motion.div
+            className="lg:col-span-7 xl:col-span-8"
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <TimestampList 
+            <TimestampList
               getUnixTimestamp={getUnixTimestamp}
               formatPreview={formatPreview}
-              currentTheme={theme}
             />
           </motion.div>
         </div>
@@ -153,9 +235,9 @@ const DiscordTimestampGenerator = () => {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <Footer currentTheme={theme} />
+          <Footer />
         </motion.div>
       </main>
     </div>

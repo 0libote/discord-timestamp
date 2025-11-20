@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
-import { Calendar, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Calendar as CalendarIcon, ChevronLeft, ChevronRight, Clock } from 'lucide-react';
 
 const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -23,7 +23,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
   }, []);
 
   const daysInMonth = (month, year) => new Date(year, month + 1, 0).getDate();
-  const firstDayOfMonth = (month, year) => new Date(year, month, 1).getDay(); // 0 for Sunday, 1 for Monday
+  const firstDayOfMonth = (month, year) => new Date(year, month, 1).getDay();
 
   const generateCalendarDays = () => {
     const totalDays = daysInMonth(currentMonth, currentYear);
@@ -31,7 +31,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
     const days = [];
 
     for (let i = 0; i < startDay; i++) {
-      days.push(null); // Placeholder for days before the 1st
+      days.push(null);
     }
     for (let i = 1; i <= totalDays; i++) {
       days.push(i);
@@ -63,7 +63,6 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
     day: 'numeric',
   });
 
-  const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const months = [
     'January', 'February', 'March', 'April', 'May', 'June',
     'July', 'August', 'September', 'October', 'November', 'December',
@@ -71,81 +70,90 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
 
   return (
     <div className="relative" ref={pickerRef}>
-      <label className="flex items-center text-sm font-medium mb-2">
-        <Calendar className="w-4 h-4 mr-2 text-discord-blurple" />
+      <label className="flex items-center text-sm font-medium mb-2 text-muted-foreground">
+        <CalendarIcon className="w-4 h-4 mr-2 text-primary" />
         Date
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-background text-foreground rounded-lg border border-border/60 hover:border-discord-blurple/40 hover:shadow-sm focus:outline-none focus:ring-2 focus:ring-discord-blurple/30 px-4 py-3 flex items-center justify-between transition-all"
+        className="w-full bg-secondary/50 backdrop-blur-sm text-foreground rounded-xl border border-border hover:border-primary/50 hover:bg-secondary/80 px-4 py-3 flex items-center justify-between transition-all shadow-sm"
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
       >
         <span className="font-medium">{formattedDateDisplay}</span>
-        <Calendar className="w-4 h-4 text-discord-blurple" />
+        <CalendarIcon className="w-4 h-4 text-primary" />
       </motion.button>
 
-      {isOpen && (
-        <motion.div
-          className="absolute z-20 mt-2 w-full bg-card rounded-lg shadow-lg border border-border/50 p-4"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.2 }}
-        >
-          {/* Calendar Header */}
-          <div className="flex justify-between items-center mb-4">
-            <motion.button 
-              onClick={handlePrevMonth} 
-              className="p-2 rounded-lg hover:bg-accent/50 transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ChevronLeft className="w-5 h-5" />
-            </motion.button>
-            <span className="font-semibold text-lg text-discord-blurple">
-              {months[currentMonth]} {currentYear}
-            </span>
-            <motion.button 
-              onClick={handleNextMonth} 
-              className="p-2 rounded-lg hover:bg-accent/50 transition-colors"
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <ChevronRight className="w-5 h-5" />
-            </motion.button>
-          </div>
-
-          {/* Weekdays */}
-          <div className="grid grid-cols-7 text-center text-sm font-medium text-muted-foreground mb-2">
-            {weekdays.map((day) => (
-              <div key={day}>{day}</div>
-            ))}
-          </div>
-
-          {/* Days */}
-          <div className="grid grid-cols-7 gap-1 text-center text-sm">
-            {generateCalendarDays().map((day, index) => (
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            className="absolute z-50 mt-2 w-full bg-popover/95 backdrop-blur-xl rounded-xl shadow-2xl border border-border p-4"
+            initial={{ opacity: 0, y: -10, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -10, scale: 0.95 }}
+            transition={{ duration: 0.2 }}
+          >
+            <div className="flex justify-between items-center mb-4">
               <motion.button
-                key={index}
-                onClick={() => handleDayClick(day)}
-                className={`p-2 rounded-lg font-medium transition-colors
-                  ${day === null ? 'cursor-default' : ''}
-                  ${day === new Date(selectedDate).getDate() && currentMonth === new Date(selectedDate).getMonth() && currentYear === new Date(selectedDate).getFullYear()
-                    ? 'bg-discord-blurple text-white'
-                    : 'hover:bg-accent/50'
-                  }
-                  ${day !== null ? '' : 'text-muted-foreground'}
-                `}
-                disabled={day === null}
-                whileHover={day !== null ? { scale: 1.1 } : {}}
-                whileTap={day !== null ? { scale: 0.95 } : {}}
+                onClick={handlePrevMonth}
+                className="p-2 rounded-lg hover:bg-accent transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
               >
-                {day}
+                <ChevronLeft className="w-5 h-5" />
               </motion.button>
-            ))}
-          </div>
-        </motion.div>
-      )}
+              <span className="font-semibold text-primary">
+                {months[currentMonth]} {currentYear}
+              </span>
+              <motion.button
+                onClick={handleNextMonth}
+                className="p-2 rounded-lg hover:bg-accent transition-colors"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                <ChevronRight className="w-5 h-5" />
+              </motion.button>
+            </div>
+
+            <div className="grid grid-cols-7 text-center text-xs font-medium text-muted-foreground mb-2 uppercase tracking-wider">
+              {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => (
+                <div key={day}>{day}</div>
+              ))}
+            </div>
+
+            <div className="grid grid-cols-7 gap-1 text-center text-sm">
+              {generateCalendarDays().map((day, index) => {
+                const isSelected = day === new Date(selectedDate).getDate() &&
+                  currentMonth === new Date(selectedDate).getMonth() &&
+                  currentYear === new Date(selectedDate).getFullYear();
+
+                return (
+                  <motion.button
+                    key={index}
+                    onClick={() => handleDayClick(day)}
+                    className={`p-2 rounded-lg font-medium transition-all relative
+                      ${day === null ? 'invisible' : ''}
+                      ${isSelected ? 'bg-primary text-primary-foreground shadow-md' : 'hover:bg-accent hover:text-accent-foreground'}
+                    `}
+                    disabled={day === null}
+                    whileHover={day !== null ? { scale: 1.1, zIndex: 10 } : {}}
+                    whileTap={day !== null ? { scale: 0.95 } : {}}
+                  >
+                    {day}
+                    {isSelected && (
+                      <motion.div
+                        layoutId="selectedDay"
+                        className="absolute inset-0 bg-primary rounded-lg -z-10"
+                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                      />
+                    )}
+                  </motion.button>
+                );
+              })}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };
@@ -161,6 +169,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
     setSelectedDate(newDate.toISOString().slice(0, 16));
   }, [selectedHour, selectedMinute]);
 
+  // Handlers for inputs...
   const handleHourChange = (e) => {
     const value = e.target.value;
     if (value === '' || (parseInt(value, 10) >= 0 && parseInt(value, 10) <= 23)) {
@@ -175,114 +184,80 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
     }
   };
 
-  const handleHourBlur = () => {
-    if (selectedHour === '') {
-      setSelectedHour(0);
-    }
+  const handleBlur = (setter, value, max) => {
+    if (value === '') setter(0);
   };
 
-  const handleMinuteBlur = () => {
-    if (selectedMinute === '') {
-      setSelectedMinute(0);
-    }
-  };
-
-  const incrementHour = () => {
-    setSelectedHour((prev) => (prev === 23 ? 0 : prev + 1));
-  };
-
-  const decrementHour = () => {
-    setSelectedHour((prev) => (prev === 0 ? 23 : prev - 1));
-  };
-
-  const incrementMinute = () => {
-    setSelectedMinute((prev) => (prev === 59 ? 0 : prev + 1));
-  };
-
-  const decrementMinute = () => {
-    setSelectedMinute((prev) => (prev === 0 ? 59 : prev - 1));
+  const adjustTime = (setter, current, max, increment) => {
+    setter(prev => {
+      let next = prev + increment;
+      if (next > max) next = 0;
+      if (next < 0) next = max;
+      return next;
+    });
   };
 
   return (
     <div className="relative">
-      <label className="flex items-center text-sm font-medium mb-2">
-        <Clock className="w-4 h-4 mr-2 text-discord-blurple" />
+      <label className="flex items-center text-sm font-medium mb-2 text-muted-foreground">
+        <Clock className="w-4 h-4 mr-2 text-primary" />
         Time
       </label>
-      <div className="flex items-center justify-around bg-background rounded-lg border border-border/60 px-2 py-2 hover:border-discord-blurple/40 transition-all">
-        {/* Hour Input */}
-        <div className="flex items-center">
+      <div className="flex items-center justify-center bg-secondary/50 backdrop-blur-sm rounded-xl border border-border px-4 py-2 hover:border-primary/50 transition-all shadow-sm">
+
+        {/* Hour */}
+        <div className="flex flex-col items-center">
           <motion.button
-            onClick={decrementHour}
-            className="p-1 rounded-lg hover:bg-accent/50 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            onClick={() => adjustTime(setSelectedHour, selectedHour, 23, 1)}
+            className="p-1 hover:text-primary transition-colors"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4 rotate-90" />
           </motion.button>
           <input
             type="text"
             value={selectedHour === '' ? '' : String(selectedHour).padStart(2, '0')}
             onChange={handleHourChange}
-            onBlur={handleHourBlur}
-            className="w-12 text-center bg-transparent text-lg font-semibold focus:outline-none"
-            aria-label="Selected Hour"
-            onKeyDown={(e) => {
-              if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                incrementHour();
-              } else if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                decrementHour();
-              }
-            }}
+            onBlur={() => handleBlur(setSelectedHour, selectedHour, 23)}
+            className="w-12 text-center bg-transparent text-2xl font-bold focus:outline-none font-mono"
           />
           <motion.button
-            onClick={incrementHour}
-            className="p-1 rounded-lg hover:bg-accent/50 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            onClick={() => adjustTime(setSelectedHour, selectedHour, 23, -1)}
+            className="p-1 hover:text-primary transition-colors"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4 rotate-90" />
           </motion.button>
         </div>
 
-        <span className="text-xl font-bold text-discord-blurple">:</span>
+        <span className="text-2xl font-bold text-muted-foreground mx-4 pb-2">:</span>
 
-        {/* Minute Input */}
-        <div className="flex items-center">
+        {/* Minute */}
+        <div className="flex flex-col items-center">
           <motion.button
-            onClick={decrementMinute}
-            className="p-1 rounded-lg hover:bg-accent/50 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            onClick={() => adjustTime(setSelectedMinute, selectedMinute, 59, 1)}
+            className="p-1 hover:text-primary transition-colors"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
           >
-            <ChevronLeft className="w-4 h-4" />
+            <ChevronLeft className="w-4 h-4 rotate-90" />
           </motion.button>
           <input
             type="text"
             value={selectedMinute === '' ? '' : String(selectedMinute).padStart(2, '0')}
             onChange={handleMinuteChange}
-            onBlur={handleMinuteBlur}
-            className="w-12 text-center bg-transparent text-lg font-semibold focus:outline-none"
-            aria-label="Selected Minute"
-            onKeyDown={(e) => {
-              if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                incrementMinute();
-              } else if (e.key === 'ArrowDown') {
-                e.preventDefault();
-                decrementMinute();
-              }
-            }}
+            onBlur={() => handleBlur(setSelectedMinute, selectedMinute, 59)}
+            className="w-12 text-center bg-transparent text-2xl font-bold focus:outline-none font-mono"
           />
           <motion.button
-            onClick={incrementMinute}
-            className="p-1 rounded-lg hover:bg-accent/50 transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.95 }}
+            onClick={() => adjustTime(setSelectedMinute, selectedMinute, 59, -1)}
+            className="p-1 hover:text-primary transition-colors"
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
           >
-            <ChevronRight className="w-4 h-4" />
+            <ChevronRight className="w-4 h-4 rotate-90" />
           </motion.button>
         </div>
       </div>

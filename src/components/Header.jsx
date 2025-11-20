@@ -1,38 +1,50 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Sun, Moon, Clock } from 'lucide-react';
+import { Moon, Sun, Github } from 'lucide-react';
 
 const Header = ({ theme, toggleTheme }) => {
   return (
-    <header className="sticky top-0 z-50 backdrop-blur-md border-b bg-background/80">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <motion.div
-            animate={{ rotate: 360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-            className="text-discord-blurple"
-          >
-            <Clock className="w-7 h-7" strokeWidth={2.5} />
-          </motion.div>
-          <div className="flex flex-col">
-            <h1 className="text-xl font-bold tracking-tight">
-              <span className="bg-gradient-to-r from-discord-blurple to-blue-500 bg-clip-text text-transparent">Discord</span> Timestamp
-            </h1>
-            <p className="text-xs text-muted-foreground -mt-1">Dynamic timestamp generator</p>
-          </div>
+    <motion.header
+      className="w-full py-6 px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto"
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+    >
+      <div className="flex items-center gap-3">
+        <div className="relative w-10 h-10 flex items-center justify-center bg-primary rounded-xl shadow-lg shadow-primary/20">
+          <span className="text-2xl">⏰</span>
         </div>
-        
-        <motion.button
-          onClick={toggleTheme}
-          className="p-2.5 rounded-lg bg-secondary/80 text-secondary-foreground hover:bg-accent/20 hover:text-discord-blurple border border-border/50 transition-colors"
-          aria-label="Toggle theme"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
-        </motion.button>
+        <h1 className="text-xl font-bold tracking-tight hidden md:block">
+          Discord <span className="text-primary">Timestamps</span>
+        </h1>
       </div>
-    </header>
+
+      <div className="flex items-center gap-4">
+        <a
+          href="https://github.com/0libote/discord-timestamp"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-2 rounded-xl hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground"
+          aria-label="View on GitHub"
+        >
+          <Github size={20} />
+        </a>
+
+        <button
+          onClick={toggleTheme}
+          className="p-2 rounded-xl bg-secondary hover:bg-secondary/80 transition-colors text-foreground ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+          aria-label="Toggle theme"
+        >
+          <motion.div
+            initial={false}
+            animate={{ rotate: theme === 'dark' ? 0 : 180 }}
+            transition={{ duration: 0.3 }}
+          >
+            {theme === 'dark' ? <Moon size={20} /> : <Sun size={20} />}
+          </motion.div>
+        </button>
+      </div>
+    </motion.header>
   );
 };
 

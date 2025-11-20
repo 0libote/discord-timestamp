@@ -34,7 +34,7 @@ const TimestampItem = ({ format, description, code, preview }) => {
         </div>
 
         <div className="flex items-center gap-3 md:w-auto w-full">
-          <div className="flex-1 md:flex-none bg-secondary/30 rounded-lg px-3 py-2 font-mono text-sm text-muted-foreground border border-border/50 select-all theme-transition">
+          <div className="flex-1 md:flex-none bg-secondary/50 rounded-lg px-3 py-2 font-mono text-sm text-muted-foreground border border-border/50 select-all theme-transition">
             {code}
           </div>
 

@@ -149,7 +149,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
         )}
       </div>
 
-      <div className="bg-secondary/30 p-1.5 rounded-xl border border-border/50 flex gap-2 theme-transition">
+      <div className="bg-secondary/50 p-1.5 rounded-xl border border-border/50 flex gap-2 theme-transition">
         <input
           type="text"
           placeholder="Label this timestamp..."
@@ -182,7 +182,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.9 }}
-                className="group relative bg-card/50 hover:bg-card rounded-xl p-3 border border-border/50 hover:border-primary/30 transition-all theme-transition flex items-center justify-between shadow-sm"
+                className="group relative bg-card/50 hover:bg-accent rounded-xl p-3 border border-border/50 hover:border-primary/30 transition-all theme-transition flex items-center justify-between shadow-sm"
               >
                 <div className="min-w-0 flex-1 mr-3">
                   <p className="font-medium text-sm truncate text-foreground">{item.name}</p>
@@ -221,7 +221,7 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center py-8 border-2 border-dashed border-border/50 rounded-xl bg-secondary/10"
+            className="text-center py-8 border-2 border-dashed border-border/50 rounded-xl bg-secondary/20"
           >
             <History className="w-8 h-8 mx-auto text-muted-foreground/30 mb-2" />
             <p className="text-sm text-muted-foreground">No history yet</p>
@@ -239,7 +239,7 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
     >
       <div className="space-y-6 flex-1">
         <motion.div
-          className="p-4 bg-secondary/30 rounded-xl border border-border/50 text-center"
+          className="p-4 bg-secondary/50 rounded-xl border border-border/50 text-center"
           whileHover={{ scale: 1.01 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >

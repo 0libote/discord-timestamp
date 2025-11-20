@@ -76,7 +76,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-background text-foreground rounded-xl border border-input hover:border-primary/50 px-4 py-3 flex items-center justify-between transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        className="w-full bg-background text-foreground rounded-xl border border-input hover:border-primary/50 hover:bg-accent px-4 py-3 flex items-center justify-between transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
         whileHover={{ scale: 1.005 }}
         whileTap={{ scale: 0.995 }}
       >

@@ -14,7 +14,7 @@ const TimestampItem = ({ format, description, code, preview }) => {
   return (
     <motion.div
       className="group relative glass-card rounded-xl p-5 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 overflow-hidden"
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       whileHover={{ scale: 1.01 }}
     >
@@ -44,7 +44,7 @@ const TimestampItem = ({ format, description, code, preview }) => {
           <motion.button
             onClick={handleCopy}
             className={`p-2.5 rounded-xl transition-all duration-200 flex-shrink-0 shadow-lg ${copied
-              ? 'bg-green-500 text-white shadow-green-500/20'
+              ? 'bg-success text-success-foreground shadow-success/20'
               : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-primary/20'
               }`}
             whileHover={{ scale: 1.05 }}
@@ -102,7 +102,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview }) => {
         {formats.map((fmt, index) => (
           <motion.div
             key={fmt.type}
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05, duration: 0.4, ease: "easeOut" }}
           >

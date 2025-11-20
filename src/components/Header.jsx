@@ -6,7 +6,7 @@ const Header = ({ theme, toggleTheme }) => {
   return (
     <motion.header
       className="w-full py-6 px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto sticky top-0 z-50 backdrop-blur-sm bg-background/50 border-b border-white/5 mb-8"
-      initial={{ opacity: 0, y: -20 }}
+      initial={{ opacity: 0, y: -10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
     >

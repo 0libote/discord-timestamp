@@ -91,7 +91,7 @@ const DiscordTimestampGenerator = () => {
       <div
         className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300"
         style={{
-          background: `radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(var(--primary), 0.25), transparent 50%)`
+          background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(var(--primary), 0.15), transparent 80%)`
         }}
       />
 
@@ -116,7 +116,7 @@ const DiscordTimestampGenerator = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
           <motion.div
             className="lg:col-span-5 space-y-8"
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: -10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
@@ -134,7 +134,7 @@ const DiscordTimestampGenerator = () => {
 
           <motion.div
             className="lg:col-span-7"
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: 10 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
           >

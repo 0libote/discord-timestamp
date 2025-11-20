@@ -25,9 +25,9 @@ const HistoryItem = ({ item, onLoad, onDelete }) => {
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.9 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.9 }}
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
       className="group relative glass-card rounded-xl p-4 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 overflow-hidden"
       whileHover={{ scale: 1.01 }}
     >
@@ -86,7 +86,7 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
   };
 
   return (
-    <div className="glass-card rounded-2xl p-6 h-full flex flex-col relative overflow-hidden">
+    <div className="glass-card rounded-xl p-6 h-full flex flex-col relative overflow-hidden">
       {/* Ambient background glow */}
       <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none" />
 
@@ -125,7 +125,7 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
               {history.length > 0 && (
                 <button
                   onClick={clearHistory}
-                  className="text-white bg-red-600 hover:bg-red-500 px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-red-500/20 active:scale-95 text-xs font-bold uppercase tracking-wide"
+                  className="text-destructive-foreground bg-destructive hover:bg-destructive/90 px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-destructive/20 active:scale-95 text-xs font-bold uppercase tracking-wide"
                 >
                   Clear All
                 </button>

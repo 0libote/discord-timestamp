@@ -76,9 +76,9 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-secondary/50 backdrop-blur-sm text-foreground rounded-xl border border-border hover:border-primary/50 hover:bg-secondary/80 px-4 py-3 flex items-center justify-between transition-all shadow-sm"
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
+        className="w-full bg-background text-foreground rounded-xl border border-input hover:border-primary/50 px-4 py-3 flex items-center justify-between transition-all shadow-sm focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        whileHover={{ scale: 1.005 }}
+        whileTap={{ scale: 0.995 }}
       >
         <span className="font-medium">{formattedDateDisplay}</span>
         <CalendarIcon className="w-4 h-4 text-primary" />
@@ -203,7 +203,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
         <Clock className="w-4 h-4 mr-2 text-primary" />
         Time
       </label>
-      <div className="flex items-center justify-center bg-secondary/50 backdrop-blur-sm rounded-xl border border-border px-4 py-2 hover:border-primary/50 transition-all shadow-sm">
+      <div className="flex items-center justify-center bg-background rounded-xl border border-input px-4 py-2 hover:border-primary/50 transition-all shadow-sm">
 
         {/* Hour */}
         <div className="flex flex-col items-center">

@@ -39,17 +39,17 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone }) => {
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-secondary/50 backdrop-blur-sm rounded-xl px-4 py-3 cursor-pointer flex items-center justify-between border border-border hover:border-primary/50 hover:bg-secondary/80 transition-all"
-        whileHover={{ scale: 1.01 }}
-        whileTap={{ scale: 0.99 }}
+        className="w-full bg-background rounded-xl px-4 py-3 cursor-pointer flex items-center justify-between border border-input hover:border-primary/50 transition-all focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2"
+        whileHover={{ scale: 1.005 }}
+        whileTap={{ scale: 0.995 }}
       >
-        <span className="text-sm truncate font-medium">
+        <span className="text-sm truncate font-medium flex items-center gap-2">
           {selectedTimezone}
-          <span className="ml-2 text-muted-foreground text-xs bg-background/50 px-2 py-0.5 rounded-full">
+          <span className="text-muted-foreground text-xs bg-secondary px-2 py-0.5 rounded-md">
             {getTimezoneAbbreviation(selectedTimezone)}
           </span>
         </span>
-        <Search className="w-4 h-4 opacity-50" />
+        <Search className="w-4 h-4 text-muted-foreground" />
       </motion.button>
 
       <AnimatePresence>
@@ -232,15 +232,12 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
 
 const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelectedTimezone, history, setHistory, getUnixTimestamp, longFormDate }) => {
   return (
-    <motion.div
-      className="bg-card rounded-xl p-6 border border-border shadow-sm h-full flex flex-col"
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4 }}
+    <div
+      className="bg-card rounded-xl p-6 border border-border/50 shadow-sm h-full flex flex-col"
     >
       <div className="space-y-6 flex-1">
         <motion.div
-          className="p-4 bg-secondary/50 rounded-lg border border-border text-center"
+          className="p-4 bg-secondary/30 rounded-xl border border-border/50 text-center"
           whileHover={{ scale: 1.01 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
@@ -271,7 +268,7 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
           getUnixTimestamp={getUnixTimestamp}
         />
       </div>
-    </motion.div>
+    </div>
   );
 };
 

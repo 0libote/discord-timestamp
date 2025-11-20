@@ -4,67 +4,78 @@
 
 @layer base {
   :root {
-    /* Discord Light Theme approximation */
-    --background: 0 0% 100%; /* #FFFFFF */
-    --foreground: 223 6.7% 20.6%; /* #23272A */
+    /* Zinc Light Theme */
+    --background: 0 0% 100%;
+    /* White */
+    --foreground: 240 10% 3.9%;
+    /* Zinc 950 */
 
     --card: 0 0% 100%;
-    --card-foreground: 223 6.7% 20.6%;
+    --card-foreground: 240 10% 3.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 223 6.7% 20.6%;
+    --popover-foreground: 240 10% 3.9%;
 
-    --primary: 235 86.1% 64.7%; /* #5865F2 Blurple */
+    --primary: 235 86.1% 64.7%;
+    /* Discord Blurple - kept for brand identity */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 13% 95.5%; /* #F2F3F5 */
-    --secondary-foreground: 223 6.7% 20.6%;
+    --secondary: 240 4.8% 95.9%;
+    /* Zinc 100 */
+    --secondary-foreground: 240 5.9% 10%;
+    /* Zinc 900 */
 
-    --muted: 220 13% 95.5%;
-    --muted-foreground: 215 8% 45%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    /* Zinc 500 */
 
-    --accent: 220 13% 95.5%;
-    --accent-foreground: 223 6.7% 20.6%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 220 13% 91%; /* #E3E5E8 */
-    --input: 220 13% 91%;
+    --border: 240 5.9% 90%;
+    /* Zinc 200 */
+    --input: 240 5.9% 90%;
     --ring: 235 86.1% 64.7%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    /* Discord Dark Theme */
-    --background: 220 8% 23%; /* #36393F */
-    --foreground: 210 9% 87%; /* #DCDDDE */
+    /* Zinc Dark Theme */
+    --background: 240 10% 3.9%;
+    /* Zinc 950 */
+    --foreground: 0 0% 98%;
+    /* Zinc 50 */
 
-    --card: 223 7% 20%; /* #2F3136 */
-    --card-foreground: 210 9% 87%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-    --popover: 223 7% 20%;
-    --popover-foreground: 210 9% 87%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-    --primary: 235 85.6% 64.7%; /* #5865F2 */
+    --primary: 235 86.1% 64.7%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 223 7% 20%;
-    --secondary-foreground: 210 9% 87%;
+    --secondary: 240 3.7% 15.9%;
+    /* Zinc 800 */
+    --secondary-foreground: 0 0% 98%;
 
-    --muted: 223 7% 20%;
-    --muted-foreground: 216 4% 55%; /* #72767D */
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    /* Zinc 400 */
 
-    --accent: 216 7% 14%; /* #202225 */
-    --accent-foreground: 0 0% 100%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 0 0% 98%;
 
-    --border: 216 7% 14%; /* #202225 */
-    --input: 216 7% 14%;
-    --ring: 235 85.6% 64.7%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 235 86.1% 64.7%;
   }
 }
 
@@ -74,6 +85,6 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    @apply bg-background text-foreground antialiased transition-colors duration-500 ease-in-out;
   }
 }

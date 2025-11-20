@@ -13,10 +13,10 @@ const TimestampItem = ({ format, description, code, preview }) => {
 
   return (
     <motion.div
-      className="group relative bg-card/50 backdrop-blur-sm border border-border rounded-xl p-4 hover:border-primary/50 hover:shadow-lg transition-all duration-300"
+      className="group relative bg-card/50 backdrop-blur-sm border border-border/50 rounded-xl p-4 hover:border-primary/30 hover:shadow-md transition-all duration-300"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.01 }}
+      whileHover={{ scale: 1.005 }}
     >
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex-1 space-y-1">
@@ -37,7 +37,7 @@ const TimestampItem = ({ format, description, code, preview }) => {
         </div>
 
         <div className="flex items-center gap-3 md:w-auto w-full">
-          <div className="flex-1 md:flex-none bg-secondary/50 rounded-lg px-3 py-2 font-mono text-sm text-muted-foreground border border-border/50 select-all">
+          <div className="flex-1 md:flex-none bg-secondary/30 rounded-lg px-3 py-2 font-mono text-sm text-muted-foreground border border-border/50 select-all">
             {code}
           </div>
 
@@ -45,7 +45,7 @@ const TimestampItem = ({ format, description, code, preview }) => {
             onClick={handleCopy}
             className={`p-2.5 rounded-lg transition-all duration-200 flex-shrink-0 ${copied
               ? 'bg-green-500 text-white shadow-green-500/20 shadow-lg'
-              : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md'
+              : 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm'
               }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
@@ -103,7 +103,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview }) => {
             key={fmt.type}
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05, duration: 0.3, ease: "easeOut" }}
+            transition={{ delay: index * 0.05, duration: 0.3 }}
           >
             <TimestampItem
               format={fmt.type}

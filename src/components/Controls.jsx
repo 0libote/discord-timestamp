@@ -7,17 +7,22 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone }) => {
   const timezones = Intl.supportedValuesOf('timeZone');
 
   return (
-    <select
-      value={selectedTimezone}
-      onChange={(e) => setSelectedTimezone(e.target.value)}
-      className="w-full bg-card/50 backdrop-blur-sm text-foreground rounded-xl border border-white/10 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/50 appearance-none cursor-pointer hover:bg-card/80 transition-colors shadow-sm"
-    >
-      {timezones.map((tz) => (
-        <option key={tz} value={tz} className="bg-card text-foreground">
-          {tz.replace(/_/g, ' ')}
-        </option>
-      ))}
-    </select>
+    <div className="relative">
+      <select
+        value={selectedTimezone}
+        onChange={(e) => setSelectedTimezone(e.target.value)}
+        className="w-full glass-panel text-foreground rounded-xl px-4 py-3 appearance-none cursor-pointer hover:shadow-primary/10 hover:border-primary/30 transition-all focus:outline-none focus:ring-2 focus:ring-primary/50"
+      >
+        {timezones.map((tz) => (
+          <option key={tz} value={tz} className="bg-card text-foreground">
+            {tz.replace(/_/g, ' ')}
+          </option>
+        ))}
+      </select>
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+      </div>
+    </div>
   );
 };
 

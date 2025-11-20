@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Copy, Check, Code2, Sparkles } from 'lucide-react';
 
-const TimestampItem = ({ format, description, code, preview }) => {
+const TimestampItem = ({ format, description, code, preview, onCopy }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code);
     setCopied(true);
+    if (onCopy) onCopy();
     setTimeout(() => setCopied(false), 2000);
   };
 
@@ -78,7 +79,7 @@ const TimestampItem = ({ format, description, code, preview }) => {
   );
 };
 
-const TimestampList = ({ getUnixTimestamp, formatPreview }) => {
+const TimestampList = ({ getUnixTimestamp, formatPreview, addToHistory }) => {
   const unixTimestamp = getUnixTimestamp();
 
   const formats = [
@@ -111,6 +112,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview }) => {
               description={fmt.desc}
               code={`<t:${unixTimestamp}:${fmt.type}>`}
               preview={formatPreview(fmt.type)}
+              onCopy={() => addToHistory(fmt.desc, unixTimestamp)}
             />
           </motion.div>
         ))}

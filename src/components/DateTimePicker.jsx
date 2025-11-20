@@ -55,12 +55,12 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-card/50 backdrop-blur-sm text-foreground rounded-xl border border-white/10 hover:border-primary/50 hover:bg-card/80 px-4 py-3 flex items-center justify-between transition-all shadow-lg focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-background"
-        whileHover={{ scale: 1.02 }}
-        whileTap={{ scale: 0.98 }}
+        className="w-full glass-panel text-foreground rounded-xl px-4 py-3 flex items-center justify-between transition-all shadow-lg hover:shadow-primary/10 hover:border-primary/30 group"
+        whileHover={{ scale: 1.01 }}
+        whileTap={{ scale: 0.99 }}
       >
-        <span className="text-sm font-medium flex items-center gap-2">
-          <CalendarIcon className="w-4 h-4 text-primary" />
+        <span className="text-sm font-medium flex items-center gap-3">
+          <CalendarIcon className="w-5 h-5 text-primary group-hover:text-primary/80 transition-colors" />
           {date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
         </span>
       </motion.button>
@@ -68,7 +68,7 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="absolute z-50 mt-2 p-4 w-72 bg-popover/95 backdrop-blur-2xl rounded-2xl border border-white/10 shadow-2xl"
+            className="absolute z-50 mt-2 p-4 w-72 glass-card rounded-2xl shadow-2xl border border-white/10"
             initial={{ opacity: 0, y: -10, scale: 0.95, height: 0 }}
             animate={{ opacity: 1, y: 0, scale: 1, height: 'auto' }}
             exit={{ opacity: 0, y: -10, scale: 0.95, height: 0 }}
@@ -156,7 +156,7 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
       <label className="block text-sm font-bold mb-2 text-foreground uppercase tracking-wider">
         Time
       </label>
-      <div className="bg-card/50 backdrop-blur-sm rounded-xl border border-white/10 p-4 flex items-center justify-center gap-4 shadow-lg hover:border-primary/50 transition-all">
+      <div className="glass-panel rounded-xl p-4 flex items-center justify-center gap-4 shadow-lg hover:shadow-primary/10 hover:border-primary/30 transition-all group-hover:border-primary/30">
         <div className="flex flex-col items-center">
           <motion.button
             whileHover={{ y: -2 }}

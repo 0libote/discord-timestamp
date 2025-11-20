@@ -197,94 +197,54 @@ const HistoryPanel = ({ history, setHistory, setSelectedDate, getUnixTimestamp }
                       <Clock className="w-3 h-3" />
                       {new Date(item.timestamp * 1000).toLocaleString(undefined, {
                         month: 'short', day: 'numeric',
-                        hour: 'numeric', minute: '2-digit'
-                      })}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <motion.button
-                      onClick={() => {
-                        const date = new Date(item.timestamp * 1000);
-                        setSelectedDate(date.toISOString().slice(0, 16));
-                      }}
-                      className="text-xs bg-primary text-primary-foreground font-medium px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Load
-                    </motion.button>
-                    <motion.button
-                      onClick={() => deleteHistoryItem(item.id)}
-                      className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
-                      whileHover={{ scale: 1.1 }}
-                      whileTap={{ scale: 0.9 }}
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </motion.button>
-                  </div>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        ) : (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-8 border-2 border-dashed border-white/10 rounded-xl bg-white/5"
-          >
-            <History className="w-8 h-8 mx-auto text-muted-foreground/30 mb-2" />
-            <p className="text-sm text-muted-foreground">No history yet</p>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
-  );
-};
+                        const loadHistoryItem = (timestamp) => {
+                          const date = new Date(timestamp * 1000);
+                          setSelectedDate(date.toISOString().slice(0, 16));
+                        };
 
-const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelectedTimezone, history, setHistory, getUnixTimestamp, longFormDate }) => {
-  return (
+                        return(
     <div
-      className="glass-card rounded-2xl p-6 h-full flex flex-col relative overflow-hidden"
-    >
-      {/* Ambient background glow */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none" />
+      className = "glass-card rounded-2xl p-6 h-full flex flex-col relative overflow-hidden"
+                            >
+                            {/* Ambient background glow */ }
+                            < div className = "absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none" />
 
-      <div className="space-y-6 flex-1">
-        <motion.div
-          className="p-4 bg-primary/5 rounded-xl border border-primary/10 text-center relative overflow-hidden"
-          whileHover={{ scale: 1.01 }}
-          transition={{ type: "spring", stiffness: 400, damping: 25 }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-100%] animate-[shimmer_2s_infinite]" />
-          <p className="font-bold text-primary mb-1 text-xs uppercase tracking-wider">Preview Time</p>
-          <div className="text-center font-bold text-sm md:text-base text-foreground">{longFormDate}</div>
-        </motion.div>
+                              <div className="space-y-6 flex-1">
+                                <motion.div
+                                  className="p-4 bg-primary/5 rounded-xl border border-primary/10 text-center relative overflow-hidden"
+                                  whileHover={{ scale: 1.01 }}
+                                  transition={{ type: "spring", stiffness: 400, damping: 25 }}
+                                >
+                                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-100%] animate-[shimmer_2s_infinite]" />
+                                  <p className="font-bold text-primary mb-1 text-xs uppercase tracking-wider">Preview Time</p>
+                                  <div className="text-center font-bold text-sm md:text-base text-foreground">{longFormDate}</div>
+                                </motion.div>
 
-        <div className="space-y-5">
-          <DatePickerInput
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-          <TimePickerInput
-            selectedDate={selectedDate}
-            setSelectedDate={setSelectedDate}
-          />
-          <TimezonePicker
-            selectedTimezone={selectedTimezone}
-            setSelectedTimezone={setSelectedTimezone}
-          />
-        </div>
+                                <div className="space-y-5">
+                                  <DatePickerInput
+                                    selectedDate={selectedDate}
+                                    setSelectedDate={setSelectedDate}
+                                  />
+                                  <TimePickerInput
+                                    selectedDate={selectedDate}
+                                    setSelectedDate={setSelectedDate}
+                                  />
+                                  <TimezonePicker
+                                    selectedTimezone={selectedTimezone}
+                                    setSelectedTimezone={setSelectedTimezone}
+                                  />
+                                </div>
 
-        <HistoryPanel
-          selectedDate={selectedDate}
-          history={history}
-          setHistory={setHistory}
-          setSelectedDate={setSelectedDate}
-          getUnixTimestamp={getUnixTimestamp}
-        />
-      </div>
+                                <HistoryPanel
+                                  selectedDate={selectedDate}
+                                  history={history}
+                                  setHistory={setHistory}
+                                  setSelectedDate={setSelectedDate}
+                                  getUnixTimestamp={getUnixTimestamp}
+                                />
+                              </div>
     </div>
-  );
+                  );
 };
 
-export default Controls;
+                  export default Controls;

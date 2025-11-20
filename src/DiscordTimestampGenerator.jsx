@@ -76,77 +76,37 @@ const DiscordTimestampGenerator = () => {
   const longFormDate = new Date(selectedDate).toLocaleDateString(undefined, {
     weekday: 'long',
     year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: 'numeric',
-  });
-
-  return (
-    <div
-      ref={containerRef}
-      className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 selection:text-primary-foreground overflow-x-hidden relative"
-    >
-      {/* Mouse Follow Spotlight */}
-      <div
-        className="pointer-events-none fixed inset-0 z-30 transition-opacity duration-300"
-        style={{
-          background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(var(--primary), 0.15), transparent 40%)`
-        }}
-      />
-
-      <Header theme={theme} setTheme={setTheme} />
-
-      <main className="container mx-auto px-4 py-12 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-16 relative"
-        >
-          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary via-white to-accent-foreground bg-[length:200%_auto] animate-pulse-glow drop-shadow-sm">
-            Discord Timestamp Generator
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Create dynamic timestamps for your Discord messages. Select a date, copy the code, and paste it into your chat.
-          </p>
-        </motion.div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
-          <motion.div
-            className="lg:col-span-5 space-y-8"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+    animate={{ opacity: 1, x: 0 }}
+transition = {{ delay: 0.2, duration: 0.6 }}
           >
-            <Controls
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
-              selectedTimezone={selectedTimezone}
-              setSelectedTimezone={setSelectedTimezone}
-              history={history}
-              setHistory={setHistory}
-              getUnixTimestamp={getUnixTimestamp}
-              longFormDate={longFormDate}
-            />
-          </motion.div>
+  <Controls
+    selectedDate={selectedDate}
+    setSelectedDate={setSelectedDate}
+    selectedTimezone={selectedTimezone}
+    setSelectedTimezone={setSelectedTimezone}
+    history={history}
+    setHistory={setHistory}
+    getUnixTimestamp={getUnixTimestamp}
+    longFormDate={longFormDate}
+  />
+          </motion.div >
 
-          <motion.div
-            className="lg:col-span-7"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
-          >
-            <TimestampList
-              getUnixTimestamp={getUnixTimestamp}
-              formatPreview={formatPreview}
-            />
-          </motion.div>
-        </div>
-      </main>
+  <motion.div
+    className="lg:col-span-7"
+    initial={{ opacity: 0, x: 20 }}
+    animate={{ opacity: 1, x: 0 }}
+    transition={{ delay: 0.4, duration: 0.6 }}
+  >
+    <TimestampList
+      getUnixTimestamp={getUnixTimestamp}
+      formatPreview={formatPreview}
+    />
+  </motion.div>
+        </div >
+      </main >
 
-      <Footer />
-    </div>
+  <Footer />
+    </div >
   );
 };
 

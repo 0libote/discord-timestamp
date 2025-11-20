@@ -153,4 +153,15 @@
   .custom-scrollbar::-webkit-scrollbar-thumb {
     @apply bg-white/10 rounded-full hover:bg-white/20;
   }
+
+  /* Hide spin buttons for number inputs */
+  input[type=number]::-webkit-inner-spin-button,
+  input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 }

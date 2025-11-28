@@ -20,7 +20,7 @@ jobs:
           node-version: 18
       - uses: actions/configure-pages@v4
       - name: Install dependencies
-        run: npm install
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Upload artifact

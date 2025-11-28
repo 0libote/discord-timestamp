@@ -5,9 +5,9 @@
   "homepage": "https://0libote.github.io/discord-timestamp",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "npx vite",
+    "build": "npx vite build",
+    "preview": "npx vite preview"
   },
   "dependencies": {
     "react": "^18.2.0",

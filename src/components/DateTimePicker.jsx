@@ -49,30 +49,33 @@ const DatePickerInput = ({ selectedDate, setSelectedDate }) => {
   };
 
   return (
-    <div className="relative group" ref={pickerRef}>
+    <div className="relative group w-full" ref={pickerRef}>
       <label className="block text-xs font-mono text-primary uppercase tracking-widest mb-2">
         > Select Date
       </label>
       <motion.button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full bg-black/50 border border-gray-800 text-accent font-mono rounded-none px-4 py-3 flex items-center justify-between transition-all hover:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent"
+        className="w-full h-[88px] bg-black/50 border border-gray-800 text-accent font-mono rounded-none px-4 flex flex-col justify-center transition-all hover:border-accent/50 focus:outline-none focus:ring-1 focus:ring-accent relative overflow-hidden"
         whileHover={{ scale: 1.01 }}
         whileTap={{ scale: 0.99 }}
       >
-        <span className="text-sm font-medium flex items-center gap-3">
-          <CalendarIcon className="w-5 h-5 text-primary group-hover:text-accent transition-colors" />
-          {date.toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}
+        <div className="flex items-center gap-3 mb-1">
+          <CalendarIcon className="w-4 h-4 text-primary group-hover:text-accent transition-colors" />
+          <span className="text-xs text-muted-foreground uppercase tracking-wider">Date_Input</span>
+        </div>
+        <span className="text-xl font-display font-bold text-white tracking-wider">
+          {date.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
         </span>
-        <div className="w-2 h-2 bg-primary animate-pulse"></div>
-      </motion.button>
 
-      {/* Decorative line */}
-      <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-accent group-hover:w-full transition-all duration-500"></div>
+        {/* Corner accents */}
+        <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/50"></div>
+        <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/50"></div>
+      </motion.button>
 
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            className="absolute z-50 mt-2 p-4 w-72 cyber-card shadow-2xl"
+            className="absolute z-50 mt-2 p-4 w-72 cyber-card shadow-2xl left-0 md:left-auto md:right-0 lg:left-0"
             initial={{ opacity: 0, y: -10, scale: 0.95, height: 0 }}
             animate={{ opacity: 1, y: 0, scale: 1, height: 'auto' }}
             exit={{ opacity: 0, y: -10, scale: 0.95, height: 0 }}
@@ -153,21 +156,25 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
   };
 
   return (
-    <div className="group">
+    <div className="group w-full">
       <label className="block text-xs font-mono text-primary uppercase tracking-widest mb-2">
         > Select Time
       </label>
-      <div className="bg-black/50 border border-gray-800 p-4 flex items-center justify-center gap-4 transition-all group-hover:border-accent/50 relative overflow-hidden">
+      <div className="h-[88px] bg-black/50 border border-gray-800 flex items-center justify-center gap-2 transition-all group-hover:border-accent/50 relative overflow-hidden px-2">
         {/* Scanline effect */}
         <div className="absolute inset-0 bg-scanlines opacity-10 pointer-events-none"></div>
+
+        {/* Corner accents */}
+        <div className="absolute top-0 right-0 w-2 h-2 border-t border-r border-primary/50"></div>
+        <div className="absolute bottom-0 left-0 w-2 h-2 border-b border-l border-primary/50"></div>
 
         <div className="flex flex-col items-center z-10">
           <motion.button
             whileHover={{ y: -2, color: "#00ff9d" }}
             onClick={() => updateTime('hour', 1)}
-            className="p-1 text-muted-foreground transition-colors"
+            className="p-0.5 text-muted-foreground transition-colors"
           >
-            <ChevronUp className="w-4 h-4" />
+            <ChevronUp className="w-3 h-3" />
           </motion.button>
           <input
             type="number"
@@ -175,26 +182,26 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
             max="23"
             value={date.getHours().toString().padStart(2, '0')}
             onChange={(e) => handleInputChange('hour', e.target.value)}
-            className="w-16 text-center bg-transparent text-3xl font-display font-bold focus:outline-none text-white group-hover:text-glow-primary transition-colors"
+            className="w-12 text-center bg-transparent text-2xl font-display font-bold focus:outline-none text-white group-hover:text-glow-primary transition-colors"
           />
           <motion.button
             whileHover={{ y: 2, color: "#00ff9d" }}
             onClick={() => updateTime('hour', -1)}
-            className="p-1 text-muted-foreground transition-colors"
+            className="p-0.5 text-muted-foreground transition-colors"
           >
-            <ChevronDown className="w-4 h-4" />
+            <ChevronDown className="w-3 h-3" />
           </motion.button>
         </div>
 
-        <span className="text-3xl font-bold text-primary pb-2 animate-pulse">:</span>
+        <span className="text-xl font-bold text-primary pb-1 animate-pulse">:</span>
 
         <div className="flex flex-col items-center z-10">
           <motion.button
             whileHover={{ y: -2, color: "#00ff9d" }}
             onClick={() => updateTime('minute', 1)}
-            className="p-1 text-muted-foreground transition-colors"
+            className="p-0.5 text-muted-foreground transition-colors"
           >
-            <ChevronUp className="w-4 h-4" />
+            <ChevronUp className="w-3 h-3" />
           </motion.button>
           <input
             type="number"
@@ -202,14 +209,14 @@ const TimePickerInput = ({ selectedDate, setSelectedDate }) => {
             max="59"
             value={date.getMinutes().toString().padStart(2, '0')}
             onChange={(e) => handleInputChange('minute', e.target.value)}
-            className="w-16 text-center bg-transparent text-3xl font-display font-bold focus:outline-none text-white group-hover:text-glow-primary transition-colors"
+            className="w-12 text-center bg-transparent text-2xl font-display font-bold focus:outline-none text-white group-hover:text-glow-primary transition-colors"
           />
           <motion.button
             whileHover={{ y: 2, color: "#00ff9d" }}
             onClick={() => updateTime('minute', -1)}
-            className="p-1 text-muted-foreground transition-colors"
+            className="p-0.5 text-muted-foreground transition-colors"
           >
-            <ChevronDown className="w-4 h-4" />
+            <ChevronDown className="w-3 h-3" />
           </motion.button>
         </div>
       </div>

@@ -115,7 +115,14 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, addToHistory }) => {
               description={fmt.desc}
               code={`<t:${unixTimestamp}:${fmt.type}>`}
               preview={formatPreview(fmt.type)}
-              onCopy={() => addToHistory(fmt.desc, unixTimestamp)}
+              onCopy={() => {
+                const date = new Date(unixTimestamp * 1000);
+                const readableDate = date.toLocaleString(undefined, {
+                  month: 'short', day: 'numeric',
+                  hour: 'numeric', minute: '2-digit'
+                });
+                addToHistory(`${readableDate} (${fmt.desc})`, unixTimestamp);
+              }}
             />
           </motion.div>
         ))}

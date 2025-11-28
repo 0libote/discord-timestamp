@@ -1,51 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;700&family=Fira+Code:wght@400;500;700&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  :root {
-    /* Cyberpunk Theme Variables */
-    --background: 240 20% 4%; /* #0a0a0f */
-    --foreground: 180 100% 50%; /* #00f3ff */
 
-    --card: 240 15% 10%; /* #1a1a24 */
-    --card-foreground: 180 50% 90%;
-
-    --popover: 240 15% 10%;
-    --popover-foreground: 180 50% 90%;
-
-    --primary: 157 100% 50%; /* #00ff9d - Neon Green */
-    --primary-foreground: 240 20% 4%;
-
-    --secondary: 300 100% 50%; /* #ff00ff - Neon Pink */
-    --secondary-foreground: 240 20% 4%;
-
-    --muted: 240 10% 20%;
-    --muted-foreground: 240 10% 60%;
-
-    --accent: 180 100% 50%; /* #00f3ff - Neon Cyan */
-    --accent-foreground: 240 20% 4%;
-
-    --destructive: 346 100% 50%; /* #ff003c - Neon Red */
-    --destructive-foreground: 240 20% 4%;
-
-    --border: 180 100% 50%;
-    --input: 240 15% 15%;
-    --ring: 157 100% 50%;
-
-    --radius: 0px; /* Sharp corners for cyberpunk */
-  }
-
-  .dark {
-    /* Ensure dark mode uses the same palette or slightly adjusted if needed */
+  /* Cyberpunk Theme */
+  [data-theme="cyberpunk"] {
     --background: 240 20% 4%;
     --foreground: 180 100% 50%;
     --card: 240 15% 10%;
     --card-foreground: 180 50% 90%;
-    --popover: 240 15% 10%;
-    --popover-foreground: 180 50% 90%;
     --primary: 157 100% 50%;
     --primary-foreground: 240 20% 4%;
     --secondary: 300 100% 50%;
@@ -57,8 +23,131 @@
     --destructive: 346 100% 50%;
     --destructive-foreground: 240 20% 4%;
     --border: 180 100% 50%;
-    --input: 240 15% 15%;
     --ring: 157 100% 50%;
+    --radius: 0px;
+    --font-heading: 'Orbitron', sans-serif;
+    --font-body: 'Rajdhani', sans-serif;
+    --font-mono: 'Share Tech Mono', monospace;
+  }
+
+  /* Midnight Theme */
+  [data-theme="midnight"] {
+    --background: 240 40% 8%;
+    --foreground: 210 100% 95%;
+    --card: 240 35% 12%;
+    --card-foreground: 210 100% 95%;
+    --primary: 250 80% 70%;
+    --primary-foreground: 240 40% 8%;
+    --secondary: 200 70% 60%;
+    --secondary-foreground: 240 40% 8%;
+    --muted: 240 20% 20%;
+    --muted-foreground: 240 10% 65%;
+    --accent: 210 80% 65%;
+    --accent-foreground: 240 40% 8%;
+    --destructive: 0 70% 60%;
+    --destructive-foreground: 240 40% 8%;
+    --border: 250 50% 40%;
+    --ring: 250 80% 70%;
+    --radius: 8px;
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+  }
+
+  /* Light Theme */
+  [data-theme="light"] {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 10%;
+    --card: 0 0% 98%;
+    --card-foreground: 240 10% 10%;
+    --primary: 240 6% 10%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 5% 90%;
+    --secondary-foreground: 240 6% 10%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+    --accent: 240 5% 90%;
+    --accent-foreground: 240 6% 10%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 6% 90%;
+    --ring: 240 6% 10%;
+    --radius: 6px;
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+  }
+
+  /* Discord Dark Theme */
+  [data-theme="discord-dark"] {
+    --background: 223 7% 20%;
+    --foreground: 210 11% 96%;
+    --card: 225 6% 13%;
+    --card-foreground: 210 11% 96%;
+    --primary: 235 86% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 220 7% 23%;
+    --secondary-foreground: 210 11% 96%;
+    --muted: 223 7% 23%;
+    --muted-foreground: 215 9% 72%;
+    --accent: 235 86% 65%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 359 82% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 228 6% 32%;
+    --ring: 235 86% 65%;
+    --radius: 4px;
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+  }
+
+  /* Discord Light Theme */
+  [data-theme="discord-light"] {
+    --background: 0 0% 100%;
+    --foreground: 223 7% 20%;
+    --card: 0 0% 98%;
+    --card-foreground: 223 7% 20%;
+    --primary: 235 86% 65%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 223 7% 20%;
+    --muted: 240 5% 96%;
+    --muted-foreground: 215 9% 50%;
+    --accent: 235 86% 65%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 359 82% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 240 6% 90%;
+    --ring: 235 86% 65%;
+    --radius: 4px;
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+  }
+
+  /* Cute Theme */
+  [data-theme="cute"] {
+    --background: 330 100% 98%;
+    --foreground: 330 40% 25%;
+    --card: 330 100% 96%;
+    --card-foreground: 330 40% 25%;
+    --primary: 320 85% 70%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 280 65% 80%;
+    --secondary-foreground: 330 40% 25%;
+    --muted: 330 50% 95%;
+    --muted-foreground: 330 20% 50%;
+    --accent: 300 70% 75%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 70% 70%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 320 50% 85%;
+    --ring: 320 85% 70%;
+    --radius: 20px;
+    --font-heading: 'Quicksand', sans-serif;
+    --font-body: 'Quicksand', sans-serif;
+    --font-mono: 'Fira Code', monospace;
   }
 
   * {
@@ -66,8 +155,13 @@
   }
 
   body {
-    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
-    background-image: 
+    @apply bg-background text-foreground antialiased overflow-x-hidden;
+    font-family: var(--font-body);
+  }
+
+  /* Cyberpunk-specific grid background */
+  [data-theme="cyberpunk"] body {
+    background-image:
       linear-gradient(to right, rgba(26, 26, 36, 0.5) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(26, 26, 36, 0.5) 1px, transparent 1px);
     background-size: 40px 40px;
@@ -91,28 +185,23 @@
   }
 
   .cyber-button {
-    @apply relative px-6 py-2 font-mono font-bold uppercase tracking-wider transition-all duration-300
-           bg-transparent border border-primary text-primary hover:bg-primary hover:text-black
-           focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-black;
+    @apply relative px-6 py-2 font-mono font-bold uppercase tracking-wider transition-all duration-300 bg-transparent border border-primary text-primary hover:bg-primary hover:text-black focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-black;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
   }
 
   .cyber-button-secondary {
-    @apply relative px-6 py-2 font-mono font-bold uppercase tracking-wider transition-all duration-300
-           bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-black
-           focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:ring-offset-2 focus:ring-offset-black;
+    @apply relative px-6 py-2 font-mono font-bold uppercase tracking-wider transition-all duration-300 bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-black focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:ring-offset-2 focus:ring-offset-black;
     clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
   }
 
   .cyber-input {
-    @apply w-full bg-black/50 border border-gray-700 text-accent font-mono px-4 py-2
-           focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none transition-all;
+    @apply w-full bg-black/50 border border-gray-700 text-accent font-mono px-4 py-2 focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none transition-all;
   }
 
   .cyber-glitch-text {
     @apply relative inline-block;
   }
-  
+
   .cyber-glitch-text:hover {
     animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
     color: var(--primary);
@@ -138,7 +227,7 @@
   .text-glow {
     text-shadow: 0 0 10px currentColor;
   }
-  
+
   .text-glow-primary {
     text-shadow: 0 0 10px theme('colors.cyber.neon.green');
   }
@@ -148,13 +237,11 @@
   }
 
   .scanline-overlay {
-    background: linear-gradient(
-      to bottom,
-      rgba(255,255,255,0),
-      rgba(255,255,255,0) 50%,
-      rgba(0,0,0,0.2) 50%,
-      rgba(0,0,0,0.2)
-    );
+    background: linear-gradient(to bottom,
+        rgba(255, 255, 255, 0),
+        rgba(255, 255, 255, 0) 50%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0.2));
     background-size: 100% 4px;
     animation: scanline 10s linear infinite;
     pointer-events: none;

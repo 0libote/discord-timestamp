@@ -67,14 +67,15 @@ export default {
         }
       },
       borderRadius: {
-        lg: "var(--radius)",
-        md: "calc(var(--radius) - 2px)",
-        sm: "calc(var(--radius) - 4px)",
+        DEFAULT: 'var(--radius)',
+        lg: 'calc(var(--radius) + 4px)',
+        md: 'calc(var(--radius) + 2px)',
+        sm: 'calc(var(--radius) - 2px)',
       },
       fontFamily: {
-        sans: ['Rajdhani', 'sans-serif'],
-        mono: ['"Share Tech Mono"', 'monospace'],
-        display: ['"Orbitron"', 'sans-serif'],
+        sans: ['var(--font-body)', 'sans-serif'],
+        mono: ['var(--font-mono)', 'monospace'],
+        display: ['var(--font-heading)', 'sans-serif'],
       },
       backgroundImage: {
         'grid-pattern': "linear-gradient(to right, #1a1a24 1px, transparent 1px), linear-gradient(to bottom, #1a1a24 1px, transparent 1px)",

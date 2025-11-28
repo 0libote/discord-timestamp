@@ -1,8 +1,14 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Github, Terminal, Cpu } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Terminal, Github, Palette, ChevronDown } from 'lucide-react';
+import { useTheme } from '../context/ThemeContext';
 
 const Header = () => {
+  const [isThemeOpen, setIsThemeOpen] = useState(false);
+  const { theme, setTheme, themes } = useTheme();
+
+  const currentTheme = themes.find(t => t.id === theme);
+
   return (
     <motion.header
       className="w-full py-6 px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto sticky top-0 z-50 backdrop-blur-md bg-black/60 border-b border-white/5 mb-8"
@@ -25,7 +31,48 @@ const Header = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-black/40 border border-white/10 rounded-none">
+        {/* Theme Picker */}
+        <div className="relative">
+          <button
+            onClick={() => setIsThemeOpen(!isThemeOpen)}
+            className="flex items-center gap-2 px-3 py-2 bg-black/40 border border-white/10 hover:border-primary/50 transition-all text-sm font-mono text-muted-foreground hover:text-primary"
+            style={{ borderRadius: 'var(--radius)' }}
+          >
+            <Palette size={16} />
+            <span className="hidden sm:inline">{currentTheme?.name}</span>
+            <ChevronDown size={14} className={`transition-transform ${isThemeOpen ? 'rotate-180' : ''}`} />
+          </button>
+
+          <AnimatePresence>
+            {isThemeOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                className="absolute right-0 mt-2 w-48 bg-black border border-white/10 shadow-xl z-50"
+                style={{ borderRadius: 'var(--radius)' }}
+              >
+                {themes.map((t) => (
+                  <button
+                    key={t.id}
+                    onClick={() => {
+                      setTheme(t.id);
+                      setIsThemeOpen(false);
+                    }}
+                    className={`w-full text-left px-4 py-2 text-sm font-mono transition-colors ${theme === t.id
+                        ? 'bg-primary/20 text-primary'
+                        : 'text-gray-400 hover:bg-white/10 hover:text-white'
+                      }`}
+                  >
+                    {t.name}
+                  </button>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        <div className="hidden md:flex items-center gap-2 px-3 py-1 bg-black/40 border border-white/10" style={{ borderRadius: 'var(--radius)' }}>
           <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
           <span className="text-xs font-mono text-muted-foreground uppercase">Sys.Stable</span>
         </div>
@@ -36,6 +83,7 @@ const Header = () => {
           rel="noopener noreferrer"
           className="cyber-button-secondary text-xs flex items-center gap-2 !px-4 !py-2"
           aria-label="View on GitHub"
+          style={{ borderRadius: 'var(--radius)' }}
         >
           <Github size={16} />
           <span className="hidden sm:inline">Source</span>

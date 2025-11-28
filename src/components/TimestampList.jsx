@@ -121,7 +121,7 @@ const TimestampList = ({ getUnixTimestamp, formatPreview, addToHistory }) => {
                   month: 'short', day: 'numeric',
                   hour: 'numeric', minute: '2-digit'
                 });
-                addToHistory(`${readableDate} (${fmt.desc})`, unixTimestamp);
+                addToHistory(readableDate, unixTimestamp);
               }}
             />
           </motion.div>

@@ -4,25 +4,84 @@ import { Clock, Trash2, History, X, ChevronDown } from 'lucide-react';
 import { DatePickerInput, TimePickerInput } from './DateTimePicker';
 
 const TimezonePicker = ({ selectedTimezone, setSelectedTimezone }) => {
-  const timezones = Intl.supportedValuesOf('timeZone');
+  const [isOpen, setIsOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const timezones = Intl.supportedValuesOf('timeZone').map(tz => {
+    try {
+      const offset = new Intl.DateTimeFormat('en-US', {
+        timeZone: tz,
+        timeZoneName: 'longOffset'
+      }).formatToParts(new Date())
+        .find(part => part.type === 'timeZoneName').value;
+      return { value: tz, label: `(${offset}) ${tz.replace(/_/g, ' ')}`, offset };
+    } catch (e) {
+      return { value: tz, label: tz.replace(/_/g, ' '), offset: '' };
+    }
+  });
+
+  const filteredTimezones = timezones.filter(tz =>
+    tz.label.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  const selectedTzLabel = timezones.find(tz => tz.value === selectedTimezone)?.label || selectedTimezone;
 
   return (
     <div className="relative group">
-      <select
-        value={selectedTimezone}
-        onChange={(e) => setSelectedTimezone(e.target.value)}
-        className="w-full bg-black/50 border border-gray-800 text-accent font-mono rounded-none px-4 py-3 appearance-none cursor-pointer hover:border-accent/50 transition-all focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent"
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className="w-full bg-black/50 border border-gray-800 text-accent font-mono rounded-none px-4 py-3 cursor-pointer hover:border-accent/50 transition-all flex items-center justify-between"
       >
-        {timezones.map((tz) => (
-          <option key={tz} value={tz} className="bg-black text-foreground">
-            {tz.replace(/_/g, ' ')}
-          </option>
-        ))}
-      </select>
-      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary group-hover:text-accent transition-colors">
-        <ChevronDown size={16} />
+        <span className="truncate mr-2">{selectedTzLabel}</span>
+        <ChevronDown size={16} className={`text-primary transition-transform ${isOpen ? 'rotate-180' : ''}`} />
       </div>
+
       <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-accent group-hover:w-full transition-all duration-500"></div>
+
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="absolute z-50 w-full mt-1 bg-black border border-gray-800 shadow-xl max-h-60 flex flex-col"
+          >
+            <div className="p-2 border-b border-gray-800 sticky top-0 bg-black z-10">
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search timezone..."
+                className="w-full bg-white/5 border border-gray-800 text-white px-3 py-2 text-sm font-mono focus:outline-none focus:border-primary placeholder:text-gray-600"
+                autoFocus
+                onClick={(e) => e.stopPropagation()}
+              />
+            </div>
+            <div className="overflow-y-auto custom-scrollbar flex-1">
+              {filteredTimezones.length > 0 ? (
+                filteredTimezones.map((tz) => (
+                  <div
+                    key={tz.value}
+                    onClick={() => {
+                      setSelectedTimezone(tz.value);
+                      setIsOpen(false);
+                      setSearchQuery('');
+                    }}
+                    className={`px-4 py-2 text-sm cursor-pointer transition-colors font-mono hover:bg-primary/20 hover:text-primary ${selectedTimezone === tz.value ? 'bg-primary/10 text-primary' : 'text-gray-400'
+                      }`}
+                  >
+                    {tz.label}
+                  </div>
+                ))
+              ) : (
+                <div className="px-4 py-3 text-sm text-gray-500 font-mono text-center">
+                  No results found
+                </div>
+              )}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -38,10 +38,6 @@ export default {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
-        success: {
-          DEFAULT: "hsl(var(--success))",
-          foreground: "hsl(var(--success-foreground))",
-        },
         accent: {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
@@ -54,16 +50,21 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
-        discord: {
-          blurple: "#5865F2",
-          green: "#57F287",
-          yellow: "#FEE75C",
-          fuchsia: "#EB459E",
-          red: "#ED4245",
-          dark: "#36393f",
-          darker: "#2f3136",
-          darkest: "#202225",
-        },
+        // Cyberpunk Palette
+        cyber: {
+          black: "#050505",
+          dark: "#0a0a0f",
+          gray: "#1a1a24",
+          light: "#2a2a35",
+          neon: {
+            green: "#00ff9d",
+            blue: "#00f3ff",
+            pink: "#ff00ff",
+            purple: "#bc13fe",
+            red: "#ff003c",
+            yellow: "#fcee0a"
+          }
+        }
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -71,7 +72,17 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
+        sans: ['Rajdhani', 'sans-serif'],
+        mono: ['"Share Tech Mono"', 'monospace'],
+        display: ['"Orbitron"', 'sans-serif'],
+      },
+      backgroundImage: {
+        'grid-pattern': "linear-gradient(to right, #1a1a24 1px, transparent 1px), linear-gradient(to bottom, #1a1a24 1px, transparent 1px)",
+        'scanlines': "linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.2))",
+      },
+      backgroundSize: {
+        'grid': '40px 40px',
+        'scanlines': '100% 4px',
       },
       keyframes: {
         "accordion-down": {
@@ -82,20 +93,29 @@ export default {
           from: { height: "var(--radix-accordion-content-height)" },
           to: { height: "0" },
         },
-        "fade-in": {
-          "0%": { opacity: "0", transform: "translateY(10px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
+        "glitch": {
+          "0%": { transform: "translate(0)" },
+          "20%": { transform: "translate(-2px, 2px)" },
+          "40%": { transform: "translate(-2px, -2px)" },
+          "60%": { transform: "translate(2px, 2px)" },
+          "80%": { transform: "translate(2px, -2px)" },
+          "100%": { transform: "translate(0)" },
         },
-        "pulse-glow": {
-          "0%, 100%": { boxShadow: "0 0 5px hsl(var(--primary) / 0.5)" },
-          "50%": { boxShadow: "0 0 20px hsl(var(--primary) / 0.8)" },
+        "scanline": {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100%)" },
         },
+        "blink": {
+          "0%, 100%": { opacity: "1" },
+          "50%": { opacity: "0" },
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "fade-in": "fade-in 0.5s ease-out forwards",
-        "pulse-glow": "pulse-glow 2s infinite",
+        "glitch": "glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite",
+        "scanline": "scanline 8s linear infinite",
+        "blink": "blink 1s step-end infinite",
       },
     },
   },

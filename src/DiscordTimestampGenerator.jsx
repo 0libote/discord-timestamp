@@ -10,7 +10,6 @@ import Tooltip from './components/Tooltip';
 const DiscordTimestampGenerator = () => {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 16));
   const [selectedTimezone, setSelectedTimezone] = useState(Intl.DateTimeFormat().resolvedOptions().timeZone);
-  const [theme, setTheme] = useState('dark');
   const [history, setHistory] = useState(() => {
     const savedHistory = localStorage.getItem('timestampHistory');
     return savedHistory ? JSON.parse(savedHistory) : [];
@@ -18,35 +17,12 @@ const DiscordTimestampGenerator = () => {
 
   const containerRef = useRef(null);
 
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-  };
-
-  useEffect(() => {
-    document.documentElement.classList.toggle('dark', theme === 'dark');
-  }, [theme]);
-
   const addToHistory = (name, timestamp) => {
     setHistory(prev => {
       const newHistory = [{ id: Date.now(), name, timestamp }, ...prev];
       return newHistory.slice(0, 10); // Keep last 10 items
     });
   };
-
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      if (containerRef.current) {
-        const { left, top } = containerRef.current.getBoundingClientRect();
-        const x = e.clientX - left;
-        const y = e.clientY - top;
-        containerRef.current.style.setProperty('--mouse-x', `${x}px`);
-        containerRef.current.style.setProperty('--mouse-y', `${y}px`);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
 
   useEffect(() => {
     localStorage.setItem('timestampHistory', JSON.stringify(history));
@@ -91,39 +67,40 @@ const DiscordTimestampGenerator = () => {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 selection:text-primary-foreground overflow-x-hidden relative transition-colors duration-500"
+      className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 selection:text-primary-foreground overflow-x-hidden relative"
     >
-      {/* Mouse Follow Spotlight */}
-      <div
-        className="pointer-events-none fixed inset-0 z-0 transition-opacity duration-300"
-        style={{
-          background: `radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), rgba(var(--primary), 0.15), transparent 80%)`,
-          zIndex: 0
-        }}
-      />
+      {/* Cyberpunk Background Effects */}
+      <div className="fixed inset-0 pointer-events-none z-0 bg-grid-pattern opacity-20"></div>
+      <div className="fixed inset-0 pointer-events-none z-0 scanline-overlay"></div>
 
-      <Header theme={theme} toggleTheme={toggleTheme} />
+      {/* Ambient Glow */}
+      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
 
-      <main className="container mx-auto px-4 py-12 relative z-10">
+      <Header />
+
+      <main className="container mx-auto px-4 py-8 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
-          className="text-center mb-16 relative"
+          className="text-center mb-12 relative"
         >
-          <h2 className="text-4xl md:text-6xl font-extrabold tracking-tight mb-6 text-primary drop-shadow-sm">
-            Discord Timestamp Generator
+          <div className="inline-block border border-primary/30 bg-black/40 backdrop-blur-sm px-4 py-1 mb-4 rounded-none">
+            <span className="text-primary font-mono text-sm tracking-widest uppercase">System: Online</span>
+          </div>
+          <h2 className="text-4xl md:text-6xl font-display font-bold tracking-wider mb-4 text-white uppercase cyber-glitch-text" data-text="Timestamp Generator">
+            Timestamp Generator
           </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            Create dynamic timestamps for your Discord messages. Select a date, copy the code, and paste it into your chat.
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto font-mono">
+            <span className="text-accent">&gt;</span> Initialize temporal coordinates for Discord communication protocols.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-7xl mx-auto">
           <motion.div
             className="lg:col-span-5 space-y-8"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.1, duration: 0.6 }}
           >
             <Controls
@@ -140,8 +117,8 @@ const DiscordTimestampGenerator = () => {
 
           <motion.div
             className="lg:col-span-7"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.2, duration: 0.6 }}
           >
             <TimestampList

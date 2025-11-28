@@ -1,27 +1,28 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Clock, Trash2, History, X } from 'lucide-react';
+import { Clock, Trash2, History, X, ChevronDown } from 'lucide-react';
 import { DatePickerInput, TimePickerInput } from './DateTimePicker';
 
 const TimezonePicker = ({ selectedTimezone, setSelectedTimezone }) => {
   const timezones = Intl.supportedValuesOf('timeZone');
 
   return (
-    <div className="relative">
+    <div className="relative group">
       <select
         value={selectedTimezone}
         onChange={(e) => setSelectedTimezone(e.target.value)}
-        className="w-full glass-panel text-foreground rounded-xl px-4 py-3 appearance-none cursor-pointer hover:shadow-primary/10 hover:border-primary/30 transition-all focus:outline-none focus:ring-2 focus:ring-primary/50"
+        className="w-full bg-black/50 border border-gray-800 text-accent font-mono rounded-none px-4 py-3 appearance-none cursor-pointer hover:border-accent/50 transition-all focus:outline-none focus:ring-1 focus:ring-accent focus:border-accent"
       >
         {timezones.map((tz) => (
-          <option key={tz} value={tz} className="bg-card text-foreground">
+          <option key={tz} value={tz} className="bg-black text-foreground">
             {tz.replace(/_/g, ' ')}
           </option>
         ))}
       </select>
-      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m6 9 6 6 6-6" /></svg>
+      <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-primary group-hover:text-accent transition-colors">
+        <ChevronDown size={16} />
       </div>
+      <div className="absolute bottom-0 left-0 h-[1px] w-0 bg-accent group-hover:w-full transition-all duration-500"></div>
     </div>
   );
 };
@@ -30,43 +31,37 @@ const HistoryItem = ({ item, onLoad, onDelete }) => {
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      exit={{ opacity: 0, scale: 0.95 }}
-      className="group relative glass-card rounded-xl p-4 hover:border-primary/40 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 overflow-hidden"
-      whileHover={{ scale: 1.01 }}
+      initial={{ opacity: 0, x: -10 }}
+      animate={{ opacity: 1, x: 0 }}
+      exit={{ opacity: 0, x: 10 }}
+      className="group relative border-l-2 border-gray-800 hover:border-primary bg-white/5 hover:bg-white/10 p-3 transition-all duration-300"
     >
-      {/* Hover glow effect */}
-      <div className="absolute inset-0 bg-gradient-to-r from-primary/0 via-primary/5 to-primary/0 translate-x-[-100%] group-hover:animate-[shimmer_2s_infinite]" />
-
       <div className="flex items-center justify-between relative z-10">
         <div className="min-w-0 flex-1 mr-3">
-          <p className="font-bold text-sm truncate text-foreground group-hover:text-primary transition-colors">{item.name}</p>
-          <p className="text-xs text-muted-foreground flex items-center gap-1 mt-1">
+          <p className="font-mono text-xs text-primary truncate group-hover:text-white transition-colors">
+            <span className="text-gray-500 mr-2">ID:</span>{item.name}
+          </p>
+          <p className="text-[10px] text-muted-foreground flex items-center gap-1 mt-1 font-mono">
             <Clock className="w-3 h-3" />
             {new Date(item.timestamp * 1000).toLocaleString(undefined, {
-              month: 'short', day: 'numeric',
+              month: 'numeric', day: 'numeric',
               hour: 'numeric', minute: '2-digit'
             })}
           </p>
         </div>
         <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-          <motion.button
+          <button
             onClick={() => onLoad(item.timestamp)}
-            className="text-xs bg-primary text-primary-foreground font-medium px-3 py-1.5 rounded-lg hover:bg-primary/90 transition-colors shadow-lg shadow-primary/20"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            className="text-[10px] uppercase font-bold text-primary hover:text-white border border-primary hover:bg-primary px-2 py-1 transition-colors"
           >
             Load
-          </motion.button>
-          <motion.button
+          </button>
+          <button
             onClick={() => onDelete(item.id)}
-            className="p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded-lg transition-colors"
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            className="text-gray-500 hover:text-destructive transition-colors"
           >
-            <Trash2 className="w-4 h-4" />
-          </motion.button>
+            <Trash2 className="w-3 h-3" />
+          </button>
         </div>
       </div>
     </motion.div>
@@ -91,30 +86,42 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
   };
 
   return (
-    <div className="glass-card rounded-xl p-6 h-full flex flex-col relative overflow-hidden">
-      {/* Ambient background glow */}
-      <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 pointer-events-none" />
+    <div className="cyber-card p-6 h-full flex flex-col">
+      <div className="absolute top-0 right-0 p-2 opacity-20">
+        <div className="flex gap-1">
+          <div className="w-1 h-1 bg-primary rounded-full animate-pulse"></div>
+          <div className="w-1 h-1 bg-primary rounded-full animate-pulse delay-75"></div>
+          <div className="w-1 h-1 bg-primary rounded-full animate-pulse delay-150"></div>
+        </div>
+      </div>
 
-      <div className="space-y-6 flex-1">
+      <div className="space-y-8 flex-1">
         <motion.div
-          className="p-4 bg-primary/5 rounded-xl border border-primary/10 text-center relative overflow-hidden"
+          className="p-4 border border-primary/20 bg-primary/5 relative overflow-hidden group"
           whileHover={{ scale: 1.01 }}
           transition={{ type: "spring", stiffness: 400, damping: 25 }}
         >
-          <div className="absolute inset-0 bg-gradient-to-r from-transparent via-primary/5 to-transparent translate-x-[-100%] animate-[shimmer_2s_infinite]" />
-          <p className="font-bold text-primary mb-1 text-xs uppercase tracking-wider">Preview Time</p>
-          <div className="text-center font-bold text-sm md:text-base text-foreground">{longFormDate}</div>
+          <div className="absolute top-0 left-0 w-2 h-2 border-t border-l border-primary"></div>
+          <div className="absolute bottom-0 right-0 w-2 h-2 border-b border-r border-primary"></div>
+
+          <p className="font-mono text-primary mb-2 text-xs uppercase tracking-widest flex items-center gap-2">
+            <span className="w-2 h-2 bg-primary animate-pulse"></span>
+            Target Coordinates
+          </p>
+          <div className="text-center font-display font-bold text-sm md:text-lg text-white tracking-wide uppercase text-glow-primary">
+            {longFormDate}
+          </div>
         </motion.div>
 
         <div className="space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <DatePickerInput selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
             <TimePickerInput selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
           </div>
 
           <div className="space-y-2">
-            <label className="block text-sm font-bold mb-2 text-foreground uppercase tracking-wider">
-              Timezone
+            <label className="block text-xs font-mono text-primary uppercase tracking-widest mb-2">
+              > Select Timezone
             </label>
             <TimezonePicker
               selectedTimezone={selectedTimezone}
@@ -122,31 +129,32 @@ const Controls = ({ selectedDate, setSelectedDate, selectedTimezone, setSelected
             />
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-4 pt-4 border-t border-white/5">
             <div className="flex items-center justify-between">
-              <h3 className="text-sm font-bold text-foreground uppercase tracking-wider">
-                History
+              <h3 className="text-xs font-mono text-muted-foreground uppercase tracking-widest flex items-center gap-2">
+                <History size={14} />
+                Log Data
               </h3>
               {history.length > 0 && (
                 <button
                   onClick={clearHistory}
-                  className="text-destructive-foreground bg-destructive hover:bg-destructive/90 px-4 py-2 rounded-lg transition-all shadow-md hover:shadow-destructive/20 active:scale-95 text-xs font-bold uppercase tracking-wide"
+                  className="text-[10px] text-destructive hover:text-white hover:bg-destructive px-2 py-1 transition-colors uppercase font-mono tracking-wider border border-transparent hover:border-destructive"
                 >
-                  Clear All
+                  Purge Logs
                 </button>
               )}
             </div>
 
-            <div className="space-y-3 max-h-[300px] overflow-y-auto custom-scrollbar pr-2 -mx-1 px-1">
+            <div className="space-y-2 max-h-[300px] overflow-y-auto custom-scrollbar pr-2">
               <AnimatePresence mode="popLayout">
                 {history.length === 0 ? (
                   <motion.div
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="text-center py-8 text-muted-foreground italic bg-card/30 rounded-xl border border-white/5"
+                    className="text-center py-8 text-muted-foreground/50 font-mono text-xs border border-dashed border-white/10"
                   >
-                    No history yet
+                    // NO DATA LOGGED
                   </motion.div>
                 ) : (
                   history.map((item) => (

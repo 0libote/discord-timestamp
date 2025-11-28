@@ -1,109 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    /* Light Mode - Cosmic Glass (Light) */
-    --background: 220 30% 96%;
-    /* Soft blue-grey white */
-    --foreground: 224 71% 4%;
-    /* Deep navy almost black */
+    /* Cyberpunk Theme Variables */
+    --background: 240 20% 4%; /* #0a0a0f */
+    --foreground: 180 100% 50%; /* #00f3ff */
 
-    --card: 0 0% 100%;
-    --card-foreground: 224 71% 4%;
+    --card: 240 15% 10%; /* #1a1a24 */
+    --card-foreground: 180 50% 90%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71% 4%;
+    --popover: 240 15% 10%;
+    --popover-foreground: 180 50% 90%;
 
-    --primary: 262 83% 58%;
-    /* Vibrant Violet */
-    --primary-foreground: 210 40% 98%;
+    --primary: 157 100% 50%; /* #00ff9d - Neon Green */
+    --primary-foreground: 240 20% 4%;
 
-    --secondary: 220 14% 90%;
-    /* Muted cool grey */
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 300 100% 50%; /* #ff00ff - Neon Pink */
+    --secondary-foreground: 240 20% 4%;
 
-    --muted: 220 14% 90%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 240 10% 20%;
+    --muted-foreground: 240 10% 60%;
 
-    --accent: 262 83% 58%;
-    /* Same as primary for consistency in light mode */
-    --accent-foreground: 210 40% 98%;
+    --accent: 180 100% 50%; /* #00f3ff - Neon Cyan */
+    --accent-foreground: 240 20% 4%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 346 100% 50%; /* #ff003c - Neon Red */
+    --destructive-foreground: 240 20% 4%;
 
-    --success: 142 71% 45%;
-    --success-foreground: 210 40% 98%;
+    --border: 180 100% 50%;
+    --input: 240 15% 15%;
+    --ring: 157 100% 50%;
 
-    --border: 220 13% 85%;
-    --input: 220 13% 85%;
-    --ring: 262 83% 58%;
-
-    --radius: 1rem;
+    --radius: 0px; /* Sharp corners for cyberpunk */
   }
 
   .dark {
-    /* Dark Mode - Cosmic Glass (Dark) */
-    --background: 224 71% 4%;
-    /* Deepest navy/black */
-    --foreground: 210 40% 98%;
-    /* Soft white */
-
-    --card: 224 71% 6%;
-    /* Slightly lighter than bg */
-    --card-foreground: 210 40% 98%;
-
-    --popover: 224 71% 6%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 263 80% 60%;
-    /* Brighter electric violet */
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 215 27% 17%;
-    /* Dark cool grey */
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 215 27% 17%;
-    --muted-foreground: 215 20% 65%;
-
-    --accent: 280 60% 60%;
-    /* Secondary accent color (purple/pinkish) */
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62% 30%;
-    --destructive-foreground: 210 40% 98%;
-
-    --success: 142 76% 36%;
-    --success-foreground: 210 40% 98%;
-
-    --border: 215 27% 17%;
-    --input: 215 27% 17%;
-    --ring: 263 70% 50%;
+    /* Ensure dark mode uses the same palette or slightly adjusted if needed */
+    --background: 240 20% 4%;
+    --foreground: 180 100% 50%;
+    --card: 240 15% 10%;
+    --card-foreground: 180 50% 90%;
+    --popover: 240 15% 10%;
+    --popover-foreground: 180 50% 90%;
+    --primary: 157 100% 50%;
+    --primary-foreground: 240 20% 4%;
+    --secondary: 300 100% 50%;
+    --secondary-foreground: 240 20% 4%;
+    --muted: 240 10% 20%;
+    --muted-foreground: 240 10% 60%;
+    --accent: 180 100% 50%;
+    --accent-foreground: 240 20% 4%;
+    --destructive: 346 100% 50%;
+    --destructive-foreground: 240 20% 4%;
+    --border: 180 100% 50%;
+    --input: 240 15% 15%;
+    --ring: 157 100% 50%;
   }
 
   * {
     @apply border-border;
   }
 
-  /* Global Smooth Theme Transition */
   body {
-    @apply bg-background text-foreground transition-colors duration-300 ease-in-out;
-    background-image:
-      radial-gradient(circle at 50% 0%, hsla(var(--primary), 0.15) 0%, transparent 60%),
-      radial-gradient(circle at 80% 10%, hsla(var(--accent), 0.15) 0%, transparent 50%);
-    background-attachment: fixed;
+    @apply bg-background text-foreground font-sans antialiased overflow-x-hidden;
+    background-image: 
+      linear-gradient(to right, rgba(26, 26, 36, 0.5) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(26, 26, 36, 0.5) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+}
+
+@layer components {
+  .cyber-card {
+    @apply bg-black/80 border border-accent/30 backdrop-blur-sm relative overflow-hidden;
+    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
   }
 
-  /* Ensure all theme-able properties transition smoothly */
-  *,
-  *::before,
-  *::after {
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    transition-duration: 500ms;
+  .cyber-card::before {
+    content: '';
+    @apply absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-accent;
+  }
+
+  .cyber-card::after {
+    content: '';
+    @apply absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-accent;
+  }
+
+  .cyber-button {
+    @apply relative px-6 py-2 font-mono font-bold uppercase tracking-wider transition-all duration-300
+           bg-transparent border border-primary text-primary hover:bg-primary hover:text-black
+           focus:outline-none focus:ring-2 focus:ring-primary/50 focus:ring-offset-2 focus:ring-offset-black;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+
+  .cyber-button-secondary {
+    @apply relative px-6 py-2 font-mono font-bold uppercase tracking-wider transition-all duration-300
+           bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-black
+           focus:outline-none focus:ring-2 focus:ring-secondary/50 focus:ring-offset-2 focus:ring-offset-black;
+    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  }
+
+  .cyber-input {
+    @apply w-full bg-black/50 border border-gray-700 text-accent font-mono px-4 py-2
+           focus:border-accent focus:ring-1 focus:ring-accent focus:outline-none transition-all;
+  }
+
+  .cyber-glitch-text {
+    @apply relative inline-block;
+  }
+  
+  .cyber-glitch-text:hover {
+    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+    color: var(--primary);
   }
 }
 
@@ -114,60 +126,37 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-transparent;
+  @apply bg-black;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-muted-foreground/30 rounded-full hover:bg-muted-foreground/50 transition-colors;
+  @apply bg-gray-800 hover:bg-accent/50 transition-colors;
 }
 
 /* Utility Classes */
 @layer utilities {
-  .glass-card {
-    @apply bg-card/40 backdrop-blur-md border border-white/5 shadow-xl;
-  }
-
-  .glass-panel {
-    @apply bg-secondary/30 backdrop-blur-sm border border-white/5;
-  }
-
   .text-glow {
-    text-shadow: 0 0 20px hsla(var(--primary), 0.5);
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  .text-glow-primary {
+    text-shadow: 0 0 10px theme('colors.cyber.neon.green');
   }
 
-  /* Hide scrollbar for Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
+  .text-glow-accent {
+    text-shadow: 0 0 10px theme('colors.cyber.neon.blue');
   }
 
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    /* IE and Edge */
-    scrollbar-width: none;
-    /* Firefox */
-  }
-
-  .custom-scrollbar::-webkit-scrollbar {
-    width: 6px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-thumb {
-    @apply bg-white/10 rounded-full hover:bg-white/20;
-  }
-
-  /* Hide spin buttons for number inputs */
-  input[type=number]::-webkit-inner-spin-button,
-  input[type=number]::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
-
-  input[type=number] {
-    -moz-appearance: textfield;
+  .scanline-overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(255,255,255,0),
+      rgba(255,255,255,0) 50%,
+      rgba(0,0,0,0.2) 50%,
+      rgba(0,0,0,0.2)
+    );
+    background-size: 100% 4px;
+    animation: scanline 10s linear infinite;
+    pointer-events: none;
   }
 }

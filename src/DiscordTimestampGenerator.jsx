@@ -2,8 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Controls from './components/Controls';
-import TimestampList from './components/TimestampList';
+import ThemeLayout from './components/ThemeLayout';
 import ThemeBackground from './components/ThemeBackground';
 
 const DiscordTimestampGenerator = () => {
@@ -90,38 +89,18 @@ const DiscordTimestampGenerator = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-7xl mx-auto">
-          <motion.div
-            className="lg:col-span-5 space-y-8"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.1, duration: 0.6 }}
-          >
-            <Controls
-              selectedDate={selectedDate}
-              setSelectedDate={setSelectedDate}
-              selectedTimezone={selectedTimezone}
-              setSelectedTimezone={setSelectedTimezone}
-              history={history}
-              setHistory={setHistory}
-              getUnixTimestamp={getUnixTimestamp}
-              longFormDate={longFormDate}
-            />
-          </motion.div>
-
-          <motion.div
-            className="lg:col-span-7"
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
-          >
-            <TimestampList
-              getUnixTimestamp={getUnixTimestamp}
-              formatPreview={formatPreview}
-              addToHistory={addToHistory}
-            />
-          </motion.div>
-        </div>
+        <ThemeLayout
+          selectedDate={selectedDate}
+          setSelectedDate={setSelectedDate}
+          selectedTimezone={selectedTimezone}
+          setSelectedTimezone={setSelectedTimezone}
+          history={history}
+          setHistory={setHistory}
+          getUnixTimestamp={getUnixTimestamp}
+          longFormDate={longFormDate}
+          formatPreview={formatPreview}
+          addToHistory={addToHistory}
+        />
       </main>
 
       <Footer />

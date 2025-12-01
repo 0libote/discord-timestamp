@@ -6,7 +6,7 @@
 
 @layer base {
 
-  /* Cyberpunk Theme */
+  /* Cyberpunk Theme (High Contrast Neon) */
   [data-theme="cyberpunk"] {
     --background: 240 20% 4%;
     --foreground: 180 100% 50%;
@@ -30,71 +30,71 @@
     --font-mono: 'Share Tech Mono', monospace;
   }
 
-  /* Midnight Theme */
+  /* Midnight Theme (Deep Space Glass) */
   [data-theme="midnight"] {
-    --background: 240 40% 8%;
-    --foreground: 210 100% 95%;
-    --card: 240 35% 12%;
-    --card-foreground: 210 100% 95%;
-    --primary: 250 80% 70%;
-    --primary-foreground: 240 40% 8%;
-    --secondary: 200 70% 60%;
-    --secondary-foreground: 240 40% 8%;
-    --muted: 240 20% 20%;
-    --muted-foreground: 240 10% 65%;
-    --accent: 210 80% 65%;
-    --accent-foreground: 240 40% 8%;
-    --destructive: 0 70% 60%;
-    --destructive-foreground: 240 40% 8%;
-    --border: 250 50% 40%;
-    --ring: 250 80% 70%;
+    --background: 260 50% 8%;
+    --foreground: 260 100% 98%;
+    --card: 260 40% 15%;
+    --card-foreground: 260 100% 98%;
+    --primary: 270 80% 75%;
+    --primary-foreground: 260 50% 8%;
+    --secondary: 190 90% 60%;
+    --secondary-foreground: 260 50% 8%;
+    --muted: 260 30% 20%;
+    --muted-foreground: 260 20% 70%;
+    --accent: 320 80% 70%;
+    --accent-foreground: 260 50% 8%;
+    --destructive: 0 80% 60%;
+    --destructive-foreground: 260 50% 8%;
+    --border: 260 40% 30%;
+    --ring: 270 80% 75%;
+    --radius: 12px;
+    --font-heading: 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'Roboto Mono', monospace;
+  }
+
+  /* Light Theme (Clean SaaS) */
+  [data-theme="light"] {
+    --background: 210 20% 98%;
+    --foreground: 220 20% 20%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 20%;
+    --primary: 220 90% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 20% 90%;
+    --secondary-foreground: 220 20% 20%;
+    --muted: 210 20% 94%;
+    --muted-foreground: 220 10% 50%;
+    --accent: 220 90% 55%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 80% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 220 15% 90%;
+    --ring: 220 90% 55%;
     --radius: 8px;
     --font-heading: 'Inter', sans-serif;
     --font-body: 'Inter', sans-serif;
     --font-mono: 'Roboto Mono', monospace;
   }
 
-  /* Light Theme */
-  [data-theme="light"] {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 10%;
-    --card: 0 0% 98%;
-    --card-foreground: 240 10% 10%;
-    --primary: 240 6% 10%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 240 5% 90%;
-    --secondary-foreground: 240 6% 10%;
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
-    --accent: 240 5% 90%;
-    --accent-foreground: 240 6% 10%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 240 6% 90%;
-    --ring: 240 6% 10%;
-    --radius: 6px;
-    --font-heading: 'Inter', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'Roboto Mono', monospace;
-  }
-
-  /* Discord Dark Theme */
+  /* Discord Dark Theme (Native Client) */
   [data-theme="discord-dark"] {
-    --background: 223 7% 20%;
-    --foreground: 210 11% 96%;
-    --card: 225 6% 13%;
+    --background: 223 7% 20%; /* #36393f */
+    --foreground: 210 11% 96%; /* #dcddde */
+    --card: 220 7% 18%; /* #2f3136 */
     --card-foreground: 210 11% 96%;
-    --primary: 235 86% 65%;
+    --primary: 235 86% 65%; /* #5865F2 */
     --primary-foreground: 0 0% 100%;
-    --secondary: 220 7% 23%;
+    --secondary: 223 7% 20%;
     --secondary-foreground: 210 11% 96%;
-    --muted: 223 7% 23%;
-    --muted-foreground: 215 9% 72%;
-    --accent: 235 86% 65%;
+    --muted: 223 7% 20%;
+    --muted-foreground: 216 4% 74%; /* #b9bbbe */
+    --accent: 139 47% 49%; /* #3ba55c (Green) */
     --accent-foreground: 0 0% 100%;
-    --destructive: 359 82% 60%;
+    --destructive: 359 82% 60%; /* #ed4245 */
     --destructive-foreground: 0 0% 100%;
-    --border: 228 6% 32%;
+    --border: 220 7% 13%; /* #202225 */
     --ring: 235 86% 65%;
     --radius: 4px;
     --font-heading: 'Inter', sans-serif;
@@ -102,23 +102,23 @@
     --font-mono: 'Roboto Mono', monospace;
   }
 
-  /* Discord Light Theme */
+  /* Discord Light Theme (Native Client) */
   [data-theme="discord-light"] {
     --background: 0 0% 100%;
     --foreground: 223 7% 20%;
-    --card: 0 0% 98%;
+    --card: 220 14% 96%; /* #f2f3f5 */
     --card-foreground: 223 7% 20%;
     --primary: 235 86% 65%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 240 5% 96%;
+    --secondary: 0 0% 100%;
     --secondary-foreground: 223 7% 20%;
-    --muted: 240 5% 96%;
-    --muted-foreground: 215 9% 50%;
-    --accent: 235 86% 65%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 215 8% 45%;
+    --accent: 139 47% 49%;
     --accent-foreground: 0 0% 100%;
     --destructive: 359 82% 60%;
     --destructive-foreground: 0 0% 100%;
-    --border: 240 6% 90%;
+    --border: 220 13% 91%; /* #e3e5e8 */
     --ring: 235 86% 65%;
     --radius: 4px;
     --font-heading: 'Inter', sans-serif;
@@ -126,25 +126,25 @@
     --font-mono: 'Roboto Mono', monospace;
   }
 
-  /* Cute Theme */
+  /* Cute Theme (Pastel Pop) */
   [data-theme="cute"] {
     --background: 330 100% 98%;
-    --foreground: 330 40% 25%;
-    --card: 330 100% 96%;
-    --card-foreground: 330 40% 25%;
-    --primary: 320 85% 70%;
+    --foreground: 330 40% 30%;
+    --card: 0 0% 100%;
+    --card-foreground: 330 40% 30%;
+    --primary: 330 80% 70%; /* Pink */
     --primary-foreground: 0 0% 100%;
-    --secondary: 280 65% 80%;
-    --secondary-foreground: 330 40% 25%;
-    --muted: 330 50% 95%;
-    --muted-foreground: 330 20% 50%;
-    --accent: 300 70% 75%;
+    --secondary: 180 60% 75%; /* Mint */
+    --secondary-foreground: 180 40% 30%;
+    --muted: 330 30% 95%;
+    --muted-foreground: 330 20% 60%;
+    --accent: 270 70% 80%; /* Lavender */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 70% 70%;
     --destructive-foreground: 0 0% 100%;
-    --border: 320 50% 85%;
-    --ring: 320 85% 70%;
-    --radius: 20px;
+    --border: 330 30% 90%;
+    --ring: 330 80% 70%;
+    --radius: 24px;
     --font-heading: 'Quicksand', sans-serif;
     --font-body: 'Quicksand', sans-serif;
     --font-mono: 'Fira Code', monospace;

@@ -1,83 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&family=Inter:wght@300;400;500;600;700&family=Quicksand:wght@300;400;500;600;700&family=Roboto+Mono:wght@400;500;700&family=Fira+Code:wght@400;500;700&display=swap');
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
+  :root {
+    /* Premium Dark Theme Variables */
+    --background: 240 10% 3.9%;
+    /* #09090b */
+    --foreground: 0 0% 98%;
+    /* #fafafa */
 
-  /* Cyberpunk Theme (High Contrast Neon) */
-  [data-theme="cyberpunk"] {
-    --background: 240 20% 4%;
-    --foreground: 180 100% 50%;
-    --card: 240 15% 10%;
-    --card-foreground: 180 50% 90%;
-    --primary: 157 100% 50%;
-    --primary-foreground: 240 20% 4%;
-    --secondary: 300 100% 50%;
-    --secondary-foreground: 240 20% 4%;
-    --muted: 240 10% 20%;
-    --muted-foreground: 240 10% 60%;
-    --accent: 180 100% 50%;
-    --accent-foreground: 240 20% 4%;
-    --destructive: 346 100% 50%;
-    --destructive-foreground: 240 20% 4%;
-    --border: 180 100% 50%;
-    --ring: 157 100% 50%;
-    --radius: 0px;
-    --font-heading: 'Orbitron', sans-serif;
-    --font-body: 'Rajdhani', sans-serif;
-    --font-mono: 'Share Tech Mono', monospace;
-  }
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
 
-  /* Midnight Theme (Deep Space Glass) */
-  [data-theme="midnight"] {
-    --background: 260 50% 8%;
-    --foreground: 260 100% 98%;
-    --card: 260 40% 15%;
-    --card-foreground: 260 100% 98%;
-    --primary: 260 100% 75%;
-    /* More vibrant purple */
-    --primary-foreground: 260 50% 8%;
-    --secondary: 190 90% 60%;
-    --secondary-foreground: 260 50% 8%;
-    --muted: 260 30% 20%;
-    --muted-foreground: 260 20% 70%;
-    --accent: 320 80% 70%;
-    --accent-foreground: 260 50% 8%;
-    --destructive: 0 80% 60%;
-    --destructive-foreground: 260 50% 8%;
-    --border: 260 40% 30%;
-    --ring: 260 100% 75%;
-    --radius: 16px;
-    --font-heading: 'Inter', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'Roboto Mono', monospace;
-  }
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
 
-  /* Light Theme (Clean SaaS) */
-  [data-theme="light"] {
-    --background: 210 30% 98%;
-    /* Cooler white */
-    --foreground: 220 20% 20%;
-    --card: 0 0% 100%;
-    --card-foreground: 220 20% 20%;
-    --primary: 220 90% 55%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 20% 90%;
-    --secondary-foreground: 220 20% 20%;
-    --muted: 210 20% 94%;
-    --muted-foreground: 220 10% 50%;
-    --accent: 220 90% 55%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 80% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 220 15% 90%;
-    --ring: 220 90% 55%;
-    --radius: 8px;
-    --font-heading: 'Inter', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'Roboto Mono', monospace;
+    --primary: 263.4 70% 50.4%;
+    /* #7c3aed (Violet-600) */
+    --primary-foreground: 210 40% 98%;
+
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 263.4 70% 50.4%;
+
+    --radius: 0.75rem;
   }
 
   * {
@@ -85,312 +44,46 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased overflow-x-hidden;
-    font-family: var(--font-body);
-  }
-
-  /* Cyberpunk-specific grid background */
-  [data-theme="cyberpunk"] body {
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/30 selection:text-primary-foreground;
     background-image:
-      linear-gradient(to right, rgba(26, 26, 36, 0.5) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(26, 26, 36, 0.5) 1px, transparent 1px);
-    background-size: 40px 40px;
+      radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+      radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+    background-attachment: fixed;
   }
 }
 
 @layer components {
 
-  /* Card Styles */
-  .cyber-card {
-    @apply relative overflow-hidden transition-all duration-300;
+  /* Premium Card */
+  .glass-card {
+    @apply bg-zinc-900/50 backdrop-blur-xl border border-white/10 shadow-2xl;
   }
 
-  [data-theme="cyberpunk"] .cyber-card {
-    @apply bg-black/80 border border-accent/30 backdrop-blur-sm;
-    box-shadow: 0 0 10px rgba(0, 243, 255, 0.1);
+  /* Premium Input */
+  .glass-input {
+    @apply w-full bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-3 text-sm transition-all duration-200 placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary/50 hover:border-white/20;
   }
 
-  [data-theme="cyberpunk"] .cyber-card::before {
-    content: '';
-    @apply absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-accent;
+  /* Premium Button */
+  .glass-button {
+    @apply inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-10 px-8 py-2;
   }
 
-  [data-theme="cyberpunk"] .cyber-card::after {
-    content: '';
-    @apply absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-accent;
-  }
-
-  [data-theme="midnight"] .cyber-card {
-    @apply bg-white/5 border border-white/10 backdrop-blur-md shadow-xl;
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-  }
-
-  [data-theme="light"] .cyber-card {
-    @apply bg-white border border-gray-200 shadow-sm hover:shadow-md;
-  }
-
-  /* Button Styles */
-  .cyber-button {
-    @apply relative px-6 py-2 font-bold uppercase tracking-wider transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2;
-  }
-
-  [data-theme="cyberpunk"] .cyber-button {
-    @apply font-mono bg-transparent border border-primary text-primary hover:bg-primary hover:text-black focus:ring-primary/50 focus:ring-offset-black;
-    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-  }
-
-  [data-theme="midnight"] .cyber-button {
-    @apply rounded-full bg-primary/20 text-primary border border-primary/50 hover:bg-primary/40 hover:shadow-[0_0_20px_rgba(124, 58, 237, 0.5)];
-  }
-
-  [data-theme="light"] .cyber-button {
-    @apply rounded-md bg-black text-white hover:bg-gray-800 shadow-sm;
-  }
-
-  /* Secondary Button */
-  .cyber-button-secondary {
-    @apply relative px-6 py-2 font-bold uppercase tracking-wider transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2;
-  }
-
-  [data-theme="cyberpunk"] .cyber-button-secondary {
-    @apply font-mono bg-transparent border border-secondary text-secondary hover:bg-secondary hover:text-black focus:ring-secondary/50 focus:ring-offset-black;
-    clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
-  }
-
-  [data-theme="midnight"] .cyber-button-secondary {
-    @apply rounded-full bg-secondary/20 text-secondary border border-secondary/50 hover:bg-secondary/40;
-  }
-
-  [data-theme="light"] .cyber-button-secondary {
-    @apply rounded-md bg-gray-100 text-gray-900 hover:bg-gray-200;
-  }
-
-  /* Input Styles */
-  .cyber-input {
-    @apply w-full px-4 py-2 transition-all focus:outline-none;
-  }
-
-  [data-theme="cyberpunk"] .cyber-input {
-    @apply bg-black/50 border border-gray-700 text-accent font-mono focus:border-accent focus:ring-1 focus:ring-accent;
-  }
-
-  /* --- BASE COMPONENT CLASSES --- */
-  .theme-card {
-    @apply relative transition-all duration-300;
-  }
-
-  .theme-input {
-    @apply w-full transition-all duration-200 outline-none;
-  }
-
-  .theme-button {
-    @apply flex items-center justify-center transition-all duration-200 cursor-pointer;
-  }
-
-  /* --- CYBERPUNK THEME --- */
-  [data-theme="cyberpunk"] .theme-card {
-    @apply bg-black/40 border border-primary/50 rounded-none;
-    box-shadow: 0 0 10px rgba(0, 255, 157, 0.1);
-  }
-
-  [data-theme="cyberpunk"] .theme-card::before {
-    content: '';
-    position: absolute;
-    top: -1px;
-    left: -1px;
-    width: 10px;
-    height: 10px;
-    border-top: 2px solid var(--primary);
-    border-left: 2px solid var(--primary);
-  }
-
-  [data-theme="cyberpunk"] .theme-card::after {
-    content: '';
-    position: absolute;
-    bottom: -1px;
-    right: -1px;
-    width: 10px;
-    height: 10px;
-    border-bottom: 2px solid var(--primary);
-    border-right: 2px solid var(--primary);
-  }
-
-  [data-theme="cyberpunk"] .theme-input {
-    @apply bg-black/50 border border-gray-800 font-mono text-primary rounded-none p-3;
-  }
-
-  [data-theme="cyberpunk"] .theme-input:focus {
-    @apply border-primary;
-    box-shadow: 0 0 10px rgba(0, 255, 157, 0.3);
-  }
-
-  /* --- MIDNIGHT THEME --- */
-  [data-theme="midnight"] .theme-card {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl shadow-2xl;
-  }
-
-  [data-theme="midnight"] .theme-input {
-    @apply bg-white/5 border border-white/10 font-sans text-white rounded-xl p-4;
-  }
-
-  [data-theme="midnight"] .theme-input:focus {
-    @apply bg-white/10 border-white/30;
-    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-  }
-
-  /* --- LIGHT THEME --- */
-  [data-theme="light"] .theme-card {
-    @apply bg-white border border-gray-100 rounded-lg shadow-sm;
-  }
-
-  [data-theme="light"] .theme-input {
-    @apply bg-white border border-gray-200 font-sans text-gray-900 rounded-md p-2.5 shadow-sm;
-  }
-
-  [data-theme="light"] .theme-input:focus {
-    @apply border-primary ring-1 ring-primary;
-  }
-
-  /* Glitch Text (Cyberpunk only) */
-  .cyber-glitch-text {
-    @apply relative inline-block;
-  }
-
-  [data-theme="cyberpunk"] .cyber-glitch-text:hover {
-    animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
-    color: var(--primary);
+  .glass-button-secondary {
+    @apply inline-flex items-center justify-center rounded-xl text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80 h-10 px-8 py-2;
   }
 }
 
-/* --- HEADER STYLES --- */
-.theme-header {
-  @apply w-full py-6 px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto sticky top-0 z-50 transition-all duration-300;
-}
-
-[data-theme="cyberpunk"] .theme-header {
-  @apply bg-black/80 border-b border-primary/30 backdrop-blur-md;
-  box-shadow: 0 4px 20px rgba(0, 255, 157, 0.1);
-}
-
-[data-theme="midnight"] .theme-header {
-  @apply bg-white/5 border-b border-white/10 backdrop-blur-xl;
-}
-
-[data-theme="light"] .theme-header {
-  @apply bg-white/90 border-b border-gray-200 backdrop-blur-md shadow-sm;
-}
-
-/* --- FOOTER STYLES --- */
-.theme-footer {
-  @apply w-full py-8 mt-12 transition-all duration-300;
-}
-
-[data-theme="cyberpunk"] .theme-footer {
-  @apply border-t border-primary/20 bg-black/80 backdrop-blur-sm;
-}
-
-[data-theme="midnight"] .theme-footer {
-  @apply border-t border-white/5 bg-black/20 backdrop-blur-sm;
-}
-
-[data-theme="light"] .theme-footer {
-  @apply bg-gray-50 border-t border-gray-200;
-}
-
-/* --- TEXT UTILITIES --- */
-.text-theme-primary {
-  color: var(--primary);
-}
-
-.text-theme-foreground {
-  color: var(--foreground);
-}
-
-.text-theme-muted {
-  color: var(--muted-foreground);
-}
-
-/* --- GLOBAL THEME OVERRIDES --- */
-
-/* 1. Cyberpunk Global */
-[data-theme="cyberpunk"] ::selection {
-  @apply bg-primary text-black;
-}
-
-[data-theme="cyberpunk"] ::-webkit-scrollbar {
+/* Custom Scrollbar */
+::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-[data-theme="cyberpunk"] ::-webkit-scrollbar-track {
-  @apply bg-black;
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
 }
 
-[data-theme="cyberpunk"] ::-webkit-scrollbar-thumb {
-  @apply bg-gray-800 hover:bg-primary/50 border border-primary/20;
-}
-
-/* 2. Midnight Global */
-[data-theme="midnight"] {
-  background-image:
-    radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
-  background-attachment: fixed;
-}
-
-[data-theme="midnight"] ::selection {
-  @apply bg-primary/30 text-white;
-}
-
-[data-theme="midnight"] ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-[data-theme="midnight"] ::-webkit-scrollbar-track {
-  @apply bg-black/20;
-}
-
-[data-theme="midnight"] ::-webkit-scrollbar-thumb {
-  @apply bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm;
-}
-
-/* 3. Light Global */
-[data-theme="light"] ::selection {
-  @apply bg-primary/20 text-primary;
-}
-
-[data-theme="light"] ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
-}
-
-[data-theme="light"] ::-webkit-scrollbar-track {
-  @apply bg-gray-100;
-}
-
-[data-theme="light"] ::-webkit-scrollbar-thumb {
-  @apply bg-gray-300 hover:bg-gray-400 rounded-full border-2 border-gray-100;
-}
-
-/* Utility Classes */
-@layer utilities {
-  .text-glow {
-    text-shadow: 0 0 10px currentColor;
-  }
-
-  .text-glow-primary {
-    text-shadow: 0 0 10px theme('colors.cyber.neon.green');
-  }
-
-  .scanline-overlay {
-    background: linear-gradient(to bottom,
-        rgba(255, 255, 255, 0),
-        rgba(255, 255, 255, 0) 50%,
-        rgba(0, 0, 0, 0.2) 50%,
-        rgba(0, 0, 0, 0.2));
-    background-size: 100% 4px;
-    animation: scanline 10s linear infinite;
-    pointer-events: none;
-  }
+::-webkit-scrollbar-thumb {
+  @apply bg-zinc-800 rounded-full hover:bg-zinc-700;
 }

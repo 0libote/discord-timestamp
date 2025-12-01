@@ -1,93 +1,38 @@
-import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Terminal, Github, Palette, ChevronDown } from 'lucide-react';
-import { useTheme } from '../context/ThemeContext';
+import React from 'react';
+import { Terminal, Github } from 'lucide-react';
 
 const Header = () => {
-  const [isThemeOpen, setIsThemeOpen] = useState(false);
-  const { theme, setTheme, themes } = useTheme();
-
-  const currentTheme = themes.find(t => t.id === theme);
-
   return (
-    <motion.header
-      className="theme-header mb-8"
-      initial={{ opacity: 0, y: -10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-    >
-      <div className="flex items-center gap-4 group cursor-pointer">
-        <div className="relative w-12 h-12 flex items-center justify-center theme-card text-primary group-hover:text-foreground transition-all duration-300">
-          <Terminal size={24} className="group-hover:scale-110 transition-transform duration-300" />
+    <header className="w-full py-6 px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto">
+      <div className="flex items-center gap-3 group cursor-pointer">
+        <div className="w-10 h-10 flex items-center justify-center bg-primary/10 border border-primary/20 rounded-xl text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+          <Terminal size={20} />
         </div>
         <div>
-          <h1 className="text-2xl font-display font-bold tracking-wider text-theme-foreground uppercase flex flex-col leading-none">
-            <span className="text-xs text-primary font-mono tracking-[0.2em] mb-1">Protocol</span>
-            <span>Discord<span className="text-primary">.TS</span></span>
+          <h1 className="text-xl font-bold tracking-tight text-white leading-none">
+            Discord<span className="text-primary">.TS</span>
           </h1>
+          <p className="text-xs text-muted-foreground font-mono tracking-wider mt-0.5">PROTOCOL_V2</p>
         </div>
       </div>
 
       <div className="flex items-center gap-4">
-        {/* Theme Picker */}
-        <div className="relative">
-          <button
-            onClick={() => setIsThemeOpen(!isThemeOpen)}
-            className="flex items-center gap-2 px-3 py-2 theme-input hover:border-primary/50 transition-all text-sm font-mono text-theme-muted hover:text-primary"
-            style={{ borderRadius: 'var(--radius)' }}
-          >
-            <Palette size={16} />
-            <span className="hidden sm:inline">{currentTheme?.name}</span>
-            <ChevronDown size={14} className={`transition-transform ${isThemeOpen ? 'rotate-180' : ''}`} />
-          </button>
-
-          <AnimatePresence>
-            {isThemeOpen && (
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                className="absolute right-0 mt-2 w-48 theme-card z-50"
-                style={{ borderRadius: 'var(--radius)' }}
-              >
-                {themes.map((t) => (
-                  <button
-                    key={t.id}
-                    onClick={() => {
-                      setTheme(t.id);
-                      setIsThemeOpen(false);
-                    }}
-                    className={`w-full text-left px-4 py-2 text-sm font-mono transition-colors ${theme === t.id
-                      ? 'bg-primary/20 text-primary'
-                      : 'text-theme-muted hover:bg-primary/10 hover:text-theme-foreground'
-                      }`}
-                  >
-                    {t.name}
-                  </button>
-                ))}
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-
-        <div className="hidden md:flex items-center gap-2 px-3 py-1 theme-card" style={{ borderRadius: 'var(--radius)' }}>
-          <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
-          <span className="text-xs font-mono text-theme-muted uppercase">Sys.Stable</span>
+        <div className="hidden md:flex items-center gap-2 px-3 py-1.5 bg-zinc-900/50 border border-white/5 rounded-full">
+          <div className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></div>
+          <span className="text-[10px] font-mono text-muted-foreground uppercase tracking-wider">System Online</span>
         </div>
 
         <a
           href="https://github.com/0libote/discord-timestamp"
           target="_blank"
           rel="noopener noreferrer"
-          className="cyber-button-secondary text-xs flex items-center gap-2 !px-4 !py-2"
-          aria-label="View on GitHub"
-          style={{ borderRadius: 'var(--radius)' }}
+          className="glass-button-secondary !h-9 !px-4 gap-2 !rounded-lg"
         >
           <Github size={16} />
           <span className="hidden sm:inline">Source</span>
         </a>
       </div>
-    </motion.header>
+    </header>
   );
 };
 

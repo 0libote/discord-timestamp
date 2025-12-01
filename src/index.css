@@ -80,82 +80,6 @@
     --font-mono: 'Roboto Mono', monospace;
   }
 
-  /* Discord Dark Theme (Native Client) */
-  [data-theme="discord-dark"] {
-    --background: 223 7% 20%;
-    --foreground: 210 11% 96%;
-    --card: 220 7% 18%;
-    --card-foreground: 210 11% 96%;
-    --primary: 235 86% 65%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 223 7% 20%;
-    --secondary-foreground: 210 11% 96%;
-    --muted: 223 7% 20%;
-    --muted-foreground: 216 4% 74%;
-    --accent: 139 47% 49%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 359 82% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 220 7% 13%;
-    --ring: 235 86% 65%;
-    --radius: 4px;
-    --font-heading: 'Inter', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'Roboto Mono', monospace;
-  }
-
-  /* Discord Light Theme (Native Client) */
-  [data-theme="discord-light"] {
-    --background: 0 0% 100%;
-    --foreground: 223 7% 20%;
-    --card: 220 14% 96%;
-    --card-foreground: 223 7% 20%;
-    --primary: 235 86% 65%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 100%;
-    --secondary-foreground: 223 7% 20%;
-    --muted: 220 14% 96%;
-    --muted-foreground: 215 8% 45%;
-    --accent: 139 47% 49%;
-    --accent-foreground: 0 0% 100%;
-    --destructive: 359 82% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 220 13% 91%;
-    --ring: 235 86% 65%;
-    --radius: 4px;
-    --font-heading: 'Inter', sans-serif;
-    --font-body: 'Inter', sans-serif;
-    --font-mono: 'Roboto Mono', monospace;
-  }
-
-  /* Cute Theme (Pastel Pop) */
-  [data-theme="cute"] {
-    --background: 330 100% 96%;
-    /* Slightly darker pink for contrast */
-    --foreground: 330 40% 30%;
-    --card: 0 0% 100%;
-    --card-foreground: 330 40% 30%;
-    --primary: 340 100% 70%;
-    /* Hotter pink */
-    --primary-foreground: 0 0% 100%;
-    --secondary: 180 70% 75%;
-    /* Brighter mint */
-    --secondary-foreground: 180 40% 30%;
-    --muted: 330 30% 95%;
-    --muted-foreground: 330 20% 60%;
-    --accent: 280 80% 75%;
-    /* Brighter lavender */
-    --accent-foreground: 0 0% 100%;
-    --destructive: 0 70% 70%;
-    --destructive-foreground: 0 0% 100%;
-    --border: 330 30% 90%;
-    --ring: 340 100% 70%;
-    --radius: 24px;
-    --font-heading: 'Quicksand', sans-serif;
-    --font-body: 'Quicksand', sans-serif;
-    --font-mono: 'Fira Code', monospace;
-  }
-
   * {
     @apply border-border;
   }
@@ -201,16 +125,6 @@
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   }
 
-  [data-theme="cute"] .cyber-card {
-    @apply bg-white border-4 border-white shadow-lg;
-    box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.1);
-  }
-
-  [data-theme="discord-dark"] .cyber-card,
-  [data-theme="discord-light"] .cyber-card {
-    @apply bg-card border-none shadow-md;
-  }
-
   [data-theme="light"] .cyber-card {
     @apply bg-white border border-gray-200 shadow-sm hover:shadow-md;
   }
@@ -229,15 +143,6 @@
     @apply rounded-full bg-primary/20 text-primary border border-primary/50 hover:bg-primary/40 hover:shadow-[0_0_20px_rgba(124, 58, 237, 0.5)];
   }
 
-  [data-theme="cute"] .cyber-button {
-    @apply rounded-xl bg-primary text-white border-b-4 border-primary-foreground hover:-translate-y-1 active:translate-y-0 active:border-b-0;
-  }
-
-  [data-theme="discord-dark"] .cyber-button,
-  [data-theme="discord-light"] .cyber-button {
-    @apply rounded bg-primary text-white hover:bg-primary/90 transition-colors;
-  }
-
   [data-theme="light"] .cyber-button {
     @apply rounded-md bg-black text-white hover:bg-gray-800 shadow-sm;
   }
@@ -254,15 +159,6 @@
 
   [data-theme="midnight"] .cyber-button-secondary {
     @apply rounded-full bg-secondary/20 text-secondary border border-secondary/50 hover:bg-secondary/40;
-  }
-
-  [data-theme="cute"] .cyber-button-secondary {
-    @apply rounded-xl bg-secondary text-white border-b-4 border-secondary-foreground hover:-translate-y-1 active:translate-y-0 active:border-b-0;
-  }
-
-  [data-theme="discord-dark"] .cyber-button-secondary,
-  [data-theme="discord-light"] .cyber-button-secondary {
-    @apply rounded bg-secondary text-white hover:bg-secondary/90;
   }
 
   [data-theme="light"] .cyber-button-secondary {
@@ -342,49 +238,6 @@
     box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
   }
 
-  /* --- CUTE THEME --- */
-  [data-theme="cute"] .theme-card {
-    @apply bg-white border-4 border-white rounded-[32px];
-    box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.1);
-  }
-
-  [data-theme="cute"] .theme-input {
-    @apply bg-secondary/20 border-2 border-transparent text-foreground rounded-2xl p-4;
-    font-family: var(--font-heading);
-  }
-
-  [data-theme="cute"] .theme-input:focus {
-    @apply bg-white border-primary;
-    box-shadow: 4px 4px 0px var(--primary);
-    transform: translate(-2px, -2px);
-  }
-
-  /* --- DISCORD DARK THEME --- */
-  [data-theme="discord-dark"] .theme-card {
-    @apply bg-[#2f3136] rounded-md;
-  }
-
-  [data-theme="discord-dark"] .theme-input {
-    @apply bg-[#202225] border-none font-sans text-gray-200 rounded-[3px] p-2.5;
-  }
-
-  [data-theme="discord-dark"] .theme-input:focus {
-    @apply ring-2 ring-[#5865F2];
-  }
-
-  /* --- DISCORD LIGHT THEME --- */
-  [data-theme="discord-light"] .theme-card {
-    @apply bg-[#f2f3f5] rounded-md border border-gray-200;
-  }
-
-  [data-theme="discord-light"] .theme-input {
-    @apply bg-white border border-gray-300 font-sans text-gray-800 rounded-[3px] p-2.5;
-  }
-
-  [data-theme="discord-light"] .theme-input:focus {
-    @apply ring-2 ring-[#5865F2] border-transparent;
-  }
-
   /* --- LIGHT THEME --- */
   [data-theme="light"] .theme-card {
     @apply bg-white border border-gray-100 rounded-lg shadow-sm;
@@ -423,18 +276,6 @@
   @apply bg-white/5 border-b border-white/10 backdrop-blur-xl;
 }
 
-[data-theme="cute"] .theme-header {
-  @apply bg-white/90 border-b-4 border-primary/20 backdrop-blur-sm shadow-sm;
-}
-
-[data-theme="discord-dark"] .theme-header {
-  @apply bg-[#202225] border-b border-[#18191c] shadow-md;
-}
-
-[data-theme="discord-light"] .theme-header {
-  @apply bg-white border-b border-gray-200 shadow-sm;
-}
-
 [data-theme="light"] .theme-header {
   @apply bg-white/90 border-b border-gray-200 backdrop-blur-md shadow-sm;
 }
@@ -450,18 +291,6 @@
 
 [data-theme="midnight"] .theme-footer {
   @apply border-t border-white/5 bg-black/20 backdrop-blur-sm;
-}
-
-[data-theme="cute"] .theme-footer {
-  @apply border-t-4 border-primary/20 bg-white/50;
-}
-
-[data-theme="discord-dark"] .theme-footer {
-  @apply bg-[#2f3136] border-t border-[#202225];
-}
-
-[data-theme="discord-light"] .theme-footer {
-  @apply bg-[#f2f3f5] border-t border-[#e3e5e8];
 }
 
 [data-theme="light"] .theme-footer {
@@ -526,51 +355,7 @@
   @apply bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm;
 }
 
-/* 3. Cute Global */
-[data-theme="cute"] {
-  background-image: radial-gradient(var(--primary) 1px, transparent 1px);
-  background-size: 24px 24px;
-}
-
-[data-theme="cute"] ::selection {
-  @apply bg-primary text-white;
-}
-
-[data-theme="cute"] ::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-[data-theme="cute"] ::-webkit-scrollbar-track {
-  @apply bg-secondary/10;
-}
-
-[data-theme="cute"] ::-webkit-scrollbar-thumb {
-  @apply bg-primary/50 hover:bg-primary rounded-full border-4 border-transparent bg-clip-content;
-}
-
-/* 4. Discord Dark Global */
-[data-theme="discord-dark"] ::selection {
-  @apply bg-[#5865F2] text-white;
-}
-
-[data-theme="discord-dark"] ::-webkit-scrollbar {
-  width: 16px;
-  height: 16px;
-  background-color: #2f3136;
-}
-
-[data-theme="discord-dark"] ::-webkit-scrollbar-track {
-  background-color: #2e3338;
-}
-
-[data-theme="discord-dark"] ::-webkit-scrollbar-thumb {
-  background-color: #202225;
-  border: 4px solid #2e3338;
-  border-radius: 8px;
-}
-
-/* 5. Light Global */
+/* 3. Light Global */
 [data-theme="light"] ::selection {
   @apply bg-primary/20 text-primary;
 }

@@ -6,7 +6,6 @@ import TimezonePicker from './TimezonePicker';
 import HistoryList from './HistoryList';
 import TargetDisplay from './TargetDisplay';
 import TimestampList from './TimestampList';
-import { History, Settings, Hash, Menu } from 'lucide-react';
 
 const ThemeLayout = ({
     selectedDate,
@@ -76,56 +75,7 @@ const ThemeLayout = ({
         </div>
     );
 
-    // 2. Discord (Sidebar + Chat View)
-    const DiscordLayout = () => (
-        <div className="flex flex-col md:flex-row h-[calc(100vh-100px)] max-w-7xl mx-auto bg-card rounded-lg overflow-hidden shadow-2xl border border-border">
-            {/* Sidebar (Controls) */}
-            <div className="w-full md:w-80 bg-secondary/30 p-4 flex flex-col border-r border-border overflow-y-auto">
-                <div className="flex items-center justify-between mb-6 px-2">
-                    <h3 className="font-bold text-muted-foreground text-xs uppercase tracking-wide">Configuration</h3>
-                    <Settings size={14} className="text-muted-foreground" />
-                </div>
-
-                <div className="space-y-6">
-                    <div className="space-y-1">
-                        <label className="text-xs font-bold text-muted-foreground uppercase">Date & Time</label>
-                        <DatePickerInput selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-                        <div className="h-2"></div>
-                        <TimePickerInput selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-                    </div>
-
-                    <div className="space-y-1">
-                        <label className="text-xs font-bold text-muted-foreground uppercase">Timezone</label>
-                        <TimezonePicker selectedTimezone={selectedTimezone} setSelectedTimezone={setSelectedTimezone} />
-                    </div>
-
-                    <div className="pt-4 border-t border-border">
-                        <HistoryList history={history} setHistory={setHistory} onLoad={loadHistoryItem} />
-                    </div>
-                </div>
-            </div>
-
-            {/* Main Content (Chat View) */}
-            <div className="flex-1 bg-background flex flex-col">
-                <div className="h-12 border-b border-border flex items-center px-4 shadow-sm">
-                    <Hash size={20} className="text-muted-foreground mr-2" />
-                    <span className="font-bold text-foreground">timestamp-output</span>
-                    <div className="h-6 w-[1px] bg-border mx-4"></div>
-                    <span className="text-xs text-muted-foreground truncate">{longFormDate}</span>
-                </div>
-
-                <div className="flex-1 p-4 overflow-y-auto">
-                    <TimestampList
-                        getUnixTimestamp={getUnixTimestamp}
-                        formatPreview={formatPreview}
-                        addToHistory={addToHistory}
-                    />
-                </div>
-            </div>
-        </div>
-    );
-
-    // 3. Midnight (Centered Glass Stack)
+    // 2. Midnight (Centered Glass Stack)
     const MidnightLayout = () => (
         <div className="max-w-3xl mx-auto relative">
             {/* Ambient Glows */}
@@ -139,9 +89,9 @@ const ThemeLayout = ({
                 transition={{ duration: 0.5 }}
             >
                 <div className="text-center mb-8">
-                    <h2 className="text-2xl font-light text-white mb-2 tracking-widest">TEMPORAL LOCUS</h2>
+                    <h2 className="text-3xl font-light text-white mb-2 tracking-widest font-sans">TEMPORAL LOCUS</h2>
                     <div className="h-[1px] w-20 bg-gradient-to-r from-transparent via-primary to-transparent mx-auto"></div>
-                    <p className="text-primary/80 mt-2 font-mono text-sm">{longFormDate}</p>
+                    <p className="text-primary/80 mt-2 font-sans text-sm tracking-wide">{longFormDate}</p>
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
@@ -166,72 +116,7 @@ const ThemeLayout = ({
         </div>
     );
 
-    // 4. Cute (Masonry / Floating Cards)
-    const CuteLayout = () => (
-        <div className="max-w-6xl mx-auto relative">
-            {/* Floating Stickers */}
-            <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }} className="absolute -top-10 -left-10 text-6xl pointer-events-none z-0 opacity-50">✨</motion.div>
-            <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="absolute top-40 -right-5 text-6xl pointer-events-none z-0 opacity-50">🌸</motion.div>
-            <motion.div animate={{ rotate: [0, 10, 0] }} transition={{ duration: 5, repeat: Infinity }} className="absolute bottom-0 left-1/2 text-6xl pointer-events-none z-0 opacity-50">⭐</motion.div>
-
-            <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
-                {/* Left Column: Controls */}
-                <div className="w-full md:w-1/3 space-y-6">
-                    <motion.div
-                        className="cyber-card bg-white p-6 rounded-3xl shadow-lg border-4 border-white transform -rotate-2"
-                        whileHover={{ rotate: 0, scale: 1.02 }}
-                    >
-                        <h3 className="text-xl font-bold text-primary mb-4 text-center">💖 Pick a Date!</h3>
-                        <DatePickerInput selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-                    </motion.div>
-
-                    <motion.div
-                        className="cyber-card bg-white p-6 rounded-3xl shadow-lg border-4 border-white transform rotate-1"
-                        whileHover={{ rotate: 0, scale: 1.02 }}
-                    >
-                        <h3 className="text-xl font-bold text-secondary mb-4 text-center">⏰ What Time?</h3>
-                        <TimePickerInput selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-                    </motion.div>
-
-                    <motion.div
-                        className="cyber-card bg-white p-6 rounded-3xl shadow-lg border-4 border-white transform -rotate-1"
-                        whileHover={{ rotate: 0, scale: 1.02 }}
-                    >
-                        <h3 className="text-xl font-bold text-accent mb-4 text-center">🌍 Where are you?</h3>
-                        <TimezonePicker selectedTimezone={selectedTimezone} setSelectedTimezone={setSelectedTimezone} />
-                    </motion.div>
-                </div>
-
-                {/* Right Column: Results */}
-                <div className="w-full md:w-2/3 space-y-6">
-                    <motion.div
-                        className="cyber-card bg-white/80 backdrop-blur-sm p-8 rounded-[40px] shadow-xl border-4 border-white"
-                        initial={{ y: 20, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                    >
-                        <div className="text-center mb-6">
-                            <span className="inline-block px-4 py-2 bg-primary text-white rounded-full font-bold text-sm shadow-md mb-2">
-                                Current Selection
-                            </span>
-                            <h2 className="text-2xl font-bold text-gray-700">{longFormDate}</h2>
-                        </div>
-
-                        <TimestampList
-                            getUnixTimestamp={getUnixTimestamp}
-                            formatPreview={formatPreview}
-                            addToHistory={addToHistory}
-                        />
-                    </motion.div>
-
-                    <div className="bg-white/60 p-6 rounded-3xl border-4 border-white/50">
-                        <HistoryList history={history} setHistory={setHistory} onLoad={loadHistoryItem} />
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-
-    // 5. Light (Professional Dashboard)
+    // 3. Light (Professional Dashboard)
     const LightLayout = () => (
         <div className="max-w-7xl mx-auto space-y-6">
             {/* Top Toolbar */}
@@ -275,13 +160,8 @@ const ThemeLayout = ({
 
     // Switcher
     switch (theme) {
-        case 'discord-dark':
-        case 'discord-light':
-            return <DiscordLayout />;
         case 'midnight':
             return <MidnightLayout />;
-        case 'cute':
-            return <CuteLayout />;
         case 'light':
             return <LightLayout />;
         case 'cyberpunk':

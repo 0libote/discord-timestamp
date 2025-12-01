@@ -23,9 +23,6 @@ export const ThemeProvider = ({ children }) => {
         { id: 'cyberpunk', name: 'Cyberpunk', type: 'dark' },
         { id: 'midnight', name: 'Midnight', type: 'dark' },
         { id: 'light', name: 'Light', type: 'light' },
-        { id: 'discord-dark', name: 'Discord Dark', type: 'dark' },
-        { id: 'discord-light', name: 'Discord Light', type: 'light' },
-        { id: 'cute', name: 'Cute', type: 'light' },
     ];
 
     return (

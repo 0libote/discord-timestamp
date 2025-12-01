@@ -128,6 +128,10 @@ const ThemeLayout = ({
     // 3. Midnight (Centered Glass Stack)
     const MidnightLayout = () => (
         <div className="max-w-3xl mx-auto relative">
+            {/* Ambient Glows */}
+            <div className="absolute -top-20 -left-20 w-64 h-64 bg-primary/20 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+            <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-accent/20 rounded-full blur-3xl pointer-events-none animate-pulse delay-700"></div>
+
             <motion.div
                 className="cyber-card backdrop-blur-xl bg-black/40 border border-white/10 rounded-2xl p-8 shadow-2xl relative z-10"
                 initial={{ scale: 0.9, opacity: 0 }}
@@ -164,8 +168,13 @@ const ThemeLayout = ({
 
     // 4. Cute (Masonry / Floating Cards)
     const CuteLayout = () => (
-        <div className="max-w-6xl mx-auto">
-            <div className="flex flex-col md:flex-row gap-8 items-start">
+        <div className="max-w-6xl mx-auto relative">
+            {/* Floating Stickers */}
+            <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 3, repeat: Infinity }} className="absolute -top-10 -left-10 text-6xl pointer-events-none z-0 opacity-50">✨</motion.div>
+            <motion.div animate={{ y: [0, 10, 0] }} transition={{ duration: 4, repeat: Infinity }} className="absolute top-40 -right-5 text-6xl pointer-events-none z-0 opacity-50">🌸</motion.div>
+            <motion.div animate={{ rotate: [0, 10, 0] }} transition={{ duration: 5, repeat: Infinity }} className="absolute bottom-0 left-1/2 text-6xl pointer-events-none z-0 opacity-50">⭐</motion.div>
+
+            <div className="flex flex-col md:flex-row gap-8 items-start relative z-10">
                 {/* Left Column: Controls */}
                 <div className="w-full md:w-1/3 space-y-6">
                     <motion.div

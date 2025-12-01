@@ -36,7 +36,8 @@
     --foreground: 260 100% 98%;
     --card: 260 40% 15%;
     --card-foreground: 260 100% 98%;
-    --primary: 270 80% 75%;
+    --primary: 260 100% 75%;
+    /* More vibrant purple */
     --primary-foreground: 260 50% 8%;
     --secondary: 190 90% 60%;
     --secondary-foreground: 260 50% 8%;
@@ -47,8 +48,8 @@
     --destructive: 0 80% 60%;
     --destructive-foreground: 260 50% 8%;
     --border: 260 40% 30%;
-    --ring: 270 80% 75%;
-    --radius: 12px;
+    --ring: 260 100% 75%;
+    --radius: 16px;
     --font-heading: 'Inter', sans-serif;
     --font-body: 'Inter', sans-serif;
     --font-mono: 'Roboto Mono', monospace;
@@ -56,7 +57,8 @@
 
   /* Light Theme (Clean SaaS) */
   [data-theme="light"] {
-    --background: 210 20% 98%;
+    --background: 210 30% 98%;
+    /* Cooler white */
     --foreground: 220 20% 20%;
     --card: 0 0% 100%;
     --card-foreground: 220 20% 20%;
@@ -81,28 +83,20 @@
   /* Discord Dark Theme (Native Client) */
   [data-theme="discord-dark"] {
     --background: 223 7% 20%;
-    /* #36393f */
     --foreground: 210 11% 96%;
-    /* #dcddde */
     --card: 220 7% 18%;
-    /* #2f3136 */
     --card-foreground: 210 11% 96%;
     --primary: 235 86% 65%;
-    /* #5865F2 */
     --primary-foreground: 0 0% 100%;
     --secondary: 223 7% 20%;
     --secondary-foreground: 210 11% 96%;
     --muted: 223 7% 20%;
     --muted-foreground: 216 4% 74%;
-    /* #b9bbbe */
     --accent: 139 47% 49%;
-    /* #3ba55c (Green) */
     --accent-foreground: 0 0% 100%;
     --destructive: 359 82% 60%;
-    /* #ed4245 */
     --destructive-foreground: 0 0% 100%;
     --border: 220 7% 13%;
-    /* #202225 */
     --ring: 235 86% 65%;
     --radius: 4px;
     --font-heading: 'Inter', sans-serif;
@@ -115,7 +109,6 @@
     --background: 0 0% 100%;
     --foreground: 223 7% 20%;
     --card: 220 14% 96%;
-    /* #f2f3f5 */
     --card-foreground: 223 7% 20%;
     --primary: 235 86% 65%;
     --primary-foreground: 0 0% 100%;
@@ -128,7 +121,6 @@
     --destructive: 359 82% 60%;
     --destructive-foreground: 0 0% 100%;
     --border: 220 13% 91%;
-    /* #e3e5e8 */
     --ring: 235 86% 65%;
     --radius: 4px;
     --font-heading: 'Inter', sans-serif;
@@ -138,25 +130,26 @@
 
   /* Cute Theme (Pastel Pop) */
   [data-theme="cute"] {
-    --background: 330 100% 98%;
+    --background: 330 100% 96%;
+    /* Slightly darker pink for contrast */
     --foreground: 330 40% 30%;
     --card: 0 0% 100%;
     --card-foreground: 330 40% 30%;
-    --primary: 330 80% 70%;
-    /* Pink */
+    --primary: 340 100% 70%;
+    /* Hotter pink */
     --primary-foreground: 0 0% 100%;
-    --secondary: 180 60% 75%;
-    /* Mint */
+    --secondary: 180 70% 75%;
+    /* Brighter mint */
     --secondary-foreground: 180 40% 30%;
     --muted: 330 30% 95%;
     --muted-foreground: 330 20% 60%;
-    --accent: 270 70% 80%;
-    /* Lavender */
+    --accent: 280 80% 75%;
+    /* Brighter lavender */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 70% 70%;
     --destructive-foreground: 0 0% 100%;
     --border: 330 30% 90%;
-    --ring: 330 80% 70%;
+    --ring: 340 100% 70%;
     --radius: 24px;
     --font-heading: 'Quicksand', sans-serif;
     --font-body: 'Quicksand', sans-serif;
@@ -416,18 +409,183 @@
   }
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
+/* --- HEADER STYLES --- */
+.theme-header {
+  @apply w-full py-6 px-4 md:px-8 flex justify-between items-center max-w-7xl mx-auto sticky top-0 z-50 transition-all duration-300;
+}
+
+[data-theme="cyberpunk"] .theme-header {
+  @apply bg-black/80 border-b border-primary/30 backdrop-blur-md;
+  box-shadow: 0 4px 20px rgba(0, 255, 157, 0.1);
+}
+
+[data-theme="midnight"] .theme-header {
+  @apply bg-white/5 border-b border-white/10 backdrop-blur-xl;
+}
+
+[data-theme="cute"] .theme-header {
+  @apply bg-white/90 border-b-4 border-primary/20 backdrop-blur-sm shadow-sm;
+}
+
+[data-theme="discord-dark"] .theme-header {
+  @apply bg-[#202225] border-b border-[#18191c] shadow-md;
+}
+
+[data-theme="discord-light"] .theme-header {
+  @apply bg-white border-b border-gray-200 shadow-sm;
+}
+
+[data-theme="light"] .theme-header {
+  @apply bg-white/90 border-b border-gray-200 backdrop-blur-md shadow-sm;
+}
+
+/* --- FOOTER STYLES --- */
+.theme-footer {
+  @apply w-full py-8 mt-12 transition-all duration-300;
+}
+
+[data-theme="cyberpunk"] .theme-footer {
+  @apply border-t border-primary/20 bg-black/80 backdrop-blur-sm;
+}
+
+[data-theme="midnight"] .theme-footer {
+  @apply border-t border-white/5 bg-black/20 backdrop-blur-sm;
+}
+
+[data-theme="cute"] .theme-footer {
+  @apply border-t-4 border-primary/20 bg-white/50;
+}
+
+[data-theme="discord-dark"] .theme-footer {
+  @apply bg-[#2f3136] border-t border-[#202225];
+}
+
+[data-theme="discord-light"] .theme-footer {
+  @apply bg-[#f2f3f5] border-t border-[#e3e5e8];
+}
+
+[data-theme="light"] .theme-footer {
+  @apply bg-gray-50 border-t border-gray-200;
+}
+
+/* --- TEXT UTILITIES --- */
+.text-theme-primary {
+  color: var(--primary);
+}
+
+.text-theme-foreground {
+  color: var(--foreground);
+}
+
+.text-theme-muted {
+  color: var(--muted-foreground);
+}
+
+/* --- GLOBAL THEME OVERRIDES --- */
+
+/* 1. Cyberpunk Global */
+[data-theme="cyberpunk"] ::selection {
+  @apply bg-primary text-black;
+}
+
+[data-theme="cyberpunk"] ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
-::-webkit-scrollbar-track {
+[data-theme="cyberpunk"] ::-webkit-scrollbar-track {
   @apply bg-black;
 }
 
-::-webkit-scrollbar-thumb {
-  @apply bg-gray-800 hover:bg-accent/50 transition-colors;
+[data-theme="cyberpunk"] ::-webkit-scrollbar-thumb {
+  @apply bg-gray-800 hover:bg-primary/50 border border-primary/20;
+}
+
+/* 2. Midnight Global */
+[data-theme="midnight"] {
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 0% 100%, rgba(56, 189, 248, 0.1) 0%, transparent 50%);
+  background-attachment: fixed;
+}
+
+[data-theme="midnight"] ::selection {
+  @apply bg-primary/30 text-white;
+}
+
+[data-theme="midnight"] ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+[data-theme="midnight"] ::-webkit-scrollbar-track {
+  @apply bg-black/20;
+}
+
+[data-theme="midnight"] ::-webkit-scrollbar-thumb {
+  @apply bg-white/10 hover:bg-white/20 rounded-full backdrop-blur-sm;
+}
+
+/* 3. Cute Global */
+[data-theme="cute"] {
+  background-image: radial-gradient(var(--primary) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+[data-theme="cute"] ::selection {
+  @apply bg-primary text-white;
+}
+
+[data-theme="cute"] ::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+[data-theme="cute"] ::-webkit-scrollbar-track {
+  @apply bg-secondary/10;
+}
+
+[data-theme="cute"] ::-webkit-scrollbar-thumb {
+  @apply bg-primary/50 hover:bg-primary rounded-full border-4 border-transparent bg-clip-content;
+}
+
+/* 4. Discord Dark Global */
+[data-theme="discord-dark"] ::selection {
+  @apply bg-[#5865F2] text-white;
+}
+
+[data-theme="discord-dark"] ::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+  background-color: #2f3136;
+}
+
+[data-theme="discord-dark"] ::-webkit-scrollbar-track {
+  background-color: #2e3338;
+}
+
+[data-theme="discord-dark"] ::-webkit-scrollbar-thumb {
+  background-color: #202225;
+  border: 4px solid #2e3338;
+  border-radius: 8px;
+}
+
+/* 5. Light Global */
+[data-theme="light"] ::selection {
+  @apply bg-primary/20 text-primary;
+}
+
+[data-theme="light"] ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 hover:bg-gray-400 rounded-full border-2 border-gray-100;
 }
 
 /* Utility Classes */
@@ -438,10 +596,6 @@
 
   .text-glow-primary {
     text-shadow: 0 0 10px theme('colors.cyber.neon.green');
-  }
-
-  .text-glow-accent {
-    text-shadow: 0 0 10px theme('colors.cyber.neon.blue');
   }
 
   .scanline-overlay {

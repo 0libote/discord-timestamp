@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import DateTimePicker from './components/DateTimePicker';
 import Controls from './components/Controls';
 import TimestampList from './components/TimestampList';
-import Tooltip from './components/Tooltip';
+import ThemeBackground from './components/ThemeBackground';
 
 const DiscordTimestampGenerator = () => {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().slice(0, 16));
@@ -67,14 +66,9 @@ const DiscordTimestampGenerator = () => {
   return (
     <div
       ref={containerRef}
-      className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 selection:text-primary-foreground overflow-x-hidden relative"
+      className="min-h-screen bg-background text-foreground font-sans selection:bg-primary/30 selection:text-primary-foreground overflow-x-hidden relative transition-colors duration-500"
     >
-      {/* Cyberpunk Background Effects */}
-      <div className="fixed inset-0 pointer-events-none z-0 bg-grid-pattern opacity-20"></div>
-      <div className="fixed inset-0 pointer-events-none z-0 scanline-overlay"></div>
-
-      {/* Ambient Glow */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none z-0"></div>
+      <ThemeBackground />
 
       <Header />
 

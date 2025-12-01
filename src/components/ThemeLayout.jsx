@@ -53,18 +53,6 @@ const ThemeLayout = ({
 
                         <div className="space-y-8">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <DatePickerInput selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-                                <TimePickerInput selectedDate={selectedDate} setSelectedDate={setSelectedDate} />
-                            </div>
-
-                            <div className="space-y-2">
-                                <label className="block text-xs font-mono text-primary uppercase tracking-widest mb-2">
-                  > Select Timezone
-                                </label>
-                                <TimezonePicker
-                                    selectedTimezone={selectedTimezone}
-                                    setSelectedTimezone={setSelectedTimezone}
-                                />
                             </div>
 
                             <HistoryList history={history} setHistory={setHistory} onLoad={loadHistoryItem} />

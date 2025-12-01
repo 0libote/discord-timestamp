@@ -14,42 +14,36 @@ const TimestampItem = ({ format, description, code, preview, onCopy }) => {
 
   return (
     <motion.div
-      className="group relative bg-black/40 border border-white/5 hover:border-accent/50 p-4 transition-all duration-300 overflow-hidden"
+      className="group relative theme-card p-4 overflow-hidden"
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      whileHover={{ scale: 1.01, backgroundColor: "rgba(0,0,0,0.6)" }}
+      whileHover={{ scale: 1.01 }}
     >
-      {/* Corner accents */}
-      <div className="absolute top-0 left-0 w-1 h-1 bg-white/20 group-hover:bg-accent transition-colors"></div>
-      <div className="absolute top-0 right-0 w-1 h-1 bg-white/20 group-hover:bg-accent transition-colors"></div>
-      <div className="absolute bottom-0 left-0 w-1 h-1 bg-white/20 group-hover:bg-accent transition-colors"></div>
-      <div className="absolute bottom-0 right-0 w-1 h-1 bg-white/20 group-hover:bg-accent transition-colors"></div>
-
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 relative z-10">
         <div className="flex-1 space-y-1">
           <div className="flex items-center gap-2">
-            <span className="text-[10px] font-mono font-bold text-accent uppercase tracking-widest">
+            <span className="text-[10px] font-mono font-bold text-primary uppercase tracking-widest">
               {description}
             </span>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="text-base md:text-lg font-display font-medium text-gray-400 group-hover:text-white transition-colors group-hover:text-glow">
+            <div className="text-base md:text-lg font-display font-medium text-muted-foreground group-hover:text-foreground transition-colors">
               {preview}
             </div>
           </div>
         </div>
 
         <div className="flex items-center gap-3 md:w-auto w-full">
-          <div className="flex-1 md:flex-none bg-black border border-gray-800 rounded-none px-3 py-2 font-mono text-sm text-primary select-all group-hover:border-primary/30 transition-colors min-w-[180px] text-center">
+          <div className="flex-1 md:flex-none bg-black/20 border border-white/10 rounded-md px-3 py-2 font-mono text-sm text-primary select-all group-hover:border-primary/30 transition-colors min-w-[180px] text-center">
             {code}
           </div>
 
           <motion.button
             onClick={handleCopy}
-            className={`p-2.5 transition-all duration-200 flex-shrink-0 border ${copied
+            className={`p-2.5 transition-all duration-200 flex-shrink-0 border rounded-md ${copied
               ? 'bg-green-500/20 border-green-500 text-green-500'
-              : 'bg-transparent border-primary text-primary hover:bg-primary hover:text-black'
+              : 'bg-transparent border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground'
               }`}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}

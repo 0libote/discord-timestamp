@@ -29,7 +29,7 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone }) => {
         <div className="relative group">
             <div
                 onClick={() => setIsOpen(!isOpen)}
-                className="cyber-input cursor-pointer flex items-center justify-between"
+                className="theme-input cursor-pointer flex items-center justify-between"
             >
                 <span className="truncate mr-2">{selectedTzLabel}</span>
                 <ChevronDown size={16} className={`text-primary transition-transform ${isOpen ? 'rotate-180' : ''}`} />
@@ -41,15 +41,15 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone }) => {
                         initial={{ opacity: 0, y: -10 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -10 }}
-                        className="absolute z-50 w-full mt-1 bg-black border border-gray-800 shadow-xl max-h-60 flex flex-col rounded-md overflow-hidden"
+                        className="absolute z-50 w-full mt-1 theme-card max-h-60 flex flex-col overflow-hidden"
                     >
-                        <div className="p-2 border-b border-gray-800 sticky top-0 bg-black z-10">
+                        <div className="p-2 border-b border-white/10 sticky top-0 bg-background/50 backdrop-blur-sm z-10">
                             <input
                                 type="text"
                                 value={searchQuery}
                                 onChange={(e) => setSearchQuery(e.target.value)}
                                 placeholder="Search timezone..."
-                                className="w-full bg-white/5 border border-gray-800 text-white px-3 py-2 text-sm font-mono focus:outline-none focus:border-primary placeholder:text-gray-600 rounded-sm"
+                                className="w-full bg-transparent border border-white/10 text-foreground px-3 py-2 text-sm font-mono focus:outline-none focus:border-primary placeholder:text-muted-foreground rounded-sm"
                                 autoFocus
                                 onClick={(e) => e.stopPropagation()}
                             />
@@ -64,14 +64,14 @@ const TimezonePicker = ({ selectedTimezone, setSelectedTimezone }) => {
                                             setIsOpen(false);
                                             setSearchQuery('');
                                         }}
-                                        className={`px-4 py-2 text-sm cursor-pointer transition-colors font-mono hover:bg-primary/20 hover:text-primary ${selectedTimezone === tz.value ? 'bg-primary/10 text-primary' : 'text-gray-400'
+                                        className={`px-4 py-2 text-sm cursor-pointer transition-colors font-mono hover:bg-primary/20 hover:text-primary ${selectedTimezone === tz.value ? 'bg-primary/10 text-primary' : 'text-muted-foreground'
                                             }`}
                                     >
                                         {tz.label}
                                     </div>
                                 ))
                             ) : (
-                                <div className="px-4 py-3 text-sm text-gray-500 font-mono text-center">
+                                <div className="px-4 py-3 text-sm text-muted-foreground font-mono text-center">
                                     No results found
                                 </div>
                             )}
